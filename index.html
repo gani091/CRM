@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SalesPulse CRM – 무료 데모 체험 신청</title>
+  <meta name="description" content="입력하신 이메일 주소로 SalesPulse CRM 데모 체험 계정을 즉시 발송해 드립니다.">
+  
+  <!-- Pretendard Web Font CDN -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  
+  <style>
+    :root {
+      --primary-color: #2563EB;
+      --primary-hover: #1D4ED8;
+      --primary-light: #EFF6FF;
+      --text-main: #111827;
+      --text-sub: #4B5563;
+      --text-muted: #9CA3AF;
+      --bg-page: #F8FAFC;
+      --bg-card: #FFFFFF;
+      --border-color: #E2E8F0;
+      --border-focus: #2563EB;
+      --required-color: #EF4444;
+      --accent-green: #10B981;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+      --shadow-input: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 1. BRAND TOP HEADER BAR */
+    .site-header {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .brand-badge {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 16px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .header-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 14px;
+      color: var(--text-sub);
+    }
+
+    .trust-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary-light);
+      color: var(--primary-color);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    /* 2. MAIN HERO & CONTAINER */
+    .main-container {
+      flex: 1;
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 20px 64px 20px;
+    }
+
+    .hero-section {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .hero-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: var(--text-sub);
+      font-weight: 500;
+    }
+
+    /* 3. FORM CARD */
+    .form-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-card);
+      padding: 40px 36px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-badge {
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .section-badge.required-badge {
+      background-color: #FEF2F2;
+      color: var(--required-color);
+    }
+
+    .section-badge.optional-badge {
+      background-color: #F3F4F6;
+      color: var(--text-sub);
+    }
+
+    .divider {
+      height: 1px;
+      background-color: var(--border-color);
+      margin: 32px 0;
+    }
+
+    /* GRID & INPUTS */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 24px;
+    }
+
+    @media (max-width: 640px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .form-card {
+        padding: 28px 20px;
+      }
+      .hero-title {
+        font-size: 22px;
+      }
+      .site-header {
+        padding: 0 16px;
+      }
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .field-label .required {
+      color: var(--required-color);
+      font-weight: 700;
+    }
+
+    .field-label .sub-info {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      height: 48px;
+      padding: 0 16px;
+      font-size: 15px;
+      color: var(--text-main);
+      background-color: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-input);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .form-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-input:focus, .form-select:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .form-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%3C9CA3AF%3E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+
+    /* RADIO OPTIONS (목적 선택) */
+    .radio-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .radio-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      background: #FFFFFF;
+      user-select: none;
+    }
+
+    .radio-card:hover {
+      border-color: #CBD5E1;
+      background: #F8FAFC;
+    }
+
+    .radio-card.selected {
+      border-color: var(--primary-color);
+      background: var(--primary-light);
+    }
+
+    .radio-card input[type="radio"] {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #CBD5E1;
+      border-radius: 50%;
+      outline: none;
+      position: relative;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+
+    .radio-card input[type="radio"]:checked {
+      border-color: var(--primary-color);
+      background-color: var(--primary-color);
+    }
+
+    .radio-card input[type="radio"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 6px;
+      height: 6px;
+      background-color: #FFFFFF;
+      border-radius: 50%;
+    }
+
+    .radio-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-main);
+      flex: 1;
+    }
+
+    .inline-text-input {
+      height: 36px;
+      padding: 0 12px;
+      font-size: 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      outline: none;
+      width: 220px;
+      transition: border-color 0.2s;
+    }
+
+    .inline-text-input:focus {
+      border-color: var(--primary-color);
+    }
+
+    /* CHECKBOX GRID (관심 기능) */
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 560px) {
+      .checkbox-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .checkbox-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      background-color: #FFFFFF;
+      user-select: none;
+    }
+
+    .checkbox-card:hover {
+      border-color: #CBD5E1;
+    }
+
+    .checkbox-card.selected {
+      border-color: var(--primary-color);
+      background-color: var(--primary-light);
+    }
+
+    .checkbox-card input[type="checkbox"] {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .checkbox-card input[type="checkbox"]:checked {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+
+    .checkbox-card input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+      width: 4px;
+      height: 8px;
+      border: solid #FFFFFF;
+      border-width: 0 2px 2px 0;
+    }
+
+    .checkbox-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .checkbox-card.etc-card {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 560px) {
+      .checkbox-card.etc-card {
+        grid-column: span 1;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .checkbox-card.etc-card .inline-text-input {
+        width: 100%;
+      }
+    }
+
+    /* PRIVACY AGREEMENT & CAPTCHA */
+    .policy-box {
+      margin-top: 24px;
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+    }
+
+    .policy-checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--text-sub);
+    }
+
+    .policy-checkbox input {
+      margin-top: 3px;
+    }
+
+    /* RECAPTCHA UI DUMMY (이미지 1과 동일 디자인) */
+    .recaptcha-wrapper {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .recaptcha-box {
+      width: 302px;
+      height: 76px;
+      background: #F9F9F9;
+      border: 1px solid #D3D3D3;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.08);
+    }
+
+    .recaptcha-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .recaptcha-check {
+      width: 24px;
+      height: 24px;
+      border: 2px solid #C1C1C1;
+      background: #FFF;
+      border-radius: 2px;
+    }
+
+    .recaptcha-label {
+      font-size: 14px;
+      color: #000;
+      font-weight: 500;
+    }
+
+    .recaptcha-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .recaptcha-logo {
+      width: 30px;
+      height: 30px;
+    }
+
+    .recaptcha-terms {
+      font-size: 9px;
+      color: #555;
+      text-align: center;
+    }
+
+    /* SUBMIT BUTTON */
+    .btn-submit {
+      width: 100%;
+      height: 54px;
+      background-color: var(--primary-color);
+      color: #FFFFFF;
+      font-size: 17px;
+      font-weight: 700;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      margin-top: 24px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    /* 4. FOOTER */
+    .site-footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      padding: 32px 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: var(--text-sub);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. 기존 CRM 헤더 바 -->
+  <header class="site-header">
+    <a href="#" class="brand-logo">
+      <div class="brand-badge">S</div>
+      <span class="brand-title">SalesPulse CRM</span>
+    </a>
+    
+    <div class="header-nav-right">
+      <span class="trust-pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        14일 무료 체험
+      </span>
+      <span style="color: var(--border-color);">|</span>
+      <span>고객센터 1588-0000</span>
+    </div>
+  </header>
+
+  <!-- 2. 메인 컨테이너 -->
+  <main class="main-container">
+    
+    <!-- 기존 화면 상단 헤더 문구 (이미지 1 동일) -->
+    <section class="hero-section">
+      <h1 class="hero-title">입력하신 이메일 주소로<br>데모 체험 계정을 발송합니다</h1>
+      <p class="hero-subtitle">데모 계정은 발급일로부터 14일간 무료로 사용 가능합니다.</p>
+    </section>
+
+    <!-- 3. 메인 데모 신청 폼 -->
+    <form class="form-card" id="demoRequestForm" action="#" method="POST">
+      
+      <!-- ==============================================
+           자동 수집 시스템 필드 (전환 분석 & 이탈 분석용)
+           ============================================== -->
+      <!-- (1) 신청일시 (ISO Date) -->
+      <input type="hidden" id="created_at" name="created_at" value="">
+      <!-- (2) 신청경로 (유입 매체 분석: 검색 / 광고 / 직접유입 등) -->
+      <input type="hidden" id="acquisition_channel" name="acquisition_channel" value="">
+      <!-- (3) 첫방문 / 재방문 여부 -->
+      <input type="hidden" id="visit_type" name="visit_type" value="">
+      <!-- (4) 총 체류 및 폼 작성 시간(초) - 이탈률 및 허들 구간 분석용 -->
+      <input type="hidden" id="form_duration_sec" name="form_duration_sec" value="0">
+      <!-- (5) 가망고객 점수 (Sales Lead Score) 자동 산정 -->
+      <input type="hidden" id="calculated_lead_score" name="calculated_lead_score" value="0">
+
+
+      <!-- ==============================================
+           SECTION 1: 기본 정보 (필수)
+           * 영업 가망성 판별 & 즉시 계정 발급 핵심 항목
+           ============================================== -->
+      <div class="section-header">
+        <div class="section-title">기본 정보</div>
+        <span class="section-badge required-badge">필수 입력</span>
+      </div>
+      
+      <div class="grid-2">
+        <!-- 회사명 -->
+        <div class="field-group">
+          <label class="field-label" for="company_name">
+            회사명 <span class="required">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="company_name" 
+            name="company_name" 
+            class="form-input" 
+            placeholder="회사 또는 단체명을 입력해주세요" 
+            required
+          >
+        </div>
+
+        <!-- 예상 사용 인원 (가망 규모 측정) -->
+        <div class="field-group">
+          <label class="field-label" for="user_count">
+            예상 사용 인원 <span class="required">*</span>
+          </label>
+          <select id="user_count" name="user_count" class="form-select" required>
+            <option value="" disabled selected>예상 사용 인원을 선택해주세요</option>
+            <option value="1-5명">1 ~ 5명 (스타트업/소규모)</option>
+            <option value="6-20명">6 ~ 20명 (중소기업)</option>
+            <option value="21-50명">21 ~ 50명 (중견 성장기업)</option>
+            <option value="51-100명">51 ~ 100명 (대규모 영업팀)</option>
+            <option value="100명 이상">100명 이상 (엔터프라이즈)</option>
+          </select>
+        </div>
+
+        <!-- 담당자 이름 -->
+        <div class="field-group">
+          <label class="field-label" for="user_name">
+            담당자 이름 <span class="required">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="user_name" 
+            name="user_name" 
+            class="form-input" 
+            placeholder="담당자 이름을 입력해 주세요" 
+            required
+          >
+        </div>
+
+        <!-- 회사 이메일 -->
+        <div class="field-group">
+          <label class="field-label" for="email">
+            회사 이메일 <span class="required">*</span>
+          </label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            class="form-input" 
+            placeholder="이메일을 입력해 주세요 (업무용 권장)" 
+            required
+          >
+        </div>
+
+        <!-- 휴대전화 -->
+        <div class="field-group">
+          <label class="field-label" for="phone">
+            휴대전화 <span class="required">*</span>
+          </label>
+          <input 
+            type="tel" 
+            id="phone" 
+            name="phone" 
+            class="form-input" 
+            placeholder="010-0000-0000" 
+            required
+          >
+        </div>
+
+        <!-- 직책 (의사결정권 분석) -->
+        <div class="field-group">
+          <label class="field-label" for="job_title">
+            직책 <span class="required">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="job_title" 
+            name="job_title" 
+            class="form-input" 
+            placeholder="담당하고 계시는 직책을 입력해 주세요" 
+            required
+          >
+        </div>
+
+        <!-- [추가 필수 항목] 도입 예정 시기 (Sales Lead Lead Time & Priority 결정) -->
+        <div class="field-group" style="grid-column: span 2;">
+          <label class="field-label" for="purchase_timeline">
+            도입 예정 시기 <span class="required">*</span>
+            <span class="sub-info">빠른 도입을 원하실 경우 우선 지원됩니다</span>
+          </label>
+          <select id="purchase_timeline" name="purchase_timeline" class="form-select" required>
+            <option value="" disabled selected>도입 검토 시기를 선택해주세요</option>
+            <option value="즉시 도입 (1개월 이내)">🔥 즉시 도입 (1개월 이내 - 최우선 대기)</option>
+            <option value="1~3개월 이내">☀️ 1 ~ 3개월 이내</option>
+            <option value="3~6개월 이내">🌤️ 3 ~ 6개월 이내</option>
+            <option value="단순 정보 탐색 및 미정">❄️ 단순 기능 탐색 / 미정</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ==============================================
+           SECTION 2: 영업 맞춤 정보 (선택)
+           * 고객 세그먼트 분석 & 영업 맞춤 가이드 제안용
+           ============================================== -->
+      <div class="section-header">
+        <div class="section-title">맞춤 정보 세팅</div>
+        <span class="section-badge optional-badge">선택 사항</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 22px;">
+        
+        <!-- 1. 업종 -->
+        <div class="field-group">
+          <label class="field-label" for="industry">업종</label>
+          <select id="industry" name="industry" class="form-select">
+            <option value="" disabled selected>업종을 선택해주세요</option>
+            <option value="IT/소프트웨어/SaaS">IT / 소프트웨어 / SaaS</option>
+            <option value="제조/하드웨어/수출">제조 / 하드웨어 / 장비</option>
+            <option value="금융/핀테크/보험">금융 / 핀테크 / 전문 서비스</option>
+            <option value="커머스/유통/B2B마케팅">커머스 / 유통 / 도소매</option>
+            <option value="건설/부동산/인프라">건설 / 부동산 / 인프라</option>
+            <option value="의료/바이오/제약">의료 / 바이오 / 제약</option>
+            <option value="기타">기타 업종</option>
+          </select>
+        </div>
+
+        <!-- 2. 데모체험 목적 (요구사항 5개 항목 정확히 반영) -->
+        <div class="field-group">
+          <label class="field-label">데모 신청 목적</label>
+          
+          <div class="radio-stack" id="purposeRadioGroup">
+            <label class="radio-card selected">
+              <input type="radio" name="demo_purpose" value="실제 도입 검토" checked>
+              <span class="radio-text">실제 CRM 도입 검토</span>
+            </label>
+
+            <label class="radio-card">
+              <input type="radio" name="demo_purpose" value="제품 서비스 기능 확인">
+              <span class="radio-text">제품 / 서비스 기능 확인</span>
+            </label>
+
+            <label class="radio-card">
+              <input type="radio" name="demo_purpose" value="사내 테스트">
+              <span class="radio-text">사내 업무 적용 테스트</span>
+            </label>
+
+            <label class="radio-card">
+              <input type="radio" name="demo_purpose" value="경쟁제품비교">
+              <span class="radio-text">타 경쟁 제품 비교</span>
+            </label>
+
+            <label class="radio-card">
+              <input type="radio" name="demo_purpose" value="기타" id="purpose_etc_radio">
+              <span class="radio-text" style="display: flex; align-items: center; gap: 8px;">
+                기타
+                <input 
+                  type="text" 
+                  id="purpose_etc_text" 
+                  name="demo_purpose_etc" 
+                  class="inline-text-input" 
+                  placeholder="직접 입력해주세요"
+                >
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 3. 관심 있는 기능 (최대 3개 선택) -->
+        <div class="field-group">
+          <label class="field-label">
+            관심 있는 주요 기능 <span class="sub-info">(최대 3개 선택)</span>
+          </label>
+
+          <div class="checkbox-grid" id="featuresGrid">
+            <label class="checkbox-card">
+              <input type="checkbox" name="interested_features" value="고객·고객사 관리">
+              <span class="checkbox-label">고객·고객사 관리</span>
+            </label>
+
+            <label class="checkbox-card">
+              <input type="checkbox" name="interested_features" value="영업기회 관리">
+              <span class="checkbox-label">영업기회 파이프라인</span>
+            </label>
+
+            <label class="checkbox-card">
+              <input type="checkbox" name="interested_features" value="영업활동 관리">
+              <span class="checkbox-label">영업활동 / 미팅 기록</span>
+            </label>
+
+            <label class="checkbox-card">
+              <input type="checkbox" name="interested_features" value="일정 관리">
+              <span class="checkbox-label">캘린더 및 일정 관리</span>
+            </label>
+
+            <label class="checkbox-card">
+              <input type="checkbox" name="interested_features" value="견적·계약 관리">
+              <span class="checkbox-label">견적서 & 계약 관리</span>
+            </label>
+
+            <label class="checkbox-card">
+              <input type="checkbox" name="interested_features" value="매출 관리">
+              <span class="checkbox-label">매출 및 수주 실적</span>
+            </label>
+
+            <label class="checkbox-card">
+              <input type="checkbox" name="interested_features" value="통계·분석">
+              <span class="checkbox-label">AI 영업 대시보드</span>
+            </label>
+
+            <label class="checkbox-card etc-card">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" name="interested_features" value="기타" id="feature_etc_checkbox">
+                <span class="checkbox-label">기타</span>
+              </div>
+              <input 
+                type="text" 
+                id="feature_etc_text" 
+                name="interested_features_etc" 
+                class="inline-text-input" 
+                placeholder="직접 입력해주세요"
+              >
+            </label>
+          </div>
+        </div>
+
+        <!-- 4. [추가 선택 항목] 현재 영업/고객 관리 방식 (경쟁사 타겟팅 & 페인포인트 분석) -->
+        <div class="field-group">
+          <label class="field-label" for="current_system">현재 영업/고객 데이터 관리 방식</label>
+          <select id="current_system" name="current_system" class="form-select">
+            <option value="" disabled selected>현재 관리 방식을 선택해주세요</option>
+            <option value="엑셀 / 수기 / 개인 메모">엑셀(Excel) / 스프레드시트 / 개인 수기</option>
+            <option value="기타 B2B CRM 사용중">타사 CRM 솔루션 사용 중 (윈백 대상)</option>
+            <option value="사내 자체 개발 구축">사내 자체 개발 ERP / 데이터베이스</option>
+            <option value="없음 / 신규 체계 구축">별도 도구 없음 (신규 체계 수립 목적)</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- 약관 동의 -->
+      <div class="policy-box">
+        <label class="policy-checkbox">
+          <input type="checkbox" id="privacy_agree" name="privacy_agree" required checked>
+          <span>
+            [필수] 개인정보 수집 및 이용(데모 계정 발급, 이용 안내 및 영업 상담)에 동의합니다.
+          </span>
+        </label>
+      </div>
+
+      <!-- reCAPTCHA 로봇 확인 박스 (기존 이미지 1과 동일 스타일) -->
+      <div class="recaptcha-wrapper">
+        <div class="recaptcha-box">
+          <div class="recaptcha-left" onclick="toggleRecaptcha()">
+            <div class="recaptcha-check" id="recaptchaCheck"></div>
+            <span class="recaptcha-label">로봇이 아닙니다.</span>
+          </div>
+          <div class="recaptcha-right">
+            <svg class="recaptcha-logo" viewBox="0 0 48 48">
+              <path fill="#4285F4" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.66 0 6.58 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+              <path fill="#34A853" d="M46.1 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.4c-.53 2.84-2.13 5.25-4.54 6.87l7.35 5.7c4.3-3.96 6.89-9.8 6.89-17.04z"/>
+              <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.28-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+              <path fill="#EA4335" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.35-5.7c-2.15 1.45-4.92 2.3-8.54 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.58 42.62 14.66 48 24 48z"/>
+            </svg>
+            <div class="recaptcha-terms">reCAPTCHA<br>약관 · 개인정보</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 데모 체험하기 버튼 (기존 이미지 1/2 동일 디자인) -->
+      <button type="submit" class="btn-submit" id="btnSubmit">데모 체험 신청하기</button>
+
+    </form>
+  </main>
+
+  <!-- 4. 푸터 영역 (CRM 공통 푸터) -->
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="#">서비스 이용약관</a>
+      <a href="#">개인정보처리방침</a>
+      <a href="#">보안 및 컴플라이언스</a>
+      <a href="#">도움말 센터</a>
+    </div>
+    <p>© 2026 SalesPulse Inc. All rights reserved. 서울특별시 강남구 테헤란로 521</p>
+  </footer>
+
+  <!-- 자동 수집 & 폼 인터랙션 JS -->
+  <script>
+    let formStartTime = Date.now();
+    let isRecaptchaChecked = false;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // 1. 자동 수집 파라미터 셋업
+      
+      // (1) 신청일시 (ISO)
+      document.getElementById('created_at').value = new Date().toISOString();
+
+      // (2) 유입 경로 분석 (UTM Source / Referrer)
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmSource = urlParams.get('utm_source');
+      let channel = '직접 유입 (Direct)';
+
+      if (utmSource) {
+        if (/google|naver|daum|bing/i.test(utmSource)) {
+          channel = '검색 엔진 (SEO/SA)';
+        } else if (/ad|display|fb|ig|meta|gdn/i.test(utmSource)) {
+          channel = '디스플레이/SNS 광고';
+        } else {
+          channel = utmSource;
+        }
+      } else if (document.referrer) {
+        channel = '외부 웹사이트 유입 (' + new URL(document.referrer).hostname + ')';
+      }
+      document.getElementById('acquisition_channel').value = channel;
+
+      // (3) 신규 vs 재방문 분석
+      let visitorType = '신규 (First-time)';
+      if (localStorage.getItem('sp_crm_visited')) {
+        visitorType = '재방문 (Returning)';
+      } else {
+        localStorage.setItem('sp_crm_visited', 'true');
+      }
+      document.getElementById('visit_type').value = visitorType;
+
+      // 2. 라디오 카드 스타일 업데이트
+      const radioCards = document.querySelectorAll('.radio-card');
+      radioCards.forEach(card => {
+        card.addEventListener('click', function() {
+          radioCards.forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          const radio = this.querySelector('input[type="radio"]');
+          if (radio) radio.checked = true;
+        });
+      });
+
+      // 3. 체크박스 카드 스타일 & 최대 3개 제한
+      const checkboxes = document.querySelectorAll('input[name="interested_features"]');
+      checkboxes.forEach(cb => {
+        cb.addEventListener('change', function() {
+          const card = this.closest('.checkbox-card');
+          if (this.checked) {
+            card.classList.add('selected');
+          } else {
+            card.classList.remove('selected');
+          }
+
+          const checkedCount = document.querySelectorAll('input[name="interested_features"]:checked').length;
+          if (checkedCount > 3) {
+            this.checked = false;
+            card.classList.remove('selected');
+            alert('관심 기능은 최대 3개까지만 선택이 가능합니다.');
+          }
+        });
+      });
+
+      // 4. 폼 제출 처리 & Lead Score 자동 계산
+      document.getElementById('demoRequestForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        if (!isRecaptchaChecked) {
+          alert('\'로봇이 아닙니다.\' 체크박스를 선택해 주세요.');
+          return;
+        }
+
+        // 체류 시간 계산 (초)
+        const durationSec = Math.round((Date.now() - formStartTime) / 1000);
+        document.getElementById('form_duration_sec').value = durationSec;
+
+        // 가망고객 점수 (Sales Lead Score) 계산 로직
+        let leadScore = 50; // 기본 점수
+
+        const timeline = document.getElementById('purchase_timeline').value;
+        if (timeline.includes('즉시')) leadScore += 30;
+        else if (timeline.includes('1~3개월')) leadScore += 20;
+
+        const users = document.getElementById('user_count').value;
+        if (users.includes('51') || users.includes('100')) leadScore += 20;
+
+        document.getElementById('calculated_lead_score').value = leadScore;
+
+        const formData = new FormData(this);
+        const data = {};
+        formData.forEach((val, key) => {
+          if (data[key]) {
+            if (!Array.isArray(data[key])) data[key] = [data[key]];
+            data[key].push(val);
+          } else {
+            data[key] = val;
+          }
+        });
+
+        console.log('=== 제출된 데모 신청 분석 데이터 ===');
+        console.log('Lead Score (가망 점수):', leadScore);
+        console.log('작성 소요 시간:', durationSec + '초');
+        console.dir(data);
+
+        alert('데모 체험 계정 발송이 완료되었습니다!\n14일간 무료로 모든 기능을 이용하실 수 있습니다.');
+      });
+    });
+
+    // Dummy Captcha Toggle
+    function toggleRecaptcha() {
+      const box = document.getElementById('recaptchaCheck');
+      isRecaptchaChecked = !isRecaptchaChecked;
+      if (isRecaptchaChecked) {
+        box.style.background = '#0F9D58';
+        box.style.borderColor = '#0F9D58';
+        box.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+      } else {
+        box.style.background = '#FFF';
+        box.style.borderColor = '#C1C1C1';
+        box.innerHTML = '';
+      }
+    }
+  </script>
+
+</body>
+</html>
