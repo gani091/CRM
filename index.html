@@ -24,6 +24,7 @@
       --required-color: #EF4444;
       --accent-green: #10B981;
       --accent-purple: #8B5CF6;
+      --accent-amber: #F59E0B;
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
@@ -120,9 +121,7 @@
       gap: 6px;
     }
 
-    .nav-tab-btn:hover {
-      color: var(--text-main);
-    }
+    .nav-tab-btn:hover { color: var(--text-main); }
 
     .nav-tab-btn.active {
       background: #FFFFFF;
@@ -145,6 +144,54 @@
       gap: 12px;
     }
 
+    /* DEV MODE TOGGLE BUTTON */
+    .dev-mode-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #F1F5F9;
+      border: 1px solid var(--border-color);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #475569;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+    }
+
+    .dev-mode-toggle.active {
+      background: #0F172A;
+      color: #38BDF8;
+      border-color: #38BDF8;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+    }
+
+    .dev-switch {
+      width: 28px;
+      height: 16px;
+      background: #CBD5E1;
+      border-radius: 10px;
+      position: relative;
+      transition: background 0.2s;
+    }
+
+    .dev-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 12px;
+      height: 12px;
+      background: #FFF;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+
+    .dev-mode-toggle.active .dev-switch { background: #38BDF8; }
+    .dev-mode-toggle.active .dev-switch::after { transform: translateX(12px); background: #0F172A; }
+
     .btn-prd-trigger {
       background: linear-gradient(135deg, #4F46E5, #7C3AED);
       color: #FFFFFF;
@@ -166,19 +213,99 @@
       box-shadow: 0 6px 16px rgba(124, 58, 237, 0.35);
     }
 
-    .trust-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--primary-light);
-      color: var(--primary-color);
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-weight: 600;
-      font-size: 13px;
+    /* DEVELOPER FIELD BADGES */
+    .dev-field-tag {
+      display: none;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: #0284C7;
+      background: #E0F2FE;
+      border: 1px solid #BAE6FD;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
     }
 
-    /* 2. MAIN CONTAINER & VIEW SWITCHING */
+    body.dev-mode-on .dev-field-tag {
+      display: inline-block;
+      animation: fadeIn 0.2s ease;
+    }
+
+    /* DEVELOPER FLOATING JSON INSPECTOR PANEL */
+    .dev-inspector-panel {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 380px;
+      background: #0F172A;
+      color: #F8FAFC;
+      border-radius: 12px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+      z-index: 999;
+      display: none;
+      flex-direction: column;
+      border: 1px solid #334155;
+      overflow: hidden;
+      font-family: 'Consolas', monospace;
+    }
+
+    body.dev-mode-on .dev-inspector-panel {
+      display: flex;
+      animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .dev-inspector-header {
+      padding: 10px 16px;
+      background: #1E293B;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 700;
+      color: #38BDF8;
+      border-bottom: 1px solid #334155;
+    }
+
+    .dev-inspector-body {
+      padding: 12px;
+      font-size: 11px;
+      max-height: 240px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      color: #A7F3D0;
+      line-height: 1.5;
+    }
+
+    .dev-inspector-footer {
+      padding: 8px 12px;
+      background: #1E293B;
+      border-top: 1px solid #334155;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-dev-action {
+      background: #334155;
+      color: #F8FAFC;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-dev-action:hover { background: #475569; }
+
+    /* MAIN CONTAINER & VIEW SWITCHING */
     .main-container {
       flex: 1;
       width: 100%;
@@ -187,10 +314,7 @@
       padding: 36px 20px 64px 20px;
     }
 
-    .view-section {
-      display: none;
-    }
-
+    .view-section { display: none; }
     .view-section.active {
       display: block;
       animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -253,15 +377,8 @@
       font-weight: 600;
     }
 
-    .section-badge.required-badge {
-      background-color: #FEF2F2;
-      color: var(--required-color);
-    }
-
-    .section-badge.optional-badge {
-      background-color: #F3F4F6;
-      color: var(--text-sub);
-    }
+    .section-badge.required-badge { background-color: #FEF2F2; color: var(--required-color); }
+    .section-badge.optional-badge { background-color: #F3F4F6; color: var(--text-sub); }
 
     .divider {
       height: 1px;
@@ -298,10 +415,7 @@
       gap: 4px;
     }
 
-    .field-label .required {
-      color: var(--required-color);
-      font-weight: 700;
-    }
+    .field-label .required { color: var(--required-color); font-weight: 700; }
 
     .field-label .sub-info {
       font-size: 12px;
@@ -361,15 +475,8 @@
       user-select: none;
     }
 
-    .radio-card:hover {
-      border-color: #CBD5E1;
-      background: #F8FAFC;
-    }
-
-    .radio-card.selected {
-      border-color: var(--primary-color);
-      background: var(--primary-light);
-    }
+    .radio-card:hover { border-color: #CBD5E1; background: #F8FAFC; }
+    .radio-card.selected { border-color: var(--primary-color); background: var(--primary-light); }
 
     .radio-card input[type="radio"] {
       appearance: none;
@@ -384,11 +491,7 @@
       transition: all 0.15s ease;
     }
 
-    .radio-card input[type="radio"]:checked {
-      border-color: var(--primary-color);
-      background-color: var(--primary-color);
-    }
-
+    .radio-card input[type="radio"]:checked { border-color: var(--primary-color); background-color: var(--primary-color); }
     .radio-card input[type="radio"]:checked::after {
       content: '';
       position: absolute;
@@ -401,12 +504,7 @@
       border-radius: 50%;
     }
 
-    .radio-text {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-main);
-      flex: 1;
-    }
+    .radio-text { font-size: 14px; font-weight: 500; color: var(--text-main); flex: 1; }
 
     .inline-text-input {
       height: 36px;
@@ -447,11 +545,7 @@
     }
 
     .checkbox-card:hover { border-color: #CBD5E1; }
-
-    .checkbox-card.selected {
-      border-color: var(--primary-color);
-      background-color: var(--primary-light);
-    }
+    .checkbox-card.selected { border-color: var(--primary-color); background-color: var(--primary-light); }
 
     .checkbox-card input[type="checkbox"] {
       appearance: none;
@@ -465,11 +559,7 @@
       flex-shrink: 0;
     }
 
-    .checkbox-card input[type="checkbox"]:checked {
-      background-color: var(--primary-color);
-      border-color: var(--primary-color);
-    }
-
+    .checkbox-card input[type="checkbox"]:checked { background-color: var(--primary-color); border-color: var(--primary-color); }
     .checkbox-card input[type="checkbox"]:checked::after {
       content: '';
       position: absolute;
@@ -482,12 +572,7 @@
       border-width: 0 2px 2px 0;
     }
 
-    .checkbox-label {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-main);
-    }
-
+    .checkbox-label { font-size: 14px; font-weight: 500; color: var(--text-main); }
     .checkbox-card.etc-card { grid-column: span 2; }
 
     @media (max-width: 560px) {
@@ -552,19 +637,8 @@
       border-radius: 2px;
     }
 
-    .recaptcha-label {
-      font-size: 14px;
-      color: #000;
-      font-weight: 500;
-    }
-
-    .recaptcha-right {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-    }
-
+    .recaptcha-label { font-size: 14px; color: #000; font-weight: 500; }
+    .recaptcha-right { display: flex; flex-direction: column; align-items: center; gap: 2px; }
     .recaptcha-logo { width: 30px; height: 30px; }
     .recaptcha-terms { font-size: 9px; color: #555; text-align: center; }
 
@@ -583,12 +657,9 @@
       transition: all 0.2s ease;
     }
 
-    .btn-submit:hover {
-      background-color: var(--primary-hover);
-      transform: translateY(-1px);
-    }
+    .btn-submit:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
 
-    /* 3. DEMO DASHBOARD VIEW STYLES */
+    /* DEMO DASHBOARD VIEW STYLES */
     .conversion-banner {
       background: linear-gradient(135deg, #1E1B4B, #312E81);
       color: #FFFFFF;
@@ -611,10 +682,7 @@
       gap: 8px;
     }
 
-    .conversion-banner-text p {
-      font-size: 13px;
-      color: #C7D2FE;
-    }
+    .conversion-banner-text p { font-size: 13px; color: #C7D2FE; }
 
     .btn-upgrade-action {
       background: linear-gradient(135deg, #10B981, #059669);
@@ -630,10 +698,7 @@
       transition: all 0.2s ease;
     }
 
-    .btn-upgrade-action:hover {
-      transform: scale(1.03);
-      background: linear-gradient(135deg, #059669, #047857);
-    }
+    .btn-upgrade-action:hover { transform: scale(1.03); background: linear-gradient(135deg, #059669, #047857); }
 
     .dashboard-grid {
       display: grid;
@@ -655,25 +720,9 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
 
-    .dash-card-header {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-sub);
-      margin-bottom: 10px;
-    }
-
-    .dash-card-value {
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--text-main);
-    }
-
-    .dash-card-sub {
-      font-size: 12px;
-      color: var(--accent-green);
-      font-weight: 600;
-      margin-top: 6px;
-    }
+    .dash-card-header { font-size: 13px; font-weight: 600; color: var(--text-sub); margin-bottom: 10px; }
+    .dash-card-value { font-size: 24px; font-weight: 800; color: var(--text-main); }
+    .dash-card-sub { font-size: 12px; color: var(--accent-green); font-weight: 600; margin-top: 6px; }
 
     .demo-info-panel {
       background: #FFFFFF;
@@ -692,11 +741,7 @@
       border-bottom: 1px solid var(--border-color);
     }
 
-    .demo-info-header h4 {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text-main);
-    }
+    .demo-info-header h4 { font-size: 16px; font-weight: 700; color: var(--text-main); }
 
     .id-tag {
       font-family: monospace;
@@ -708,11 +753,7 @@
       font-size: 13px;
     }
 
-    .activation-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    .activation-list { display: flex; flex-direction: column; gap: 12px; }
 
     .activation-item {
       display: flex;
@@ -724,11 +765,7 @@
       border: 1px solid var(--border-color);
     }
 
-    .activation-item-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .activation-item-left { display: flex; align-items: center; gap: 12px; }
 
     .status-check {
       width: 20px;
@@ -741,17 +778,10 @@
       font-weight: 800;
     }
 
-    .status-check.completed {
-      background: #10B981;
-      color: #FFF;
-    }
+    .status-check.completed { background: #10B981; color: #FFF; }
+    .status-check.pending { background: #E2E8F0; color: #94A3B8; }
 
-    .status-check.pending {
-      background: #E2E8F0;
-      color: #94A3B8;
-    }
-
-    /* 4. MODAL OVERLAY & CONTENT (PRD & DEV SPEC) */
+    /* MODAL OVERLAY & CONTENT */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -767,16 +797,13 @@
       padding: 20px;
     }
 
-    .modal-overlay.active {
-      display: flex;
-      animation: fadeIn 0.25s ease;
-    }
+    .modal-overlay.active { display: flex; animation: fadeIn 0.25s ease; }
 
     .modal-card {
       background: #FFFFFF;
       border-radius: 16px;
       width: 100%;
-      max-width: 900px;
+      max-width: 920px;
       max-height: 90vh;
       display: flex;
       flex-direction: column;
@@ -785,7 +812,7 @@
     }
 
     .modal-header {
-      padding: 20px 28px;
+      padding: 18px 24px;
       background: #0F172A;
       color: #FFFFFF;
       display: flex;
@@ -800,6 +827,30 @@
       align-items: center;
       gap: 10px;
     }
+
+    /* MODAL TAB SUB-HEADER */
+    .modal-tab-bar {
+      display: flex;
+      background: #1E293B;
+      padding: 0 24px;
+      gap: 16px;
+      border-bottom: 1px solid #334155;
+    }
+
+    .modal-tab-btn {
+      background: transparent;
+      border: none;
+      color: #94A3B8;
+      padding: 12px 4px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .modal-tab-btn:hover { color: #F8FAFC; }
+    .modal-tab-btn.active { color: #38BDF8; border-bottom-color: #38BDF8; }
 
     .btn-close-modal {
       background: rgba(255,255,255,0.1);
@@ -826,9 +877,10 @@
       color: #334155;
     }
 
-    .prd-section {
-      margin-bottom: 32px;
-    }
+    .prd-sub-view { display: none; }
+    .prd-sub-view.active { display: block; }
+
+    .prd-section { margin-bottom: 32px; }
 
     .prd-section-title {
       font-size: 16px;
@@ -850,10 +902,7 @@
       margin-bottom: 16px;
     }
 
-    .callout-box.purple {
-      border-left-color: var(--accent-purple);
-      background: #F5F3FF;
-    }
+    .callout-box.purple { border-left-color: var(--accent-purple); background: #F5F3FF; }
 
     .figma-link-btn {
       display: inline-flex;
@@ -897,23 +946,9 @@
       box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
     }
 
-    .flow-node.highlight {
-      background: #2563EB;
-      border-color: #60A5FA;
-      color: #FFF;
-    }
-
-    .flow-node.target {
-      background: #10B981;
-      border-color: #34D399;
-      color: #FFF;
-    }
-
-    .flow-arrow {
-      color: #94A3B8;
-      font-weight: 700;
-      font-size: 16px;
-    }
+    .flow-node.highlight { background: #2563EB; border-color: #60A5FA; color: #FFF; }
+    .flow-node.target { background: #10B981; border-color: #34D399; color: #FFF; }
+    .flow-arrow { color: #94A3B8; font-weight: 700; font-size: 16px; }
 
     /* PRD TABLES */
     .prd-table {
@@ -929,11 +964,7 @@
       text-align: left;
     }
 
-    .prd-table th {
-      background: #F1F5F9;
-      font-weight: 700;
-      color: #0F172A;
-    }
+    .prd-table th { background: #F1F5F9; font-weight: 700; color: #0F172A; }
 
     .dev-comment-box {
       background: #FEF3C7;
@@ -945,7 +976,36 @@
       font-size: 12px;
     }
 
-    /* FOOTER */
+    /* CODE BLOCK STYLING FOR DEVELOPER TAB */
+    .code-block-container {
+      background: #0F172A;
+      color: #E2E8F0;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      overflow-x: auto;
+      margin-top: 10px;
+      position: relative;
+    }
+
+    .btn-copy-code {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #334155;
+      color: #FFF;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-copy-code:hover { background: #475569; }
+
     .site-footer {
       background: #FFFFFF;
       border-top: 1px solid var(--border-color);
@@ -963,15 +1023,10 @@
       margin-bottom: 10px;
     }
 
-    .footer-links a {
-      color: var(--text-sub);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
+    .footer-links a { color: var(--text-sub); text-decoration: none; font-weight: 500; }
     .footer-links a:hover { text-decoration: underline; }
 
-    /* CONVERSION LINKING ANIMATION MODAL */
+    /* CONVERSION MATCHING MODAL STYLES */
     .matching-box {
       background: #F8FAFC;
       border: 2px dashed #CBD5E1;
@@ -998,20 +1053,8 @@
       box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
 
-    .match-card-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: #64748B;
-      text-transform: uppercase;
-    }
-
-    .match-card-id {
-      font-family: monospace;
-      font-size: 15px;
-      font-weight: 800;
-      color: #2563EB;
-      margin-top: 4px;
-    }
+    .match-card-title { font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase; }
+    .match-card-id { font-family: monospace; font-size: 15px; font-weight: 800; color: #2563EB; margin-top: 4px; }
   </style>
 </head>
 <body>
@@ -1036,8 +1079,14 @@
     </div>
     
     <div class="header-nav-right">
+      <!-- DEV MODE TOGGLE BUTTON -->
+      <div class="dev-mode-toggle" id="devModeBtn" onclick="toggleDevMode()" title="개발자 뷰 (필드 스펙 및 API Payload 실시간 확인 모드)">
+        <span>⚙️ 개발자 모드</span>
+        <div class="dev-switch"></div>
+      </div>
+
       <button type="button" class="btn-prd-trigger" onclick="openPrdModal()">
-        💡 이번 고도화 PRD & 개발자 가이드
+        💡 고도화 PRD & DB API 스펙
       </button>
       
       <span class="trust-pill">
@@ -1071,7 +1120,10 @@
 
         <!-- SECTION 1: 기본 정보 (필수) -->
         <div class="section-header">
-          <div class="section-title">기본 정보</div>
+          <div class="section-title">
+            기본 정보 
+            <span class="dev-field-tag">SYS_SECTION_1_REQUIRED</span>
+          </div>
           <span class="section-badge required-badge">필수 입력</span>
         </div>
         
@@ -1080,16 +1132,18 @@
           <div class="field-group">
             <label class="field-label" for="company_name">
               회사명 <span class="required">*</span>
+              <span class="dev-field-tag">company_name: String(100)</span>
             </label>
-            <input type="text" id="company_name" name="company_name" class="form-input" placeholder="회사 또는 단체명을 입력해주세요" required>
+            <input type="text" id="company_name" name="company_name" class="form-input" placeholder="회사 또는 단체명을 입력해주세요" required oninput="updateDevInspector()">
           </div>
 
           <!-- 예상 사용 인원 -->
           <div class="field-group">
             <label class="field-label" for="user_count">
               예상 사용 인원 <span class="required">*</span>
+              <span class="dev-field-tag">user_count: Enum</span>
             </label>
-            <select id="user_count" name="user_count" class="form-select" required>
+            <select id="user_count" name="user_count" class="form-select" required onchange="updateDevInspector()">
               <option value="" disabled selected>예상 사용 인원을 선택해주세요</option>
               <option value="1-5명">1 ~ 5명 (스타트업/소규모)</option>
               <option value="6-20명">6 ~ 20명 (중소기업)</option>
@@ -1103,41 +1157,46 @@
           <div class="field-group">
             <label class="field-label" for="user_name">
               담당자 이름 <span class="required">*</span>
+              <span class="dev-field-tag">user_name: String(50)</span>
             </label>
-            <input type="text" id="user_name" name="user_name" class="form-input" placeholder="담당자 이름을 입력해 주세요" required>
+            <input type="text" id="user_name" name="user_name" class="form-input" placeholder="담당자 이름을 입력해 주세요" required oninput="updateDevInspector()">
           </div>
 
           <!-- 회사 이메일 -->
           <div class="field-group">
             <label class="field-label" for="email">
               회사 이메일 <span class="required">*</span>
+              <span class="dev-field-tag">email: String(100) [MATCH_KEY]</span>
             </label>
-            <input type="email" id="email" name="email" class="form-input" placeholder="이메일을 입력해 주세요 (업무용 권장)" required>
+            <input type="email" id="email" name="email" class="form-input" placeholder="이메일을 입력해 주세요 (업무용 권장)" required oninput="updateDevInspector()">
           </div>
 
           <!-- 휴대전화 -->
           <div class="field-group">
             <label class="field-label" for="phone">
               휴대전화 <span class="required">*</span>
+              <span class="dev-field-tag">phone: String(20) [MATCH_KEY]</span>
             </label>
-            <input type="tel" id="phone" name="phone" class="form-input" placeholder="010-0000-0000" required>
+            <input type="tel" id="phone" name="phone" class="form-input" placeholder="010-0000-0000" required oninput="updateDevInspector()">
           </div>
 
           <!-- 직책 -->
           <div class="field-group">
             <label class="field-label" for="job_title">
               직책 <span class="required">*</span>
+              <span class="dev-field-tag">job_title: String(50)</span>
             </label>
-            <input type="text" id="job_title" name="job_title" class="form-input" placeholder="담당하고 계시는 직책을 입력해 주세요" required>
+            <input type="text" id="job_title" name="job_title" class="form-input" placeholder="담당하고 계시는 직책을 입력해 주세요" required oninput="updateDevInspector()">
           </div>
 
           <!-- 도입 예정 시기 -->
           <div class="field-group" style="grid-column: span 2;">
             <label class="field-label" for="purchase_timeline">
               도입 예정 시기 <span class="required">*</span>
+              <span class="dev-field-tag">purchase_timeline: Enum (+LeadScore)</span>
               <span class="sub-info">빠른 도입을 원하실 경우 우선 지원됩니다</span>
             </label>
-            <select id="purchase_timeline" name="purchase_timeline" class="form-select" required>
+            <select id="purchase_timeline" name="purchase_timeline" class="form-select" required onchange="updateDevInspector()">
               <option value="" disabled selected>도입 검토 시기를 선택해주세요</option>
               <option value="즉시 도입 (1개월 이내)">🔥 즉시 도입 (1개월 이내 - 최우선 대기)</option>
               <option value="1~3개월 이내">☀️ 1 ~ 3개월 이내</option>
@@ -1151,53 +1210,63 @@
 
         <!-- SECTION 2: 영업 맞춤 정보 (선택) -->
         <div class="section-header">
-          <div class="section-title">맞춤 정보 세팅</div>
+          <div class="section-title">
+            맞춤 정보 세팅
+            <span class="dev-field-tag">SYS_SECTION_2_OPTIONAL</span>
+          </div>
           <span class="section-badge optional-badge">선택 사항</span>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 22px;">
           <!-- 1. 업종 (직접 입력 텍스트 필드로 반영 완료) -->
           <div class="field-group">
-            <label class="field-label" for="industry">업종</label>
+            <label class="field-label" for="industry">
+              업종
+              <span class="dev-field-tag">industry: String(100) [직접입력]</span>
+            </label>
             <input 
               type="text" 
               id="industry" 
               name="industry" 
               class="form-input" 
               placeholder="업종을 직접 입력해 주세요 (예: IT/SaaS, 제조업, 유통 등)"
+              oninput="updateDevInspector()"
             >
           </div>
 
           <!-- 2. 데모체험 목적 -->
           <div class="field-group">
-            <label class="field-label">데모 신청 목적</label>
+            <label class="field-label">
+              데모 신청 목적
+              <span class="dev-field-tag">demo_purpose: String(100)</span>
+            </label>
             
             <div class="radio-stack" id="purposeRadioGroup">
               <label class="radio-card selected">
-                <input type="radio" name="demo_purpose" value="실제 도입 검토" checked>
+                <input type="radio" name="demo_purpose" value="실제 도입 검토" checked onchange="updateDevInspector()">
                 <span class="radio-text">실제 CRM 도입 검토</span>
               </label>
 
               <label class="radio-card">
-                <input type="radio" name="demo_purpose" value="제품 서비스 기능 확인">
+                <input type="radio" name="demo_purpose" value="제품 서비스 기능 확인" onchange="updateDevInspector()">
                 <span class="radio-text">제품 / 서비스 기능 확인</span>
               </label>
 
               <label class="radio-card">
-                <input type="radio" name="demo_purpose" value="사내 테스트">
+                <input type="radio" name="demo_purpose" value="사내 테스트" onchange="updateDevInspector()">
                 <span class="radio-text">사내 업무 적용 테스트</span>
               </label>
 
               <label class="radio-card">
-                <input type="radio" name="demo_purpose" value="경쟁제품비교">
+                <input type="radio" name="demo_purpose" value="경쟁제품비교" onchange="updateDevInspector()">
                 <span class="radio-text">타 경쟁 제품 비교</span>
               </label>
 
               <label class="radio-card">
-                <input type="radio" name="demo_purpose" value="기타" id="purpose_etc_radio">
+                <input type="radio" name="demo_purpose" value="기타" id="purpose_etc_radio" onchange="updateDevInspector()">
                 <span class="radio-text" style="display: flex; align-items: center; gap: 8px;">
                   기타
-                  <input type="text" id="purpose_etc_text" name="demo_purpose_etc" class="inline-text-input" placeholder="직접 입력해주세요">
+                  <input type="text" id="purpose_etc_text" name="demo_purpose_etc" class="inline-text-input" placeholder="직접 입력해주세요" oninput="updateDevInspector()">
                 </span>
               </label>
             </div>
@@ -1207,58 +1276,62 @@
           <div class="field-group">
             <label class="field-label">
               관심 있는 주요 기능 <span class="sub-info">(최대 3개 선택)</span>
+              <span class="dev-field-tag">interested_features: Array[String] (Max 3)</span>
             </label>
 
             <div class="checkbox-grid" id="featuresGrid">
               <label class="checkbox-card">
-                <input type="checkbox" name="interested_features" value="고객·고객사 관리">
+                <input type="checkbox" name="interested_features" value="고객·고객사 관리" onchange="updateDevInspector()">
                 <span class="checkbox-label">고객·고객사 관리</span>
               </label>
 
               <label class="checkbox-card">
-                <input type="checkbox" name="interested_features" value="영업기회 관리">
+                <input type="checkbox" name="interested_features" value="영업기회 관리" onchange="updateDevInspector()">
                 <span class="checkbox-label">영업기회 파이프라인</span>
               </label>
 
               <label class="checkbox-card">
-                <input type="checkbox" name="interested_features" value="영업활동 관리">
+                <input type="checkbox" name="interested_features" value="영업활동 관리" onchange="updateDevInspector()">
                 <span class="checkbox-label">영업활동 / 미팅 기록</span>
               </label>
 
               <label class="checkbox-card">
-                <input type="checkbox" name="interested_features" value="일정 관리">
+                <input type="checkbox" name="interested_features" value="일정 관리" onchange="updateDevInspector()">
                 <span class="checkbox-label">캘린더 및 일정 관리</span>
               </label>
 
               <label class="checkbox-card">
-                <input type="checkbox" name="interested_features" value="견적·계약 관리">
+                <input type="checkbox" name="interested_features" value="견적·계약 관리" onchange="updateDevInspector()">
                 <span class="checkbox-label">견적서 & 계약 관리</span>
               </label>
 
               <label class="checkbox-card">
-                <input type="checkbox" name="interested_features" value="매출 관리">
+                <input type="checkbox" name="interested_features" value="매출 관리" onchange="updateDevInspector()">
                 <span class="checkbox-label">매출 및 수주 실적</span>
               </label>
 
               <label class="checkbox-card">
-                <input type="checkbox" name="interested_features" value="통계·분석">
+                <input type="checkbox" name="interested_features" value="통계·분석" onchange="updateDevInspector()">
                 <span class="checkbox-label">AI 영업 대시보드</span>
               </label>
 
               <label class="checkbox-card etc-card">
                 <div style="display: flex; align-items: center; gap: 8px;">
-                  <input type="checkbox" name="interested_features" value="기타" id="feature_etc_checkbox">
+                  <input type="checkbox" name="interested_features" value="기타" id="feature_etc_checkbox" onchange="updateDevInspector()">
                   <span class="checkbox-label">기타</span>
                 </div>
-                <input type="text" id="feature_etc_text" name="interested_features_etc" class="inline-text-input" placeholder="직접 입력해주세요">
+                <input type="text" id="feature_etc_text" name="interested_features_etc" class="inline-text-input" placeholder="직접 입력해주세요" oninput="updateDevInspector()">
               </label>
             </div>
           </div>
 
           <!-- 4. 현재 관리 방식 -->
           <div class="field-group">
-            <label class="field-label" for="current_system">현재 영업/고객 데이터 관리 방식</label>
-            <select id="current_system" name="current_system" class="form-select">
+            <label class="field-label" for="current_system">
+              현재 영업/고객 데이터 관리 방식
+              <span class="dev-field-tag">current_system: Enum</span>
+            </label>
+            <select id="current_system" name="current_system" class="form-select" onchange="updateDevInspector()">
               <option value="" disabled selected>현재 관리 방식을 선택해주세요</option>
               <option value="엑셀 / 수기 / 개인 메모">엑셀(Excel) / 스프레드시트 / 개인 수기</option>
               <option value="기타 B2B CRM 사용중">타사 CRM 솔루션 사용 중 (윈백 대상)</option>
@@ -1273,6 +1346,7 @@
           <label class="policy-checkbox">
             <input type="checkbox" id="privacy_agree" name="privacy_agree" required checked>
             <span>[필수] 개인정보 수집 및 이용(데모 계정 발급, 이용 안내 및 영업 상담)에 동의합니다.</span>
+            <span class="dev-field-tag">privacy_agree: Boolean</span>
           </label>
         </div>
 
@@ -1305,7 +1379,7 @@
          ============================================== -->
     <div id="viewDashboard" class="view-section">
       
-      <!-- 상단 유료 전환 안내 바 (고정 핵심 액션) -->
+      <!-- 상단 유료 전환 안내 바 -->
       <div class="conversion-banner">
         <div class="conversion-banner-text">
           <h3>
@@ -1347,7 +1421,7 @@
         </div>
       </div>
 
-      <!-- Activation (핵심 경험) 진행 상태 -->
+      <!-- Activation 진행 상태 -->
       <div class="demo-info-panel">
         <div class="demo-info-header">
           <h4>🎯 데모 체험 필수 Activation (핵심 기능 달성도)</h4>
@@ -1409,7 +1483,8 @@
   <!-- 3. FOOTER -->
   <footer class="site-footer">
     <div class="footer-links">
-      <a href="#" onclick="openPrdModal(); return false;">고도화 PRD 기획서</a>
+      <a href="#" onclick="openPrdModal('prd'); return false;">고도화 PRD 기획서</a>
+      <a href="#" onclick="openPrdModal('schema'); return false;">DB & API 데이터 스펙</a>
       <a href="#">서비스 이용약관</a>
       <a href="#">개인정보처리방침</a>
       <a href="#">보안 및 컴플라이언스</a>
@@ -1419,182 +1494,295 @@
 
 
   <!-- ==============================================
-       MODAL 1: 이번 고도화 PRD & 개발자 가이드 팝업
+       MODAL 1: 고도화 PRD & 개발자 DB API 스펙 팝업
        ============================================== -->
   <div class="modal-overlay" id="prdModal">
     <div class="modal-card">
       <div class="modal-header">
-        <h2>
-          💡 WeSeed CRM 데모체험 전환 분석 데이터 구축 PRD & 개발자 가이드
-        </h2>
+        <h2>💡 WeSeed CRM 데모체험 전환 분석 데이터 구축 PRD & 시스템 설계서</h2>
         <button class="btn-close-modal" onclick="closePrdModal()">&times;</button>
+      </div>
+
+      <!-- MODAL SUB TABS FOR DEVELOPERS -->
+      <div class="modal-tab-bar">
+        <button class="modal-tab-btn active" id="modalTabPrd" onclick="switchModalTab('prd')">
+          📋 기획 / PRD 요구사항 및 논의 내역
+        </button>
+        <button class="modal-tab-btn" id="modalTabSchema" onclick="switchModalTab('schema')">
+          💻 DB 테이블 스펙 & API JSON Payload (REST API / DDL)
+        </button>
       </div>
 
       <div class="modal-body">
         
-        <!-- SECTION 1: 개선건 이력 -->
-        <div class="prd-section">
-          <div class="prd-section-title">
-            <span>📌</span> 1. 개선건 이력 및 변경 배경
-          </div>
-          
-          <div class="callout-box">
-            <strong>1) 기획팀 개선 요청:</strong>
-            <p>기존 단순 <code>무료체험 → 14일 Free Trial 전환</code>으로 개선 요청 및 UI/UX 설계안 전달받음.</p>
-            <a href="https://www.figma.com/design/KfHz9ymW8fHXRg3KlKDz2k/Weseed-CRM-%EA%B3%A0%EB%8F%84%ED%99%94?node-id=161-667&t=bMttaqBvTXKZks4K-4" target="_blank" class="figma-link-btn">
-              🎨 Figma 디자인 기획안 바로가기 ↗
-            </a>
-          </div>
+        <!-- SUB TAB 1: PRD DETAILS -->
+        <div id="subViewPrd" class="prd-sub-view active">
+          <!-- SECTION 1: 개선건 이력 -->
+          <div class="prd-section">
+            <div class="prd-section-title">
+              <span>📌</span> 1. 개선건 이력 및 변경 배경
+            </div>
+            
+            <div class="callout-box">
+              <strong>1) 기획팀 개선 요청:</strong>
+              <p>기존 단순 <code>무료체험 → 14일 Free Trial 전환</code>으로 개선 요청 및 UI/UX 설계안 전달받음.</p>
+              <a href="https://www.figma.com/design/KfHz9ymW8fHXRg3KlKDz2k/Weseed-CRM-%EA%B3%A0%EB%8F%84%ED%99%94?node-id=161-667&t=bMttaqBvTXKZks4K-4" target="_blank" class="figma-link-btn">
+                🎨 Figma 디자인 기획안 바로가기 ↗
+              </a>
+            </div>
 
-          <div class="callout-box purple">
-            <strong>2) 개발팀 & UX팀 검토 의견:</strong>
-            <p>가입 전환율을 높이기 위해, Free Trial 바로 전환보다는 아래 3가지 수단을 우선 도입 권장:</p>
-            <ul style="margin-left: 20px; margin-top: 6px;">
-              <li><strong>가입 후 데모체험 또는 이용 로그 리포트로 사용자 분석</strong> (아웃바운드 영업 콜 유용, 업종별 프리셋 제공)</li>
-              <li><strong>튜토리얼 제공</strong> (사용자 초기 이탈 방지)</li>
-              <li><strong>데모신청 후 사용자 유입을 위해 직접 아웃바운드 연락</strong></li>
-            </ul>
-          </div>
-
-          <div style="background: #EFF6FF; padding: 12px 16px; border-radius: 8px; border: 1px solid #BFDBFE; color: #1E40AF; font-size: 13px;">
-            👉 <strong>최종 안건 확정:</strong> 데모체험 신청자 및 전체 사용자들의 이용 분석 및 전환율 분석을 종합하기 위해 <strong>[WeSeed CRM 데모체험 전환 분석 데이터 구축 PRD]</strong>로 수정하여 개발팀 확인 진행.
-          </div>
-        </div>
-
-        <!-- SECTION 2: PRD 목표 및 프로세스 -->
-        <div class="prd-section">
-          <div class="prd-section-title">
-            <span>🎯</span> 2. PRD 목표 / 범위 & 전환 프로세스
-          </div>
-          
-          <p><strong>[문제 상황]</strong> 현재 데모 계정과 실제 회원사의 연결 정보가 없어 <em>전환율 산출, 행동 분석, 실사용 비교</em>가 불가함.</p>
-          <p style="margin-top: 6px;"><strong>[핵심 목표 (우선순위)]</strong> ① 전환 데이터 연결 ② 신청 시 필수/선택 항목 추가 ③ 데모 시 사용자 핵심 Activation 정의 ④ 결제 미전환 사유 정형화</p>
-
-          <h4 style="margin-top: 16px; font-weight: 700; color: #0F172A;">전환율 데이터 확보를 위한 8단계 프로세스</h4>
-          <div class="flow-diagram">
-            <div class="flow-node highlight">데모 신청</div>
-            <div class="flow-arrow">→</div>
-            <div class="flow-node">데모계정발급</div>
-            <div class="flow-arrow">→</div>
-            <div class="flow-node">최초로그인</div>
-            <div class="flow-arrow">→</div>
-            <div class="flow-node">핵심기능경험</div>
-            <div class="flow-arrow">→</div>
-            <div class="flow-node">상담(CS)</div>
-            <div class="flow-arrow">→</div>
-            <div class="flow-node">서비스신청</div>
-            <div class="flow-arrow">→</div>
-            <div class="flow-node target">CRM 신규가입</div>
-            <div class="flow-arrow">→</div>
-            <div class="flow-node target">유료이용</div>
-          </div>
-        </div>
-
-        <!-- SECTION 3: 데이터 연결 및 매칭 방식 -->
-        <div class="prd-section">
-          <div class="prd-section-title">
-            <span>🔗</span> 3. 데이터 연결 (demo_id ↔ 회원사ID) & 매칭 방식
-          </div>
-          
-          <p>모든 데이터는 <code>demo_id</code>로 1차 수집/연결되고, 최종 정식 가입 시 <code>company_id (회원사ID)</code>와 잇는 구조입니다.</p>
-
-          <div style="background: #F8FAFC; border: 1px solid #E2E8F0; padding: 16px; border-radius: 10px; margin-top: 10px;">
-            <strong>매칭 제안 방식:</strong>
-            <ol style="margin-left: 20px; margin-top: 8px;">
-              <li><strong>이메일 · 휴대전화 기반 후보 자동검색 + 관리자(sysadmin) 확인 후 최종 확정</strong><br><span style="color: #EF4444; font-weight: 700;">※ 담당자명/회사명 단독 매칭은 오매칭 위험으로 절대 금지</span></li>
-              <li><strong>후보 자동 검색 조건 중 데모체험 계정에서 바로 결제하는 경우 포함</strong> (데모체험 UI 내 유료전환 버튼 상시 노출)</li>
-            </ol>
-          </div>
-        </div>
-
-        <!-- SECTION 4: 회의 논의사항 & 이태민 개발자 코멘트 -->
-        <div class="prd-section">
-          <div class="prd-section-title">
-            <span>🗣️</span> 4. 주요 논의사항 및 개발자 코멘트 (이태민)
-          </div>
-
-          <table class="prd-table">
-            <thead>
-              <tr>
-                <th style="width: 25%;">논의 항목</th>
-                <th style="width: 35%;">기획 선택지 / 확인 요청</th>
-                <th style="width: 40%;">개발 코멘트 (이태민)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>최종 전환 기준 시점</strong></td>
-                <td>신규 가입 후 계약(결제) / 활성화 시점</td>
-                <td><div class="dev-comment-box">최종전환기준 = 신규회원사로 등록된 시점 + 이용료 결제</div></td>
-              </tr>
-              <tr>
-                <td><strong>데모id 연결 Key 가능 여부</strong></td>
-                <td>로그·CS·전환 join 가능성</td>
-                <td><div class="dev-comment-box">무슨말인지 모르겟습니다. (아래 매칭 방법으로 확인)</div></td>
-              </tr>
-              <tr>
-                <td><strong>데모 ↔ 회원사 매칭 방식</strong></td>
-                <td>• 후보검색+관리자확정?<br>• 데모체험 화면 내 회원가입 기능 추가</td>
-                <td><div class="dev-comment-box">선택지 두개 모두 수용 하는게 좋겠습니다.</div></td>
-              </tr>
-              <tr>
-                <td><strong>신청 추가필드 · 코드값</strong></td>
-                <td>업종 / 목적 / 관심기능 / 유입소</td>
-                <td><div class="dev-comment-box">신청 추가 필드 와 코드값에 대한 정의 필요</div></td>
-              </tr>
-              <tr>
-                <td><strong>핵심 Activation Event</strong></td>
-                <td>영업기회 등록 등 로그 수집 범위</td>
-                <td><div class="dev-comment-box">기존 고객/고객사/영업기회/영업활동 메뉴접근, 조회, 등록, 수정, 삭제 로그 수집됨</div></td>
-              </tr>
-              <tr>
-                <td><strong>재방문 자동수집 및 파기</strong></td>
-                <td>UTM · 식별자 · 개인정보 보관 여부</td>
-                <td><div class="dev-comment-box">개인정보는 데모신청 후 파기가 원칙. 재방문 직접 선택 유도 권장 (보안상 기존 보관중이면 삭제대상)</div></td>
-              </tr>
-              <tr>
-                <td><strong>CS 상담 필드 · 저장 위치</strong></td>
-                <td>코드값 · 저장소 · 연결 체계</td>
-                <td><div class="dev-comment-box">기획에 따름</div></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- SECTION 5: MVP 우선순위 -->
-        <div class="prd-section">
-          <div class="prd-section-title">
-            <span>🚀</span> 5. MVP 우선순위 (P0 / P1 / P2)
-          </div>
-
-          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 10px;">
-            <div style="background: #FEF2F2; border: 1px solid #FCA5A5; padding: 12px; border-radius: 8px;">
-              <strong style="color: #991B1B; font-size: 14px;">🔥 P0 (최우선)</strong>
-              <ul style="font-size: 12px; margin-left: 16px; margin-top: 6px; color: #7F1D1D;">
-                <li>전환 기준 정립</li>
-                <li>demo_id 연결 구조</li>
-                <li>데모↔회원사 매칭</li>
-                <li>신청 추가 필드</li>
-                <li>핵심 Activation 수집</li>
+            <div class="callout-box purple">
+              <strong>2) 개발팀 & UX팀 검토 의견:</strong>
+              <p>가입 전환율을 높이기 위해, Free Trial 바로 전환보다는 아래 3가지 수단을 우선 도입 권장:</p>
+              <ul style="margin-left: 20px; margin-top: 6px;">
+                <li><strong>가입 후 데모체험 또는 이용 로그 리포트로 사용자 분석</strong> (아웃바운드 영업 콜 유용, 업종별 프리셋 제공)</li>
+                <li><strong>튜토리얼 제공</strong> (사용자 초기 이탈 방지)</li>
+                <li><strong>데모신청 후 사용자 유입을 위해 직접 아웃바운드 연락</strong></li>
               </ul>
             </div>
 
-            <div style="background: #FFFBEB; border: 1px solid #FCD34D; padding: 12px; border-radius: 8px;">
-              <strong style="color: #92400E; font-size: 14px;">⚡ P1 (차순위)</strong>
-              <ul style="font-size: 12px; margin-left: 16px; margin-top: 6px; color: #78350F;">
-                <li>신규 Event 로그</li>
-                <li>CS 정형 데이터</li>
-                <li>실사용 비교 이벤트</li>
-              </ul>
+            <div style="background: #EFF6FF; padding: 12px 16px; border-radius: 8px; border: 1px solid #BFDBFE; color: #1E40AF; font-size: 13px;">
+              👉 <strong>최종 안건 확정:</strong> 데모체험 신청자 및 전체 사용자들의 이용 분석 및 전환율 분석을 종합하기 위해 <strong>[WeSeed CRM 데모체험 전환 분석 데이터 구축 PRD]</strong>로 수정하여 개발팀 확인 진행.
+            </div>
+          </div>
+
+          <!-- SECTION 2: PRD 목표 및 프로세스 -->
+          <div class="prd-section">
+            <div class="prd-section-title">
+              <span>🎯</span> 2. PRD 목표 / 범위 & 전환 프로세스
+            </div>
+            
+            <p><strong>[문제 상황]</strong> 현재 데모 계정과 실제 회원사의 연결 정보가 없어 <em>전환율 산출, 행동 분석, 실사용 비교</em>가 불가함.</p>
+            <p style="margin-top: 6px;"><strong>[핵심 목표 (우선순위)]</strong> ① 전환 데이터 연결 ② 신청 시 필수/선택 항목 추가 ③ 데모 시 사용자 핵심 Activation 정의 ④ 결제 미전환 사유 정형화</p>
+
+            <h4 style="margin-top: 16px; font-weight: 700; color: #0F172A;">전환율 데이터 확보를 위한 8단계 프로세스</h4>
+            <div class="flow-diagram">
+              <div class="flow-node highlight">데모 신청</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node">데모계정발급</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node">최초로그인</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node">핵심기능경험</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node">상담(CS)</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node">서비스신청</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node target">CRM 신규가입</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node target">유료이용</div>
+            </div>
+          </div>
+
+          <!-- SECTION 3: 데이터 연결 및 매칭 방식 -->
+          <div class="prd-section">
+            <div class="prd-section-title">
+              <span>🔗</span> 3. 데이터 연결 (demo_id ↔ 회원사ID) & 매칭 방식
+            </div>
+            
+            <p>모든 데이터는 <code>demo_id</code>로 1차 수집/연결되고, 최종 정식 가입 시 <code>company_id (회원사ID)</code>와 잇는 구조입니다.</p>
+
+            <div style="background: #F8FAFC; border: 1px solid #E2E8F0; padding: 16px; border-radius: 10px; margin-top: 10px;">
+              <strong>매칭 제안 방식:</strong>
+              <ol style="margin-left: 20px; margin-top: 8px;">
+                <li><strong>이메일 · 휴대전화 기반 후보 자동검색 + 관리자(sysadmin) 확인 후 최종 확정</strong><br><span style="color: #EF4444; font-weight: 700;">※ 담당자명/회사명 단독 매칭은 오매칭 위험으로 절대 금지</span></li>
+                <li><strong>후보 자동 검색 조건 중 데모체험 계정에서 바로 결제하는 경우 포함</strong> (데모체험 UI 내 유료전환 버튼 상시 노출)</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- SECTION 4: 회의 논의사항 & 이태민 개발자 코멘트 -->
+          <div class="prd-section">
+            <div class="prd-section-title">
+              <span>🗣️</span> 4. 주요 논의사항 및 개발자 코멘트 (이태민)
             </div>
 
-            <div style="background: #F0FDF4; border: 1px solid #86EFAC; padding: 12px; border-radius: 8px;">
-              <strong style="color: #166534; font-size: 14px;">🌱 P2 (향후 고도화)</strong>
-              <ul style="font-size: 12px; margin-left: 16px; margin-top: 6px; color: #14532D;">
-                <li>분석 대시보드 UI</li>
-                <li>AI 분석 엔진</li>
-                <li>세그먼트 타겟팅</li>
-              </ul>
+            <table class="prd-table">
+              <thead>
+                <tr>
+                  <th style="width: 25%;">논의 항목</th>
+                  <th style="width: 35%;">기획 선택지 / 확인 요청</th>
+                  <th style="width: 40%;">개발 코멘트 (이태민)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>최종 전환 기준 시점</strong></td>
+                  <td>신규 가입 후 계약(결제) / 활성화 시점</td>
+                  <td><div class="dev-comment-box">최종전환기준 = 신규회원사로 등록된 시점 + 이용료 결제</div></td>
+                </tr>
+                <tr>
+                  <td><strong>데모id 연결 Key 가능 여부</strong></td>
+                  <td>로그·CS·전환 join 가능성</td>
+                  <td><div class="dev-comment-box">무슨말인지 모르겟습니다. (아래 매칭 방법으로 확인)</div></td>
+                </tr>
+                <tr>
+                  <td><strong>데모 ↔ 회원사 매칭 방식</strong></td>
+                  <td>• 후보검색+관리자확정?<br>• 데모체험 화면 내 회원가입 기능 추가</td>
+                  <td><div class="dev-comment-box">선택지 두개 모두 수용 하는게 좋겠습니다.</div></td>
+                </tr>
+                <tr>
+                  <td><strong>신청 추가필드 · 코드값</strong></td>
+                  <td>업종 / 목적 / 관심기능 / 유입소</td>
+                  <td><div class="dev-comment-box">신청 추가 필드 와 코드값에 대한 정의 필요</div></td>
+                </tr>
+                <tr>
+                  <td><strong>핵심 Activation Event</strong></td>
+                  <td>영업기회 등록 등 로그 수집 범위</td>
+                  <td><div class="dev-comment-box">기존 고객/고객사/영업기회/영업활동 메뉴접근, 조회, 등록, 수정, 삭제 로그 수집됨</div></td>
+                </tr>
+                <tr>
+                  <td><strong>재방문 자동수집 및 파기</strong></td>
+                  <td>UTM · 식별자 · 개인정보 보관 여부</td>
+                  <td><div class="dev-comment-box">개인정보는 데모신청 후 파기가 원칙. 재방문 직접 선택 유도 권장 (보안상 기존 보관중이면 삭제대상)</div></td>
+                </tr>
+                <tr>
+                  <td><strong>CS 상담 필드 · 저장 위치</strong></td>
+                  <td>코드값 · 저장소 · 연결 체계</td>
+                  <td><div class="dev-comment-box">기획에 따름</div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- SECTION 5: MVP 우선순위 -->
+          <div class="prd-section">
+            <div class="prd-section-title">
+              <span>🚀</span> 5. MVP 우선순위 (P0 / P1 / P2)
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 10px;">
+              <div style="background: #FEF2F2; border: 1px solid #FCA5A5; padding: 12px; border-radius: 8px;">
+                <strong style="color: #991B1B; font-size: 14px;">🔥 P0 (최우선)</strong>
+                <ul style="font-size: 12px; margin-left: 16px; margin-top: 6px; color: #7F1D1D;">
+                  <li>전환 기준 정립</li>
+                  <li>demo_id 연결 구조</li>
+                  <li>데모↔회원사 매칭</li>
+                  <li>신청 추가 필드</li>
+                  <li>핵심 Activation 수집</li>
+                </ul>
+              </div>
+
+              <div style="background: #FFFBEB; border: 1px solid #FCD34D; padding: 12px; border-radius: 8px;">
+                <strong style="color: #92400E; font-size: 14px;">⚡ P1 (차순위)</strong>
+                <ul style="font-size: 12px; margin-left: 16px; margin-top: 6px; color: #78350F;">
+                  <li>신규 Event 로그</li>
+                  <li>CS 정형 데이터</li>
+                  <li>실사용 비교 이벤트</li>
+                </ul>
+              </div>
+
+              <div style="background: #F0FDF4; border: 1px solid #86EFAC; padding: 12px; border-radius: 8px;">
+                <strong style="color: #166534; font-size: 14px;">🌱 P2 (향후 고도화)</strong>
+                <ul style="font-size: 12px; margin-left: 16px; margin-top: 6px; color: #14532D;">
+                  <li>분석 대시보드 UI</li>
+                  <li>AI 분석 엔진</li>
+                  <li>세그먼트 타겟팅</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUB TAB 2: DEVELOPER API & DB SCHEMA SPEC -->
+        <div id="subViewSchema" class="prd-sub-view">
+          <div class="prd-section">
+            <div class="prd-section-title">
+              <span>💾</span> 1. POST /api/v1/demo-requests (신청 API JSON Payload)
+            </div>
+            <p>클라이언트에서 데모 신청 시 서버로 전송되는 Request Body 구조입니다.</p>
+
+            <div class="code-block-container">
+              <button class="btn-copy-code" onclick="copySnippet('codeJson')">복사 (Copy)</button>
+              <code id="codeJson">{
+  "company_name": "SalesPulse 테크",
+  "user_count": "21-50명",
+  "user_name": "김영업",
+  "email": "lead@company.com",
+  "phone": "010-1234-5678",
+  "job_title": "영업 이사",
+  "purchase_timeline": "즉시 도입 (1개월 이내)",
+  "industry": "IT/SaaS 소프트웨어", // [요청반영] 직접 입력 텍스트
+  "demo_purpose": "실제 도입 검토",
+  "interested_features": [
+    "고객·고객사 관리",
+    "영업기회 파이프라인",
+    "AI 영업 대시보드"
+  ],
+  "current_system": "엑셀 / 수기 / 개인 메모",
+  "privacy_agree": true,
+  "system_metadata": {
+    "created_at": "2026-08-12T11:45:00.000Z",
+    "acquisition_channel": "검색 엔진 (SEO/SA)",
+    "visit_type": "신규 (First-time)",
+    "form_duration_sec": 42,
+    "calculated_lead_score": 100
+  }
+}</code>
+            </div>
+          </div>
+
+          <div class="prd-section">
+            <div class="prd-section-title">
+              <span>🗄️</span> 2. PostgreSQL DDL (demo_requests 테이블 정의)
+            </div>
+            
+            <div class="code-block-container">
+              <button class="btn-copy-code" onclick="copySnippet('codeSql')">복사 (Copy)</button>
+              <code id="codeSql">CREATE TABLE demo_requests (
+    demo_id VARCHAR(50) PRIMARY KEY DEFAULT 'DEMO-' || TO_CHAR(NOW(), 'YYYYMMDD') || '-' || LPAD(CAST(FLOOR(RANDOM()*10000) AS TEXT), 4, '0'),
+    company_name VARCHAR(100) NOT NULL,
+    user_count VARCHAR(30) NOT NULL,
+    user_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    job_title VARCHAR(50) NOT NULL,
+    purchase_timeline VARCHAR(50) NOT NULL,
+    industry VARCHAR(100), -- [직접입력]
+    demo_purpose VARCHAR(100),
+    interested_features JSONB,
+    current_system VARCHAR(100),
+    privacy_agree BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    acquisition_channel VARCHAR(100),
+    visit_type VARCHAR(30),
+    form_duration_sec INT DEFAULT 0,
+    calculated_lead_score INT DEFAULT 50,
+    
+    -- 매칭 관리를 위한 인덱스 지정
+    CONSTRAINT idx_demo_match_keys UNIQUE (email, phone)
+);
+
+CREATE INDEX idx_demo_created ON demo_requests (created_at DESC);
+CREATE INDEX idx_demo_email ON demo_requests (email);
+CREATE INDEX idx_demo_phone ON demo_requests (phone);</code>
+            </div>
+          </div>
+
+          <div class="prd-section">
+            <div class="prd-section-title">
+              <span>🔗</span> 3. POST /api/v1/conversions/link-company (데모 ↔ 회원사 매칭 API)
+            </div>
+            
+            <div class="code-block-container">
+              <button class="btn-copy-code" onclick="copySnippet('codeMatch')">복사 (Copy)</button>
+              <code id="codeMatch">// Request
+POST /api/v1/conversions/link-company
+{
+  "demo_id": "DEMO-2026-0812-7890",
+  "company_id": "COMP-2026-9901",
+  "matched_by": "EMAIL_AND_PHONE", // Key matching rule
+  "confirmed_by": "SYSADMIN" // or DIRECT_CHECKOUT
+}
+
+// Response (200 OK)
+{
+  "status": "SUCCESS",
+  "message": "Demo data successfully inherited to company account.",
+  "linked_at": "2026-08-12T11:46:00.000Z",
+  "migrated_logs_count": 24
+}</code>
             </div>
           </div>
         </div>
@@ -1608,7 +1796,7 @@
        MODAL 2: 데모계정 ↔ 회원사 연동 유료전환 모달 시뮬레이션
        ============================================== -->
   <div class="modal-overlay" id="conversionModal">
-    <div class="modal-card" style="max-width: 580px;">
+    <div class="modal-card" style="max-width: 620px;">
       <div class="modal-header" style="background: #1E1B4B;">
         <h2>⚡ 유료 계정 전환 & 데모 데이터 매칭</h2>
         <button class="btn-close-modal" onclick="closeConversionModal()">&times;</button>
@@ -1624,7 +1812,7 @@
 
         <div class="matching-box">
           <div style="font-size: 12px; font-weight: 700; color: #10B981; margin-bottom: 8px;">
-            [Key 매칭 확인] 이메일 & 휴대폰 일치
+            [Key 매칭 검증 완료] 이메일 & 휴대전화 식별자 일치
           </div>
           
           <div class="matching-flow">
@@ -1644,6 +1832,14 @@
           </div>
         </div>
 
+        <!-- SQL MATCH QUERY CODE PREVIEW FOR DEVELOPERS -->
+        <div style="background: #0F172A; color: #38BDF8; padding: 10px 14px; border-radius: 8px; font-family: monospace; font-size: 11px; text-align: left; margin-bottom: 16px; overflow-x: auto;">
+          -- [SQL MATCHING LOGIC PREVIEW]<br>
+          SELECT * FROM demo_requests d <br>
+          JOIN company_accounts c ON (d.email = c.admin_email OR d.phone = c.admin_phone)<br>
+          WHERE d.demo_id = '<span id="sqlMatchDemoId" style="color: #A7F3D0;">DEMO-2026-0812</span>';
+        </div>
+
         <div style="text-align: left; background: #F1F5F9; padding: 14px; border-radius: 8px; font-size: 13px; margin-bottom: 20px;">
           <strong>자동 연동 항목:</strong>
           <span style="color: #475569;">데모 신청 시 수집 항목, 업종 정보, 데모 기간 중 생성된 고객/영업기회/미팅 로그 및 Activation 이력 전체</span>
@@ -1657,15 +1853,32 @@
   </div>
 
 
+  <!-- FLOATING DEV INSPECTOR PANEL FOR REALTIME DATA REVIEW -->
+  <div class="dev-inspector-panel" id="devInspectorPanel">
+    <div class="dev-inspector-header">
+      <span>📡 REALTIME PAYLOAD INSPECTOR</span>
+      <span style="font-size: 10px; color: #A7F3D0;">LIVE MONITOR</span>
+    </div>
+    <div class="dev-inspector-body" id="devInspectorContent">
+// 폼 입력 시 실시간 전송 Payload가 감지됩니다...
+    </div>
+    <div class="dev-inspector-footer">
+      <span style="font-size: 10px; color: #94A3B8;">POST /api/v1/demo-requests</span>
+      <button class="btn-dev-action" onclick="copyCurrentInspector()">Copy Payload</button>
+    </div>
+  </div>
+
+
   <!-- SCRIPT LOGIC -->
   <script>
     let formStartTime = Date.now();
     let isRecaptchaChecked = false;
+    let isDevModeActive = false;
     let generatedDemoId = "DEMO-2026-0812-7890";
     let userSubmittedEmail = "user@company.com";
 
     document.addEventListener('DOMContentLoaded', function() {
-      // 1. 자동 수집 시스템 파라미터 셋업
+      // 1. 자동 수집 파라미터 셋업
       document.getElementById('created_at').value = new Date().toISOString();
 
       const urlParams = new URLSearchParams(window.location.search);
@@ -1697,6 +1910,7 @@
           this.classList.add('selected');
           const radio = this.querySelector('input[type="radio"]');
           if (radio) radio.checked = true;
+          updateDevInspector();
         });
       });
 
@@ -1714,6 +1928,7 @@
             card.classList.remove('selected');
             alert('관심 기능은 최대 3개까지만 선택이 가능합니다.');
           }
+          updateDevInspector();
         });
       });
 
@@ -1743,16 +1958,19 @@
         const randNum = Math.floor(1000 + Math.random() * 9000);
         generatedDemoId = "DEMO-2026-" + randNum;
 
-        // 대시보드 텍스트 업데이트
+        // 대시보드 및 모달 텍스트 업데이트
         document.getElementById('dashDemoIdSpan').innerText = generatedDemoId;
         document.getElementById('displayDemoId').innerText = generatedDemoId;
         document.getElementById('displayLeadScore').innerText = leadScore + "점";
         document.getElementById('modalDemoId').innerText = generatedDemoId;
         document.getElementById('modalDemoEmail').innerText = userSubmittedEmail;
+        document.getElementById('sqlMatchDemoId').innerText = generatedDemoId;
 
         alert('데모 체험 계정이 발급되었습니다!\n[데모 체험 대시보드] 화면으로 이동합니다.');
         switchView('dashboard');
       });
+
+      updateDevInspector();
     });
 
     // 뷰 전환 함수
@@ -1776,12 +1994,77 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // 개발자 모드 토글
+    function toggleDevMode() {
+      isDevModeActive = !isDevModeActive;
+      const devBtn = document.getElementById('devModeBtn');
+      if (isDevModeActive) {
+        document.body.classList.add('dev-mode-on');
+        devBtn.classList.add('active');
+        updateDevInspector();
+      } else {
+        document.body.classList.remove('dev-mode-on');
+        devBtn.classList.remove('active');
+      }
+    }
+
+    // 실시간 Payload Inspector 업데이트
+    function updateDevInspector() {
+      const form = document.getElementById('demoRequestForm');
+      if (!form) return;
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((val, key) => {
+        if (data[key]) {
+          if (!Array.isArray(data[key])) data[key] = [data[key]];
+          data[key].push(val);
+        } else {
+          data[key] = val;
+        }
+      });
+      document.getElementById('devInspectorContent').innerText = JSON.stringify(data, null, 2);
+    }
+
+    function copyCurrentInspector() {
+      const text = document.getElementById('devInspectorContent').innerText;
+      navigator.clipboard.writeText(text);
+      alert('실시간 API JSON Payload가 클립보드에 복사되었습니다!');
+    }
+
     // PRD 모달 열기 / 닫기
-    function openPrdModal() {
+    function openPrdModal(tab = 'prd') {
       document.getElementById('prdModal').classList.add('active');
+      switchModalTab(tab);
     }
     function closePrdModal() {
       document.getElementById('prdModal').classList.remove('active');
+    }
+
+    // PRD 모달 내부 탭 전환
+    function switchModalTab(tabName) {
+      const subPrd = document.getElementById('subViewPrd');
+      const subSchema = document.getElementById('subViewSchema');
+      const tabPrd = document.getElementById('modalTabPrd');
+      const tabSchema = document.getElementById('modalTabSchema');
+
+      if (tabName === 'prd') {
+        subPrd.classList.add('active');
+        subSchema.classList.remove('active');
+        tabPrd.classList.add('active');
+        tabSchema.classList.remove('active');
+      } else {
+        subSchema.classList.add('active');
+        subPrd.classList.remove('active');
+        tabSchema.classList.add('active');
+        tabPrd.classList.remove('active');
+      }
+    }
+
+    // 코드 조각 복사
+    function copySnippet(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text);
+      alert('스펙 코드가 클립보드에 복사되었습니다!');
     }
 
     // 유료 전환 모달 열기 / 닫기
