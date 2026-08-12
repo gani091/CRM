@@ -744,16 +744,13 @@
         <!-- 1. 업종 -->
         <div class="field-group">
           <label class="field-label" for="industry">업종</label>
-          <select id="industry" name="industry" class="form-select">
-            <option value="" disabled selected>업종을 선택해주세요</option>
-            <option value="IT/소프트웨어/SaaS">IT / 소프트웨어 / SaaS</option>
-            <option value="제조/하드웨어/수출">제조 / 하드웨어 / 장비</option>
-            <option value="금융/핀테크/보험">금융 / 핀테크 / 전문 서비스</option>
-            <option value="커머스/유통/B2B마케팅">커머스 / 유통 / 도소매</option>
-            <option value="건설/부동산/인프라">건설 / 부동산 / 인프라</option>
-            <option value="의료/바이오/제약">의료 / 바이오 / 제약</option>
-            <option value="기타">기타 업종</option>
-          </select>
+          <input 
+            type="text" 
+            id="industry" 
+            name="industry" 
+            class="form-input" 
+            placeholder="업종을 직접 입력해 주세요 (예: IT/SaaS, 제조업, 유통 등)"
+          >
         </div>
 
         <!-- 2. 데모체험 목적 (요구사항 5개 항목 정확히 반영) -->
