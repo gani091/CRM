@@ -11,9 +11,14 @@
    - 기존 `무료체험 → 14일 Free Trial` 단순 전환 요구사항에서, **가입 전환율 향상 및 아웃바운드 영업 유용성 확보**를 위해 사용자 행동 분석 및 이용 로그 리포트 기반 프로세스로 고도화 변경.
    - [Figma 기획안 디자인 바로가기](https://www.figma.com/design/KfHz9ymW8fHXRg3KlKDz2k/Weseed-CRM-%EA%B3%A0%EB%8F%84%ED%99%94?node-id=161-667&t=bMttaqBvTXKZks4K-4)
 
-2. **AS-IS vs TO-BE 비교**
-   - **AS-IS**: 홈페이지 문의하기 폼 (문의 내용 구분, 회사명, 예상 인원, 담당자명, 휴대전화, 직책, 이메일, 문의내용). 식별자 `demo_id` 부재로 전환 추적 불가.
-   - **TO-BE**: 전환 분석 데이터 수집 폼 (기본 정보 + 업종 직접입력 + 데모체험 목적 + 관심 기능 선택 + 데모 신청 경력 수집 + `demo_id` 트래킹 + 유료 회원사 매칭 프로세스).
+2. **최신 변경사항 (요청 반영)**
+   - **데모 신청 폼 필드 정돈**: 불필요한 `도입 예정 시기`, `데모 신청 경력(신규/재방문)` 2개 필드 삭제 (신청 경력은 시스템 자동 로그로 대체).
+   - **P0 핵심 기능 구축 (데모 내 직접 회원가입 & 데이터 연동)**:
+     - CRM 데모 계정 진입 시 **가상 데이터 안내 팝업(이미지 1)** 노출 및 `[⚡ 회원가입하고 데이터 승계받기]` CTA 제공.
+     - CRM 상단 프로필 드롭다운(이미지 2) 내 **`[결제하기]`** 버튼으로 3단계 회원가입 폼 바로 연결.
+     - 홈페이지 요금제 회원가입 폼(이미지 3 & 4: 약관동의 → 휴대폰 인증 → 정보입력)을 데모 CRM 내부 팝업으로 연동.
+     - 데모 신청 시 작성했던 정보(`회사명`, `담당자명`, `휴대전화`, `이메일`, `업종`)가 **자동으로 Pre-fill(사전 입력)**되어 사용자 회원가입 절차 최적화.
+     - 회원가입 완료 시 `demo_id` ↔ `company_id` 매칭이 완료되어 기존 데모 데이터가 신규 유료 회원사 계정으로 승계.
 
 ---
 
@@ -24,7 +29,6 @@
 | **업종** | 직접 텍스트 입력 | 선택 | `VARCHAR(100)` (예: IT/SaaS, 제조업, 유통 등) |
 | **데모체험 목적** | 단일 선택 (라디오) | 선택 | `PURPOSE_EVALUATE` (실제 CRM 도입 검토)<br>`PURPOSE_CHECK_FEATURES` (기능 확인)<br>`PURPOSE_TEST_FIT` (사내 업무 적용 테스트)<br>`PURPOSE_COMPARE_CRM` (타 CRM과 비교)<br>`PURPOSE_ETC` (기타 + 직접 입력) |
 | **관심 기능** | 다중 선택 (체크박스/최대 3개) | 선택 | `FEAT_CUSTOMER` (고객·고객사 관리)<br>`FEAT_OPPORTUNITY` (영업기회 관리)<br>`FEAT_ACTIVITY` (영업활동 관리)<br>`FEAT_SCHEDULE` (일정 관리)<br>`FEAT_QUOTE_CONTRACT` (견적·계약 관리)<br>`FEAT_REVENUE` (매출 관리)<br>`FEAT_ANALYTICS` (통계·분석)<br>`FEAT_ETC` (기타 + 직접 입력) |
-| **신규/재방문** | 사용자 직접 선택 | 선택 | `FIRST_VISIT` (신규) / `REVISIT` (재방문)<br>※ 이태민 개발자 코멘트 반영: 보안상 개인정보 파기 원칙 준수 |
 
 ---
 
@@ -37,10 +41,9 @@
   "company_name": "위시드 테크",
   "user_count": "21-50명",
   "user_name": "김영업",
-  "email": "lead@company.com",
+  "email": "lead@weseed.io",
   "phone": "010-1234-5678",
   "job_title": "영업 이사",
-  "purchase_timeline": "즉시 도입 (1개월 이내)",
   "industry": "IT/SaaS 소프트웨어",
   "demo_purpose": "실제 CRM 도입을 검토하고 있어요",
   "interested_features": [
@@ -53,7 +56,6 @@
   "system_metadata": {
     "created_at": "2026-08-12T11:45:00.000Z",
     "acquisition_channel": "검색 엔진 (SEO/SA)",
-    "visit_type": "신규 (First-time)",
     "form_duration_sec": 42
   }
 }
@@ -70,7 +72,6 @@ CREATE TABLE demo_requests (
     email VARCHAR(100) NOT NULL,
     phone VARCHAR(20) NOT NULL,
     job_title VARCHAR(50) NOT NULL,
-    purchase_timeline VARCHAR(50) NOT NULL,
     industry VARCHAR(100),
     demo_purpose VARCHAR(100),
     interested_features JSONB,
@@ -78,7 +79,6 @@ CREATE TABLE demo_requests (
     privacy_agree BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     acquisition_channel VARCHAR(100),
-    visit_type VARCHAR(30),
     form_duration_sec INT DEFAULT 0,
     
     CONSTRAINT idx_demo_match_keys UNIQUE (email, phone)
@@ -93,18 +93,6 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
 
 ## 🚀 MVP 개발 우선순위
 
-- **P0 (최우선)**: 전환 기준 정립, `demo_id` 연결 구조, 데모↔회원사 매칭 (이메일+휴대폰 복합키 및 대시보드 내 유료 전환 버튼), 신청 추가 필드, 핵심 Activation 수집.
+- **P0 (최우선)**: 전환 기준 정립, `demo_id` 연결 구조, **데모체험 CRM 내 직접 회원가입 & Pre-fill 데이터 연동**, 데모↔회원사 매칭, 신청 추가 필드, 핵심 Activation 수집.
 - **P1 (차순위)**: 신규 Event 로그, CS 정형 데이터, 실사용 비교 이벤트.
 - **P2 (향후 고도화)**: 분석 대시보드 UI, AI 분석 엔진, 세그먼트 화면.
-
----
-
-## ⚙️ 화면 실행 방법
-
-단일 `index.html` 파일로 작성되었으며 웹 브라우저에서 바로 열거나 간이 로컬 웹 서버로 열어 테스트할 수 있습니다.
-
-- **AS-IS 문의하기 폼**: Header 내 `📌 AS-IS` 탭 선택
-- **TO-BE 고도화 데모 폼**: Header 내 `🚀 TO-BE` 탭 선택
-- **데모 체험 대시보드**: Header 내 `📊 데모 체험 대시보드` 탭 선택
-- **1:1 화면 비교**: Header 내 `🔄 AS-IS vs TO-BE 비교` 탭 선택
-- **개발자 모드**: 우측 상단 `⚙️ 개발자 모드` 버튼 클릭 시 실시간 JSON Payload 및 필드 스펙 태그가 활성화됩니다.
