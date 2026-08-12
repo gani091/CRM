@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SalesPulse CRM – 무료 데모 체험 신청 (AS-IS vs TO-BE 비교 & 고도화 PRD)</title>
-  <meta name="description" content="SalesPulse CRM 데모 체험 계정 발송 및 전환 분석 데이터 구축 화면 설계안">
+  <title>WeSeed CRM – 데모체험 전환 분석 데이터 구축 (AS-IS vs TO-BE 비교 & PRD)</title>
+  <meta name="description" content="위시드 CRM 데모 체험 신청 고도화 및 전환 분석 데이터 구축 화면 설계안">
   
   <!-- Pretendard Web Font CDN -->
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
@@ -45,9 +45,10 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
 
-    /* 1. BRAND TOP HEADER BAR */
+    /* 1. TOP BRAND HEADER BAR (WESEED NAVBAR) */
     .site-header {
       background: var(--bg-card);
       border-bottom: 1px solid var(--border-color);
@@ -65,38 +66,59 @@
     .header-left {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 24px;
     }
 
     .brand-logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       text-decoration: none;
       color: var(--text-main);
     }
 
-    .brand-badge {
-      width: 34px;
-      height: 34px;
-      background: linear-gradient(135deg, #2563EB, #1D4ED8);
-      color: #FFFFFF;
-      font-weight: 800;
-      font-size: 17px;
-      border-radius: 9px;
+    .brand-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: #2563EB;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: #FFFFFF;
+      font-weight: 900;
+      font-size: 16px;
       box-shadow: 0 2px 6px rgba(37,99,235,0.3);
     }
 
-    .brand-title {
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: -0.3px;
+    .brand-logo-text {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #0F172A;
     }
 
-    /* HEADER NAV TABS */
+    /* WESEED ORIGINAL NAV LINKS */
+    .weseed-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .weseed-nav-links a {
+      text-decoration: none;
+      color: #475569;
+      transition: color 0.2s;
+    }
+
+    .weseed-nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    /* VIEW SWITCH TABS */
     .nav-tabs {
       display: flex;
       align-items: center;
@@ -104,6 +126,7 @@
       background: #F1F5F9;
       padding: 4px;
       border-radius: 10px;
+      margin-left: 12px;
     }
 
     .nav-tab-btn {
@@ -144,7 +167,7 @@
     .header-nav-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     /* DEV MODE TOGGLE BUTTON */
@@ -196,7 +219,7 @@
     .dev-mode-toggle.active .dev-switch::after { transform: translateX(12px); background: #0F172A; }
 
     .btn-prd-trigger {
-      background: linear-gradient(135deg, #4F46E5, #7C3AED);
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
       color: #FFFFFF;
       border: none;
       padding: 8px 14px;
@@ -207,13 +230,67 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
       transition: all 0.2s ease;
     }
 
     .btn-prd-trigger:hover {
       transform: translateY(-1px);
-      box-shadow: 0 6px 16px rgba(124, 58, 237, 0.35);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    .btn-login-nav {
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+      text-decoration: none;
+    }
+
+    /* RIGHT FLOATING ACTION BAR (AS-IS MATCH) */
+    .floating-widget {
+      position: fixed;
+      right: 20px;
+      top: 280px;
+      z-index: 90;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      width: 100px;
+      overflow: hidden;
+    }
+
+    .widget-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 8px;
+      text-decoration: none;
+      color: #475569;
+      font-size: 12px;
+      font-weight: 600;
+      border-bottom: 1px solid #F1F5F9;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+
+    .widget-item:hover { background: #F8FAFC; color: #2563EB; }
+    .widget-item:last-child { border-bottom: none; }
+    
+    .widget-icon {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .widget-phone {
+      font-size: 11px;
+      font-weight: 800;
+      color: #2563EB;
+      margin-top: 2px;
+      line-height: 1.2;
     }
 
     /* DEVELOPER FIELD BADGES */
@@ -312,7 +389,7 @@
     .main-container {
       flex: 1;
       width: 100%;
-      max-width: 860px;
+      max-width: 820px;
       margin: 0 auto;
       padding: 36px 20px 64px 20px;
     }
@@ -335,6 +412,13 @@
     .hero-section {
       text-align: center;
       margin-bottom: 28px;
+    }
+
+    .hero-category {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--primary-color);
+      margin-bottom: 6px;
     }
 
     .hero-title {
@@ -403,8 +487,7 @@
       .grid-2 { grid-template-columns: 1fr; }
       .form-card { padding: 24px 18px; }
       .site-header { padding: 0 16px; }
-      .header-left { gap: 10px; }
-      .brand-title { display: none; }
+      .weseed-nav-links { display: none; }
     }
 
     .field-group {
@@ -431,7 +514,7 @@
       margin-left: auto;
     }
 
-    .form-input, .form-select {
+    .form-input, .form-select, .form-textarea {
       width: 100%;
       height: 48px;
       padding: 0 16px;
@@ -445,9 +528,15 @@
       transition: all 0.2s ease;
     }
 
-    .form-input::placeholder { color: var(--text-muted); }
+    .form-textarea {
+      height: 130px;
+      padding: 12px 16px;
+      resize: vertical;
+    }
 
-    .form-input:focus, .form-select:focus {
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--text-muted); }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
       border-color: var(--border-focus);
       box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
     }
@@ -529,13 +618,9 @@
     /* CHECKBOX GRID */
     .checkbox-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
       margin-top: 4px;
-    }
-
-    @media (max-width: 560px) {
-      .checkbox-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     .checkbox-card {
@@ -583,11 +668,8 @@
     .checkbox-card.etc-card { grid-column: span 2; }
 
     @media (max-width: 560px) {
-      .checkbox-card.etc-card {
-        grid-column: span 1;
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      .checkbox-grid { grid-template-columns: 1fr; }
+      .checkbox-card.etc-card { grid-column: span 1; flex-direction: column; align-items: flex-start; }
       .checkbox-card.etc-card .inline-text-input { width: 100%; }
     }
 
@@ -861,7 +943,7 @@
       background: #FFFFFF;
       border-radius: 16px;
       width: 100%;
-      max-width: 940px;
+      max-width: 960px;
       max-height: 90vh;
       display: flex;
       flex-direction: column;
@@ -1147,21 +1229,47 @@
 </head>
 <body>
 
+  <!-- RIGHT FLOATING WIDGET (AS-IS MATCH) -->
+  <aside class="floating-widget">
+    <div class="widget-item" onclick="switchView('form')">
+      <span class="widget-icon">💻</span>
+      <span>데모체험</span>
+    </div>
+    <div class="widget-item" onclick="switchView('asis')">
+      <span class="widget-icon">📝</span>
+      <span>문의하기</span>
+    </div>
+    <div class="widget-item">
+      <span class="widget-icon">📞</span>
+      <span>전화상담</span>
+      <span class="widget-phone">070<br>5001 0869</span>
+    </div>
+  </aside>
+
   <!-- 1. BRAND TOP HEADER BAR -->
   <header class="site-header">
     <div class="header-left">
-      <a href="#" class="brand-logo">
-        <div class="brand-badge">S</div>
-        <span class="brand-title">SalesPulse CRM</span>
+      <a href="#" class="brand-logo" onclick="switchView('form'); return false;">
+        <div class="brand-logo-icon">W</div>
+        <span class="brand-logo-text">WESEED</span>
       </a>
+
+      <!-- WESEED ORIGINAL SITE LINKS -->
+      <nav class="weseed-nav-links">
+        <a href="#">요금</a>
+        <a href="#" onclick="switchView('asis'); return false;">고객지원</a>
+        <a href="#">도입사례</a>
+        <a href="#">위시드</a>
+        <a href="#">패밀리사이트 ▾</a>
+      </nav>
       
-      <!-- NAV VIEW TABS -->
+      <!-- NAV VIEW SWITCHER TABS -->
       <nav class="nav-tabs">
         <button type="button" class="nav-tab-btn" id="tabAsIsBtn" onclick="switchView('asis')">
-          📌 AS-IS <span class="badge-mini asis">기존 폼</span>
+          📌 AS-IS <span class="badge-mini asis">기존 문의 폼</span>
         </button>
         <button type="button" class="nav-tab-btn active" id="tabFormBtn" onclick="switchView('form')">
-          🚀 TO-BE <span class="badge-mini tobe">고도화 폼</span>
+          🚀 TO-BE <span class="badge-mini tobe">고도화 데모 폼</span>
         </button>
         <button type="button" class="nav-tab-btn" id="tabDashBtn" onclick="switchView('dashboard')">
           📊 데모 체험 대시보드
@@ -1182,13 +1290,8 @@
       <button type="button" class="btn-prd-trigger" onclick="openPrdModal('prd')">
         💡 PRD & 개발자 질의 checklist
       </button>
-      
-      <span class="trust-pill">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
-        14일 무료 체험
-      </span>
+
+      <a href="#" class="btn-login-nav">로그인</a>
     </div>
   </header>
 
@@ -1196,22 +1299,36 @@
   <main class="main-container" id="mainContainer">
 
     <!-- ==============================================
-         VIEW 0: AS-IS 기존 데모 신청 폼 (ORIGINAL AS-IS FORM)
-         * 첨부해 주신 이미지 기준 100% 동일 구현
+         VIEW 0: AS-IS 기존 홈페이지 문의하기 폼 (ORIGINAL AS-IS FORM)
+         * 사용자 첨부 이미지 기준 100% 동일 구현
          ============================================== -->
     <div id="viewAsIs" class="view-section">
       <section class="hero-section">
-        <h1 class="hero-title">입력하신 이메일 주소로<br>데모 체험 계정을 발송합니다</h1>
-        <p class="hero-subtitle">데모 계정은 발급일로부터 14일간 사용 가능합니다.</p>
+        <div class="hero-category">문의하기</div>
+        <h1 class="hero-title">위시드의 어떤 서비스가 궁금하신가요?</h1>
       </section>
 
-      <form class="form-card" id="asisRequestForm" style="max-width: 580px; margin: 0 auto;">
+      <form class="form-card" id="asisRequestForm" style="max-width: 600px; margin: 0 auto;">
         <div style="background: #FEF2F2; border: 1px solid #FCA5A5; color: #991B1B; padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; margin-bottom: 24px; text-align: center;">
-          ⚠️ [AS-IS 기존 화면] 6개 기본 정보만 수집되며, demo_id 연결 및 유입경로/이용분석 데이터는 미수집됩니다.
+          ⚠️ [AS-IS 기존 문의 폼] 단순 문의 접수 형태이며, demo_id 연결 및 유입경로/업종/데모목적 데이터는 미수집됩니다.
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 20px;">
-          <!-- 1. 회사명 -->
+          <!-- 1. 문의 내용 구분 -->
+          <div class="field-group">
+            <label class="field-label" for="asis_category">
+              문의 내용 구분 <span class="required">*</span>
+              <span class="dev-field-tag">inquiry_category</span>
+            </label>
+            <select id="asis_category" class="form-select" required>
+              <option value="기능 문의" selected>기능 문의</option>
+              <option value="요금 및 도입 문의">요금 및 도입 문의</option>
+              <option value="기술 지원">기술 지원</option>
+              <option value="기타 문의">기타 문의</option>
+            </select>
+          </div>
+
+          <!-- 2. 회사명 -->
           <div class="field-group">
             <label class="field-label" for="asis_company_name">
               회사명 <span class="required">*</span>
@@ -1220,7 +1337,7 @@
             <input type="text" id="asis_company_name" class="form-input" placeholder="회사 또는 단체명을 입력해주세요" required>
           </div>
 
-          <!-- 2. 예상 사용 인원 -->
+          <!-- 3. 예상 사용 인원 -->
           <div class="field-group">
             <label class="field-label" for="asis_user_count">
               예상 사용 인원 <span class="required">*</span>
@@ -1229,7 +1346,7 @@
             <input type="text" id="asis_user_count" class="form-input" placeholder="예상 사용 인원을 입력해주세요" required>
           </div>
 
-          <!-- 3. 담당자 이름 -->
+          <!-- 4. 담당자 이름 -->
           <div class="field-group">
             <label class="field-label" for="asis_user_name">
               담당자 이름 <span class="required">*</span>
@@ -1238,22 +1355,13 @@
             <input type="text" id="asis_user_name" class="form-input" placeholder="담당자 이름을 입력해 주세요" required>
           </div>
 
-          <!-- 4. 회사 이메일 -->
-          <div class="field-group">
-            <label class="field-label" for="asis_email">
-              회사 이메일 <span class="required">*</span>
-              <span class="dev-field-tag">email</span>
-            </label>
-            <input type="email" id="asis_email" class="form-input" placeholder="이메일을 입력해 주세요" required>
-          </div>
-
           <!-- 5. 휴대전화 -->
           <div class="field-group">
             <label class="field-label" for="asis_phone">
               휴대전화 <span class="required">*</span>
               <span class="dev-field-tag">phone</span>
             </label>
-            <input type="tel" id="asis_phone" class="form-input" placeholder="010-0000-0000" value="010-5029-1483" required>
+            <input type="tel" id="asis_phone" class="form-input" placeholder="휴대전화를 입력해 주세요" required>
           </div>
 
           <!-- 6. 직책 -->
@@ -1263,6 +1371,34 @@
               <span class="dev-field-tag">job_title</span>
             </label>
             <input type="text" id="asis_job_title" class="form-input" placeholder="담당하고 계시는 직책을 입력해 주세요" required>
+          </div>
+
+          <!-- 7. 회사 이메일 -->
+          <div class="field-group">
+            <label class="field-label" for="asis_email">
+              회사 이메일 <span class="required">*</span>
+              <span class="dev-field-tag">email</span>
+            </label>
+            <input type="email" id="asis_email" class="form-input" placeholder="이메일을 입력해 주세요" required>
+          </div>
+
+          <!-- 8. 문의 내용 -->
+          <div class="field-group">
+            <label class="field-label" for="asis_content">
+              문의 내용 <span class="required">*</span>
+              <span class="sub-info"><span id="asisCharCount">0</span> / 2000</span>
+              <span class="dev-field-tag">content</span>
+            </label>
+            <textarea id="asis_content" class="form-textarea" placeholder="문의내용을 입력하세요." maxlength="2000" oninput="document.getElementById('asisCharCount').innerText = this.value.length"></textarea>
+          </div>
+
+          <!-- 개인정보 수집 및 이용 동의 -->
+          <div style="margin-top: 4px; font-size: 13px; color: var(--text-sub);">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" id="asis_privacy" required>
+              <span>개인정보 수집 및 이용에 동의합니다.</span>
+              <a href="#" onclick="alert('개인정보 수집 항목: 회사명, 이메일, 연락처 등\n수집 목적: 서비스 문의 답변 및 안내'); return false;" style="color: #2563EB; text-decoration: underline; margin-left: 4px;">내용보기</a>
+            </label>
           </div>
 
           <!-- reCAPTCHA -->
@@ -1285,7 +1421,7 @@
           </div>
 
           <button type="button" class="btn-submit" style="background: #CBD5E1; color: #475569;" onclick="submitAsIs()">
-            데모 체험하기 (AS-IS 기존 방식 제출)
+            문의하기 (AS-IS 기존 방식 제출)
           </button>
         </div>
       </form>
@@ -1297,6 +1433,7 @@
          ============================================== -->
     <div id="viewForm" class="view-section active">
       <section class="hero-section">
+        <div class="hero-category">위시드 CRM 데모체험 신청</div>
         <h1 class="hero-title">입력하신 이메일 주소로<br>데모 체험 계정을 발송합니다</h1>
         <p class="hero-subtitle">데모 계정은 발급일로부터 14일간 무료로 사용 가능합니다.</p>
       </section>
@@ -1305,9 +1442,7 @@
         <!-- Hidden system tracking fields -->
         <input type="hidden" id="created_at" name="created_at" value="">
         <input type="hidden" id="acquisition_channel" name="acquisition_channel" value="">
-        <input type="hidden" id="visit_type" name="visit_type" value="">
         <input type="hidden" id="form_duration_sec" name="form_duration_sec" value="0">
-        <input type="hidden" id="calculated_lead_score" name="calculated_lead_score" value="0">
 
         <!-- SECTION 1: 기본 정보 (필수) -->
         <div class="section-header">
@@ -1336,10 +1471,10 @@
             </label>
             <select id="user_count" name="user_count" class="form-select" required onchange="updateDevInspector()">
               <option value="" disabled selected>예상 사용 인원을 선택해주세요</option>
-              <option value="1-5명">1 ~ 5명 (스타트업/소규모)</option>
+              <option value="1-5명">1 ~ 5명 (소규모/팀)</option>
               <option value="6-20명">6 ~ 20명 (중소기업)</option>
-              <option value="21-50명">21 ~ 50명 (중견 성장기업)</option>
-              <option value="51-100명">51 ~ 100명 (대규모 영업팀)</option>
+              <option value="21-50명">21 ~ 50명 (성장기업)</option>
+              <option value="51-100명">51 ~ 100명 (대규모 영업조직)</option>
               <option value="100명 이상">100명 이상 (엔터프라이즈)</option>
             </select>
           </div>
@@ -1384,7 +1519,7 @@
           <div class="field-group" style="grid-column: span 2;">
             <label class="field-label" for="purchase_timeline">
               도입 예정 시기 <span class="required">*</span>
-              <span class="dev-field-tag">purchase_timeline: Enum (+LeadScore)</span>
+              <span class="dev-field-tag">purchase_timeline: Enum</span>
               <span class="sub-info">빠른 도입을 원하실 경우 우선 지원됩니다</span>
             </label>
             <select id="purchase_timeline" name="purchase_timeline" class="form-select" required onchange="updateDevInspector()">
@@ -1399,17 +1534,18 @@
 
         <div class="divider"></div>
 
-        <!-- SECTION 2: 영업 맞춤 정보 (선택) -->
+        <!-- SECTION 2: 전환 분석 데이터 수집 (PRD 요청 항목) -->
         <div class="section-header">
           <div class="section-title">
-            맞춤 정보 세팅
-            <span class="dev-field-tag">SYS_SECTION_2_OPTIONAL</span>
+            데모체험 분석 데이터 수집
+            <span class="dev-field-tag">SYS_SECTION_2_ANALYTICS</span>
           </div>
-          <span class="section-badge optional-badge">선택 사항</span>
+          <span class="section-badge optional-badge">맞춤 설정 (선택)</span>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 22px;">
-          <!-- 1. 업종 (직접 입력 텍스트 필드로 반영 완료) -->
+          
+          <!-- 1. 업종 (직접 입력값 필드) -->
           <div class="field-group">
             <label class="field-label" for="industry">
               업종
@@ -1420,37 +1556,40 @@
               id="industry" 
               name="industry" 
               class="form-input" 
-              placeholder="업종을 직접 입력해 주세요 (예: IT/SaaS, 제조업, 유통 등)"
+              placeholder="업종을 직접 입력해 주세요 (예: IT/SaaS, 제조업, 유통, 금융 등)"
               oninput="updateDevInspector()"
             >
           </div>
 
-          <!-- 2. 데모체험 목적 -->
+          <!-- 2. 데모체험 목적 (단일선택 라디오) -->
           <div class="field-group">
             <label class="field-label">
-              데모 신청 목적
-              <span class="dev-field-tag">demo_purpose: String(100)</span>
+              데모체험 목적
+              <span class="dev-field-tag">demo_purpose: Enum(5)</span>
             </label>
+            <p style="font-size: 13px; color: var(--text-sub); margin-bottom: 4px;">
+              위시드 CRM을 체험하는 가장 큰 목적은 무엇인가요?
+            </p>
             
             <div class="radio-stack" id="purposeRadioGroup">
               <label class="radio-card selected">
-                <input type="radio" name="demo_purpose" value="실제 도입 검토" checked onchange="updateDevInspector()">
-                <span class="radio-text">실제 CRM 도입 검토</span>
+                <input type="radio" name="demo_purpose" value="실제 CRM 도입을 검토하고 있어요" checked onchange="updateDevInspector()">
+                <span class="radio-text">실제 CRM 도입을 검토하고 있어요</span>
               </label>
 
               <label class="radio-card">
-                <input type="radio" name="demo_purpose" value="제품 서비스 기능 확인" onchange="updateDevInspector()">
-                <span class="radio-text">제품 / 서비스 기능 확인</span>
+                <input type="radio" name="demo_purpose" value="위시드 CRM의 기능을 확인하고 싶어요" onchange="updateDevInspector()">
+                <span class="radio-text">위시드 CRM의 기능을 확인하고 싶어요</span>
               </label>
 
               <label class="radio-card">
-                <input type="radio" name="demo_purpose" value="사내 테스트" onchange="updateDevInspector()">
-                <span class="radio-text">사내 업무 적용 테스트</span>
+                <input type="radio" name="demo_purpose" value="사내 업무 적용을 테스트하고 싶어요" onchange="updateDevInspector()">
+                <span class="radio-text">사내 업무 적용을 테스트하고 싶어요</span>
               </label>
 
               <label class="radio-card">
-                <input type="radio" name="demo_purpose" value="경쟁제품비교" onchange="updateDevInspector()">
-                <span class="radio-text">타 경쟁 제품 비교</span>
+                <input type="radio" name="demo_purpose" value="다른 CRM과 비교하고 있어요" onchange="updateDevInspector()">
+                <span class="radio-text">다른 CRM과 비교하고 있어요</span>
               </label>
 
               <label class="radio-card">
@@ -1463,12 +1602,16 @@
             </div>
           </div>
 
-          <!-- 3. 관심 있는 주요 기능 (최대 3개) -->
+          <!-- 3. 관심 기능 항목 (복수선택, 최대 3개) -->
           <div class="field-group">
             <label class="field-label">
-              관심 있는 주요 기능 <span class="sub-info">(최대 3개 선택)</span>
-              <span class="dev-field-tag">interested_features: Array[String] (Max 3)</span>
+              관심 있는 기능
+              <span class="sub-info">(최대 3개 선택 가능)</span>
+              <span class="dev-field-tag">interested_features: Array[Enum] (Max 3)</span>
             </label>
+            <p style="font-size: 13px; color: var(--text-sub); margin-bottom: 4px;">
+              데모에서 확인하고 싶은 기능을 선택해 주세요.
+            </p>
 
             <div class="checkbox-grid" id="featuresGrid">
               <label class="checkbox-card">
@@ -1478,32 +1621,32 @@
 
               <label class="checkbox-card">
                 <input type="checkbox" name="interested_features" value="영업기회 관리" onchange="updateDevInspector()">
-                <span class="checkbox-label">영업기회 파이프라인</span>
+                <span class="checkbox-label">영업기회 관리</span>
               </label>
 
               <label class="checkbox-card">
                 <input type="checkbox" name="interested_features" value="영업활동 관리" onchange="updateDevInspector()">
-                <span class="checkbox-label">영업활동 / 미팅 기록</span>
+                <span class="checkbox-label">영업활동 관리</span>
               </label>
 
               <label class="checkbox-card">
                 <input type="checkbox" name="interested_features" value="일정 관리" onchange="updateDevInspector()">
-                <span class="checkbox-label">캘린더 및 일정 관리</span>
+                <span class="checkbox-label">일정 관리</span>
               </label>
 
               <label class="checkbox-card">
                 <input type="checkbox" name="interested_features" value="견적·계약 관리" onchange="updateDevInspector()">
-                <span class="checkbox-label">견적서 & 계약 관리</span>
+                <span class="checkbox-label">견적·계약 관리</span>
               </label>
 
               <label class="checkbox-card">
                 <input type="checkbox" name="interested_features" value="매출 관리" onchange="updateDevInspector()">
-                <span class="checkbox-label">매출 및 수주 실적</span>
+                <span class="checkbox-label">매출 관리</span>
               </label>
 
               <label class="checkbox-card">
                 <input type="checkbox" name="interested_features" value="통계·분석" onchange="updateDevInspector()">
-                <span class="checkbox-label">AI 영업 대시보드</span>
+                <span class="checkbox-label">통계·분석</span>
               </label>
 
               <label class="checkbox-card etc-card">
@@ -1516,7 +1659,22 @@
             </div>
           </div>
 
-          <!-- 4. 현재 관리 방식 -->
+          <!-- 4. 데모 신청 경력 (보안 정책 반영 직접 선택) -->
+          <div class="field-group">
+            <label class="field-label" for="visit_type">
+              데모 신청 경력 (신규 / 재방문)
+              <span class="dev-field-tag">visit_type: Enum [DIRECT_CHOICE]</span>
+            </label>
+            <select id="visit_type" name="visit_type" class="form-select" onchange="updateDevInspector()">
+              <option value="신규 (First-time)" selected>처음 신청합니다 (신규 신청자)</option>
+              <option value="재방문 (Returning)">이전에 데모를 신청/사용한 경험이 있습니다 (재방문)</option>
+            </select>
+            <p style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">
+              🔒 개발 코멘트 반영: 개인정보는 데모신청 이후 파기가 원칙이므로 재방문 여부를 사용자 직접 선택으로 수집합니다.
+            </p>
+          </div>
+
+          <!-- 5. 현재 관리 방식 -->
           <div class="field-group">
             <label class="field-label" for="current_system">
               현재 영업/고객 데이터 관리 방식
@@ -1560,7 +1718,7 @@
           </div>
         </div>
 
-        <button type="submit" class="btn-submit" id="btnSubmit">데모 체험 신청하기</button>
+        <button type="submit" class="btn-submit" id="btnSubmit">14일 무료 데모체험 신청하기</button>
       </form>
     </div>
 
@@ -1585,7 +1743,7 @@
       </div>
 
       <div class="hero-section" style="text-align: left; margin-bottom: 20px;">
-        <h2 style="font-size: 22px; font-weight: 800;">SalesPulse CRM 체험 대시보드</h2>
+        <h2 style="font-size: 22px; font-weight: 800;">WeSeed CRM 데모 체험 대시보드</h2>
         <p class="hero-subtitle">실시간 영업 데이터 및 고객 인터랙션 현황입니다.</p>
       </div>
 
@@ -1606,9 +1764,9 @@
         </div>
 
         <div class="dash-card">
-          <div class="dash-card-header">가망고객 점수 (Lead Score)</div>
-          <div class="dash-card-value" style="color: #10B981;" id="displayLeadScore">100점</div>
-          <div class="dash-card-sub">🔥 최우선 영업 지원 대상</div>
+          <div class="dash-card-header">데모 체험 세션 상태</div>
+          <div class="dash-card-value" style="color: #10B981;">활성화</div>
+          <div class="dash-card-sub">🔥 영업 콜 유용 로그 기록 중</div>
         </div>
       </div>
 
@@ -1676,27 +1834,29 @@
     <div id="viewCompare" class="view-section">
       <div class="hero-section">
         <h2 style="font-size: 24px; font-weight: 800;">AS-IS vs TO-BE 화면 및 데이터 비교</h2>
-        <p class="hero-subtitle">운영 중인 기존 데모 신청 화면과 이번 전환 분석 고도화 폼의 변화를 1:1로 비교합니다.</p>
+        <p class="hero-subtitle">운영 중인 기존 홈페이지 문의하기 폼과 이번 데모체험 전환 분석 고도화 폼의 변화를 1:1로 비교합니다.</p>
       </div>
 
       <div class="compare-grid">
         <!-- LEFT: AS-IS CARD -->
         <div class="compare-card asis-card">
-          <span class="compare-badge asis">🔴 AS-IS (기존 운영 화면)</span>
-          <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px;">단순 정보 입력 폼</h3>
+          <span class="compare-badge asis">🔴 AS-IS (기존 문의 접수 폼)</span>
+          <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px;">단순 문의 접수 폼</h3>
           <p style="font-size: 13px; color: #64748B; margin-bottom: 16px;">
-            첨부해 주신 이미지 기준의 기존 6개 기본 필수 항목만 존재
+            첨부해 주신 이미지 기준의 문의 내용 구분 및 8개 기본 필수 항목만 존재
           </p>
 
           <div style="background: #FFF; border: 1px solid #E2E8F0; padding: 16px; border-radius: 8px; font-size: 13px;">
-            <strong style="color: #0F172A;">수집 항목 (총 6개):</strong>
+            <strong style="color: #0F172A;">수집 항목 (총 8개):</strong>
             <ul style="margin-left: 20px; margin-top: 6px; color: #475569;">
+              <li>문의 내용 구분 (기능/요금 등)</li>
               <li>회사명</li>
               <li>예상 사용 인원</li>
               <li>담당자 이름</li>
-              <li>회사 이메일</li>
               <li>휴대전화</li>
               <li>직책</li>
+              <li>회사 이메일</li>
+              <li>문의 내용 (서술형 텍스트)</li>
             </ul>
           </div>
 
@@ -1704,8 +1864,8 @@
             <strong>🚨 AS-IS의 문제점 (PRD 기반):</strong>
             <ul style="margin-left: 20px; margin-top: 6px;">
               <li><code>demo_id</code> 및 추적 식별자 부재로 실사용 회원사 전환 매칭 불가</li>
-              <li>유입 채널(SEO, 광고 등) 및 폼 체류시간 데이터 미수집</li>
-              <li>영업 가망 우회 판별 기준(도입 시기, 업종, 목적) 부재</li>
+              <li>업종(입력값), 데모체험 목적, 관심 기능 미수집으로 사용자 분석 불가</li>
+              <li>데모 체험 후 유료 결제 전환 연동 프로세스 부재</li>
             </ul>
           </div>
         </div>
@@ -1719,14 +1879,14 @@
           </p>
 
           <div style="background: #FFF; border: 1px solid #E2E8F0; padding: 16px; border-radius: 8px; font-size: 13px;">
-            <strong style="color: #0F172A;">추가/개선된 수집 항목 (총 15개 파라미터):</strong>
+            <strong style="color: #0F172A;">추가/개선된 수집 항목:</strong>
             <ul style="margin-left: 20px; margin-top: 6px; color: #059669;">
               <li><strong>[필수 추가]</strong> 도입 예정 시기</li>
-              <li><strong>[선택 추가]</strong> 업종 (직접 입력 반영)</li>
-              <li><strong>[선택 추가]</strong> 데모 신청 목적 (라디오 5종)</li>
-              <li><strong>[선택 추가]</strong> 관심 있는 주요 기능 (최대 3개)</li>
-              <li><strong>[선택 추가]</strong> 현재 영업 데이터 관리 방식</li>
-              <li><strong>[자동 수집]</strong> demo_id, 신청일시, 유입경로, 신규/재방문, 작성시간, Lead Score</li>
+              <li><strong>[선택 추가]</strong> 업종 (직접 입력값)</li>
+              <li><strong>[선택 추가]</strong> 데모체험 목적 (위시드 CRM 검토/기능확인/사내테스트/타사비교/기타)</li>
+              <li><strong>[선택 추가]</strong> 관심 기능 항목 (고객/영업기회/영업활동/일정/견적계약/매출/통계분석/기타 - 최대 3개)</li>
+              <li><strong>[보안 반영]</strong> 데모 신청 경력 (신규/재방문 직접 선택)</li>
+              <li><strong>[자동 수집]</strong> demo_id, 신청일시, 유입경로, 작성시간</li>
             </ul>
           </div>
 
@@ -1735,7 +1895,7 @@
             <ul style="margin-left: 20px; margin-top: 6px;">
               <li><code>demo_id</code> ↔ <code>company_id</code> 이메일/휴대폰 키 기반 자동/관리자 매칭</li>
               <li>체험 대시보드 내 유료계정 전환 버튼 상시 노출로 즉시 가입 유도</li>
-              <li>Activation 4대 핵심 이벤트를 수집하여 이탈률 정밀 분석</li>
+              <li>Activation 4대 핵심 이벤트를 수집하여 이탈률 및 사용 패턴 정밀 분석</li>
             </ul>
           </div>
         </div>
@@ -1753,7 +1913,7 @@
       <a href="#">서비스 이용약관</a>
       <a href="#">개인정보처리방침</a>
     </div>
-    <p>© 2026 SalesPulse Inc. All rights reserved. 서울특별시 강남구 테헤란로 521</p>
+    <p>© 2026 WeSeed Inc. All rights reserved. 위시드 CRM 데모체험 전환 분석 데이터 구축</p>
   </footer>
 
 
@@ -1802,9 +1962,9 @@
               <strong>2) 개발팀 & UX팀 검토 의견:</strong>
               <p>가입 전환율을 높이기 위해, Free Trial 바로 전환보다는 아래 3가지 수단을 우선 도입 권장:</p>
               <ul style="margin-left: 20px; margin-top: 6px;">
-                <li><strong>가입 후 데모체험 또는 이용 로그 리포트로 사용자 분석</strong> (아웃바운드 영업 콜 유용, 업종별 프리셋 제공)</li>
+                <li><strong>가입 후 데모체험 또는 사용 로그 리포트로 사용자 분석</strong> (아웃바운드 영업 콜 유용, 업종별 프리셋 제공 가능 등)</li>
                 <li><strong>튜토리얼 제공</strong> (사용자 초기 이탈 방지)</li>
-                <li><strong>데모신청 후 사용자 유입을 위해 직접 아웃바운드 연락</strong></li>
+                <li><strong>데모신청 이후 사용자 유입을 위해 직접 연락</strong></li>
               </ul>
             </div>
 
@@ -1819,8 +1979,8 @@
               <span>🎯</span> 2. PRD 목표 / 범위 & 전환 프로세스
             </div>
             
-            <p><strong>[문제 상황]</strong> 현재 데모 계정과 실제 회원사의 연결 정보가 없어 <em>전환율 산출, 행동 분석, 실사용 비교</em>가 불가함.</p>
-            <p style="margin-top: 6px;"><strong>[핵심 목표 (우선순위)]</strong> ① 전환 데이터 연결 ② 신청 시 필수/선택 항목 추가 ③ 데모 시 사용자 핵심 Activation 정의 ④ 결제 미전환 사유 정형화</p>
+            <p><strong>[문제 Situation]</strong> 현재 데모 계정과 실제 회원사의 연결 정보가 없어 <em>전환율 산출, 행동 분석, 실사용 비교</em>가 모두 불가함.</p>
+            <p style="margin-top: 6px;"><strong>[핵심 목표 (우선순위)]</strong> ① 전환 데이터 연결 ② 신청 시 항목 추가하여 데이터 확보 ③ 데모 시 사용자 핵심 Activation 정의 ④ 결제 미전환 사유 정형화</p>
 
             <h4 style="margin-top: 16px; font-weight: 700; color: #0F172A;">전환율 데이터 확보를 위한 8단계 프로세스</h4>
             <div class="flow-diagram">
@@ -1956,14 +2116,71 @@
         <div id="subViewSchema" class="prd-sub-view">
           <div class="prd-section">
             <div class="prd-section-title">
-              <span>💾</span> 1. POST /api/v1/demo-requests (신청 API JSON Payload)
+              <span>📋</span> 1. 신청 추가 필드 코드값 정의표
             </div>
-            <p>클라이언트에서 데모 신청 시 서버로 전송되는 Request Body 구조입니다.</p>
+            
+            <table class="prd-table">
+              <thead>
+                <tr>
+                  <th>항목명</th>
+                  <th>입력/수집 방식</th>
+                  <th>필수 여부</th>
+                  <th>코드값 및 선택지 정의</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>업종</strong></td>
+                  <td>입력 (직접 텍스트)</td>
+                  <td>선택</td>
+                  <td><code>VARCHAR(100)</code> 자유 텍스트 (예: IT/SaaS, 제조업, 유통 등)</td>
+                </tr>
+                <tr>
+                  <td><strong>데모체험 목적</strong></td>
+                  <td>단일 선택 (라디오)</td>
+                  <td>선택</td>
+                  <td>
+                    <code>PURPOSE_EVALUATE</code> (실제 CRM 도입 검토)<br>
+                    <code>PURPOSE_CHECK_FEATURES</code> (기능 확인)<br>
+                    <code>PURPOSE_TEST_FIT</code> (사내 업무 적용 테스트)<br>
+                    <code>PURPOSE_COMPARE_CRM</code> (타 CRM과 비교)<br>
+                    <code>PURPOSE_ETC</code> (기타 + 직접 입력)
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>관심 기능</strong></td>
+                  <td>다중 선택 (체크박스/최대 3개)</td>
+                  <td>선택</td>
+                  <td>
+                    <code>FEAT_CUSTOMER</code> (고객·고객사 관리)<br>
+                    <code>FEAT_OPPORTUNITY</code> (영업기회 관리)<br>
+                    <code>FEAT_ACTIVITY</code> (영업활동 관리)<br>
+                    <code>FEAT_SCHEDULE</code> (일정 관리)<br>
+                    <code>FEAT_QUOTE_CONTRACT</code> (견적·계약 관리)<br>
+                    <code>FEAT_REVENUE</code> (매출 관리)<br>
+                    <code>FEAT_ANALYTICS</code> (통계·분석)<br>
+                    <code>FEAT_ETC</code> (기타 + 직접 입력)
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>신규/재방문</strong></td>
+                  <td>사용자 직접 선택 (보안정책)</td>
+                  <td>선택</td>
+                  <td><code>FIRST_VISIT</code> (신규) / <code>REVISIT</code> (재방문)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="prd-section">
+            <div class="prd-section-title">
+              <span>💾</span> 2. POST /api/v1/demo-requests (신청 API JSON Payload)
+            </div>
 
             <div class="code-block-container">
               <button class="btn-copy-code" onclick="copySnippet('codeJson')">복사 (Copy)</button>
               <code id="codeJson">{
-  "company_name": "SalesPulse 테크",
+  "company_name": "위시드 테크",
   "user_count": "21-50명",
   "user_name": "김영업",
   "email": "lead@company.com",
@@ -1971,11 +2188,11 @@
   "job_title": "영업 이사",
   "purchase_timeline": "즉시 도입 (1개월 이내)",
   "industry": "IT/SaaS 소프트웨어", // [요청반영] 직접 입력 텍스트
-  "demo_purpose": "실제 도입 검토",
+  "demo_purpose": "실제 CRM 도입을 검토하고 있어요",
   "interested_features": [
     "고객·고객사 관리",
-    "영업기회 파이프라인",
-    "AI 영업 대시보드"
+    "영업기회 관리",
+    "통계·분석"
   ],
   "current_system": "엑셀 / 수기 / 개인 메모",
   "privacy_agree": true,
@@ -1983,8 +2200,7 @@
     "created_at": "2026-08-12T11:45:00.000Z",
     "acquisition_channel": "검색 엔진 (SEO/SA)",
     "visit_type": "신규 (First-time)",
-    "form_duration_sec": 42,
-    "calculated_lead_score": 100
+    "form_duration_sec": 42
   }
 }</code>
             </div>
@@ -1992,7 +2208,7 @@
 
           <div class="prd-section">
             <div class="prd-section-title">
-              <span>🗄️</span> 2. PostgreSQL DDL (demo_requests 테이블 정의)
+              <span>🗄️</span> 3. PostgreSQL DDL (demo_requests 테이블 정의)
             </div>
             
             <div class="code-block-container">
@@ -2015,7 +2231,6 @@
     acquisition_channel VARCHAR(100),
     visit_type VARCHAR(30),
     form_duration_sec INT DEFAULT 0,
-    calculated_lead_score INT DEFAULT 50,
     
     -- 매칭 관리를 위한 인덱스 지정
     CONSTRAINT idx_demo_match_keys UNIQUE (email, phone)
@@ -2029,12 +2244,12 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);</code>
 
           <div class="prd-section">
             <div class="prd-section-title">
-              <span>🔗</span> 3. POST /api/v1/conversions/link-company (데모 ↔ 회원사 매칭 API)
+              <span>🔗</span> 4. POST /api/v1/conversions/link-company (데모 ↔ 회원사 매칭 API)
             </div>
             
             <div class="code-block-container">
               <button class="btn-copy-code" onclick="copySnippet('codeMatch')">복사 (Copy)</button>
-              <code id="codeMatch">// Request
+              <code id="codeMatch">// Request Body
 POST /api/v1/conversions/link-company
 {
   "demo_id": "DEMO-2026-0812-7890",
@@ -2090,13 +2305,13 @@ POST /api/v1/conversions/link-company
 
             <div class="question-card">
               <div class="question-title">
-                <span>Q3.</span> 재방문 자동 수집 및 개인정보 파기 주기
+                <span>Q3.</span> 재방문 수집 및 개인정보 파기 정책 (이태민 개발자 코멘트)
               </div>
               <div class="question-body">
-                개발 코멘트에서 "데모 신청 후 개인정보 파기 원칙"을 말씀해주셨는데, 기존 데모 신청 데이터는 14일 무료 기간 종료 후 즉시 파기(또는 익명화)하고, 재방문 여부는 로컬스토리지 쿠키 식별자로 처리할까요?
+                개발 코멘트에서 "데모 신청 후 개인정보 파기 원칙"을 말씀해주셨는데, 신청 폼에서 재방문 여부를 사용자 직접 선택 항목으로 렌더링하고 DB에는 14일 사용 후 파기하도록 설정하면 될까요?
               </div>
               <div class="question-recommend">
-                💡 <strong>추천 답변:</strong> 개인정보는 14일 체험 후 30일 경과 시 자동 파기하되, UTM 및 재방문 카운트는 식별 해시값으로만 보관하도록 요구합니다.
+                💡 <strong>추천 답변:</strong> 개인정보는 14일 체험 후 30일 경과 시 자동 파기하되, 재방문 여부는 폼 내 셀렉트박스로 직접 선택 수집합니다.
               </div>
             </div>
 
@@ -2114,13 +2329,13 @@ POST /api/v1/conversions/link-company
 
             <div class="question-card">
               <div class="question-title">
-                <span>Q5.</span> Activation 로그 수집 스코어링 반영 이벤트 범위
+                <span>Q5.</span> Activation 로그 수집 범위 (기존 CRUD 활용)
               </div>
               <div class="question-body">
-                고객/영업기회/영업활동 CRUD 로그 수집 시, 데모 사용자의 Activation(핵심 경험 달성) 판정 기준 이벤트를 영업기회 1건 이상 등록 및 미팅로그 1회 입력 시점으로 정의하면 될까요?
+                기존에 고객/고객사/영업기회/영업활동 CRUD 로그가 수집된다고 하셨는데, 데모 계정의 Activation(핵심 기능 경험) 판정을 영업기회 1건 이상 등록 및 미팅로그 1회 입력 시점으로 간주하면 될까요?
               </div>
               <div class="question-recommend">
-                💡 <strong>추천 답변:</strong> 기존에 수집되던 CRUD 로그 중 `INSERT INTO deal_pipelines` 이벤트를 Activation Trigger로 사용하면 별도 로그 개발 부담이 줄어듭니다.
+                💡 <strong>추천 답변:</strong> 기존 수집 로그 중 `INSERT INTO deal_pipelines` 이벤트를 Activation Trigger로 사용하면 추가 개발 부담이 최소화됩니다.
               </div>
             </div>
 
@@ -2251,14 +2466,6 @@ POST /api/v1/conversions/link-company
       }
       document.getElementById('acquisition_channel').value = channel;
 
-      let visitorType = '신규 (First-time)';
-      if (localStorage.getItem('sp_crm_visited')) {
-        visitorType = '재방문 (Returning)';
-      } else {
-        localStorage.setItem('sp_crm_visited', 'true');
-      }
-      document.getElementById('visit_type').value = visitorType;
-
       // 2. 라디오 카드 스타일
       const radioCards = document.querySelectorAll('.radio-card');
       radioCards.forEach(card => {
@@ -2301,16 +2508,6 @@ POST /api/v1/conversions/link-company
         const durationSec = Math.round((Date.now() - formStartTime) / 1000);
         document.getElementById('form_duration_sec').value = durationSec;
 
-        let leadScore = 50;
-        const timeline = document.getElementById('purchase_timeline').value;
-        if (timeline.includes('즉시')) leadScore += 30;
-        else if (timeline.includes('1~3개월')) leadScore += 20;
-
-        const users = document.getElementById('user_count').value;
-        if (users.includes('51') || users.includes('100')) leadScore += 20;
-
-        document.getElementById('calculated_lead_score').value = leadScore;
-
         userSubmittedEmail = document.getElementById('email').value || "user@company.com";
         const randNum = Math.floor(1000 + Math.random() * 9000);
         generatedDemoId = "DEMO-2026-" + randNum;
@@ -2318,12 +2515,11 @@ POST /api/v1/conversions/link-company
         // 대시보드 및 모달 텍스트 업데이트
         document.getElementById('dashDemoIdSpan').innerText = generatedDemoId;
         document.getElementById('displayDemoId').innerText = generatedDemoId;
-        document.getElementById('displayLeadScore').innerText = leadScore + "점";
         document.getElementById('modalDemoId').innerText = generatedDemoId;
         document.getElementById('modalDemoEmail').innerText = userSubmittedEmail;
         document.getElementById('sqlMatchDemoId').innerText = generatedDemoId;
 
-        alert('데모 체험 계정이 발급되었습니다!\n[데모 체험 대시보드] 화면으로 이동합니다.');
+        alert('데모 체험 계정이 발급되었습니다!\n[WeSeed CRM 데모 체험 대시보드] 화면으로 이동합니다.');
         switchView('dashboard');
       });
 
@@ -2332,7 +2528,7 @@ POST /api/v1/conversions/link-company
 
     // AS-IS 폼 전송 액션
     function submitAsIs() {
-      alert('[AS-IS 기존 방식 제출 완료]\n단순 기본 정보 6종만 DB에 저장되며, demo_id 연결 및 유입경로/이용분석 데이터는 생성되지 않습니다.');
+      alert('[AS-IS 문의하기 제출 완료]\n단순 문의 접수로 DB에 저장되며, demo_id 연결 및 유입경로/이용분석 데이터는 생성되지 않습니다.');
     }
 
     // 뷰 전환 함수
