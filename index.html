@@ -793,6 +793,7 @@
       margin-bottom: 24px;
       box-shadow: 0 10px 20px rgba(49, 46, 129, 0.15);
       transition: all 0.3s ease;
+      flex-wrap: wrap;
     }
 
     .conversion-banner.paid-state {
@@ -1170,20 +1171,23 @@
       line-height: 1.6;
     }
 
-    /* MODAL OVERLAY & CONTENT */
+    /* MODAL OVERLAY & CONTENT - CRITICAL DISPLAY NONE FIX */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(15, 23, 42, 0.65);
       backdrop-filter: blur(4px);
       z-index: 1000;
-      display: none;
+      display: none !important;
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
 
-    .modal-overlay.active { display: flex; animation: fadeIn 0.25s ease; }
+    .modal-overlay.active {
+      display: flex !important;
+      animation: fadeIn 0.25s ease;
+    }
 
     .modal-card {
       background: #FFFFFF;
@@ -2242,7 +2246,7 @@
   <!-- ==============================================
        MODAL 1: 고도화 PRD & 개발자 DB API 스펙 & 개발자 질의 팝업 (README.md 연동)
        ============================================== -->
-  <div class="modal-overlay" id="prdModal">
+  <div class="modal-overlay" id="prdModal" style="display: none;">
     <div class="modal-card">
       <div class="modal-header">
         <h2>💡 WeSeed CRM 데모체험 전환 분석 데이터 구축 PRD & System Spec</h2>
@@ -2765,7 +2769,7 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
   <!-- ==============================================
        MODAL 2: P0 데모체험 내 직접 회원가입 3단계 모달 (이미지 3 & 4 기반)
        ============================================== -->
-  <div class="modal-overlay" id="directSignupModal">
+  <div class="modal-overlay" id="directSignupModal" style="display: none;">
     <div class="signup-wizard-card">
       <div class="modal-header" style="background: #0F172A;">
         <h2>⚡ WeSeed CRM 회원가입 & 데모 데이터 승계</h2>
@@ -3008,7 +3012,7 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
         e.preventDefault();
 
         if (!isRecaptchaCheckedTobe) {
-          showToast('\'로봇이 아닙니다.\ me 체크박스를 선택해 주세요.', 'warning');
+          showToast('\'로봇이 아닙니다.\' 체크박스를 선택해 주세요.', 'warning');
           return;
         }
 
@@ -3117,12 +3121,16 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       document.getElementById('wizPhoneInput').value = userSubmittedPhone;
       document.getElementById('wiz_industry').value = userSubmittedIndustry;
 
-      document.getElementById('directSignupModal').classList.add('active');
+      const modal = document.getElementById('directSignupModal');
+      modal.style.display = 'flex';
+      modal.classList.add('active');
       goToWizStep(1);
     }
 
     function closeDirectSignupModal() {
-      document.getElementById('directSignupModal').classList.remove('active');
+      const modal = document.getElementById('directSignupModal');
+      modal.style.display = 'none';
+      modal.classList.remove('active');
     }
 
     function goToWizStep(stepNum) {
@@ -3379,12 +3387,16 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
 
     // PRD Modal Toggle
     function openPrdModal(tab = 'prd') {
-      document.getElementById('prdModal').classList.add('active');
+      const modal = document.getElementById('prdModal');
+      modal.style.display = 'flex';
+      modal.classList.add('active');
       switchModalTab(tab);
     }
 
     function closePrdModal() {
-      document.getElementById('prdModal').classList.remove('active');
+      const modal = document.getElementById('prdModal');
+      modal.style.display = 'none';
+      modal.classList.remove('active');
     }
 
     function switchModalTab(tabName) {
