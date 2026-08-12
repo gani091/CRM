@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SalesPulse CRM – 무료 데모 체험 신청 & 고도화 PRD</title>
+  <title>SalesPulse CRM – 무료 데모 체험 신청 (AS-IS vs TO-BE 비교 & 고도화 PRD)</title>
   <meta name="description" content="SalesPulse CRM 데모 체험 계정 발송 및 전환 분석 데이터 구축 화면 설계안">
   
   <!-- Pretendard Web Font CDN -->
@@ -65,7 +65,7 @@
     .header-left {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 16px;
     }
 
     .brand-logo {
@@ -100,7 +100,7 @@
     .nav-tabs {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       background: #F1F5F9;
       padding: 4px;
       border-radius: 10px;
@@ -109,8 +109,8 @@
     .nav-tab-btn {
       border: none;
       background: transparent;
-      padding: 8px 16px;
-      font-size: 14px;
+      padding: 7px 14px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--text-sub);
       border-radius: 8px;
@@ -130,18 +130,21 @@
     }
 
     .badge-mini {
-      font-size: 11px;
+      font-size: 10px;
       background: #EFF6FF;
       color: #2563EB;
-      padding: 2px 6px;
+      padding: 2px 5px;
       border-radius: 4px;
       font-weight: 700;
     }
 
+    .badge-mini.asis { background: #FEF2F2; color: #EF4444; }
+    .badge-mini.tobe { background: #ECFDF5; color: #10B981; }
+
     .header-nav-right {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     /* DEV MODE TOGGLE BUTTON */
@@ -196,7 +199,7 @@
       background: linear-gradient(135deg, #4F46E5, #7C3AED);
       color: #FFFFFF;
       border: none;
-      padding: 8px 16px;
+      padding: 8px 14px;
       border-radius: 20px;
       font-size: 13px;
       font-weight: 700;
@@ -312,6 +315,10 @@
       max-width: 860px;
       margin: 0 auto;
       padding: 36px 20px 64px 20px;
+    }
+
+    .main-container.wide {
+      max-width: 1280px;
     }
 
     .view-section { display: none; }
@@ -659,6 +666,57 @@
 
     .btn-submit:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
 
+    /* SIDE-BY-SIDE COMPARISON LAYOUT */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .compare-grid { grid-template-columns: 1fr; }
+    }
+
+    .compare-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      border: 2px solid var(--border-color);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .compare-card.asis-card {
+      border-color: #FCA5A5;
+      background: #FFFDFD;
+    }
+
+    .compare-card.tobe-card {
+      border-color: #6EE7B7;
+      background: #FAFFFC;
+    }
+
+    .compare-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .compare-badge.asis { background: #FEF2F2; color: #DC2626; border: 1px solid #FCA5A5; }
+    .compare-badge.tobe { background: #ECFDF5; color: #059669; border: 1px solid #6EE7B7; }
+
+    .diff-summary-list {
+      margin-top: 20px;
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
     /* DEMO DASHBOARD VIEW STYLES */
     .conversion-banner {
       background: linear-gradient(135deg, #1E1B4B, #312E81);
@@ -803,7 +861,7 @@
       background: #FFFFFF;
       border-radius: 16px;
       width: 100%;
-      max-width: 920px;
+      max-width: 940px;
       max-height: 90vh;
       display: flex;
       flex-direction: column;
@@ -820,13 +878,7 @@
       justify-content: space-between;
     }
 
-    .modal-header h2 {
-      font-size: 18px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .modal-header h2 { font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
 
     /* MODAL TAB SUB-HEADER */
     .modal-tab-bar {
@@ -1006,6 +1058,42 @@
 
     .btn-copy-code:hover { background: #475569; }
 
+    /* QUESTION CHECKLIST CARD STYLING */
+    .question-card {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+
+    .question-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #1E293B;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .question-body {
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    .question-recommend {
+      background: #EFF6FF;
+      border-left: 3px solid #2563EB;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #1E40AF;
+      border-radius: 0 6px 6px 0;
+      margin-top: 8px;
+    }
+
     .site-footer {
       background: #FFFFFF;
       border-top: 1px solid var(--border-color);
@@ -1069,11 +1157,17 @@
       
       <!-- NAV VIEW TABS -->
       <nav class="nav-tabs">
+        <button type="button" class="nav-tab-btn" id="tabAsIsBtn" onclick="switchView('asis')">
+          📌 AS-IS <span class="badge-mini asis">기존 폼</span>
+        </button>
         <button type="button" class="nav-tab-btn active" id="tabFormBtn" onclick="switchView('form')">
-          📋 데모 신청 폼
+          🚀 TO-BE <span class="badge-mini tobe">고도화 폼</span>
         </button>
         <button type="button" class="nav-tab-btn" id="tabDashBtn" onclick="switchView('dashboard')">
-          📊 데모 체험 대시보드 <span class="badge-mini">신청 후 예시</span>
+          📊 데모 체험 대시보드
+        </button>
+        <button type="button" class="nav-tab-btn" id="tabCompareBtn" onclick="switchView('compare')">
+          🔄 AS-IS vs TO-BE 비교
         </button>
       </nav>
     </div>
@@ -1085,8 +1179,8 @@
         <div class="dev-switch"></div>
       </div>
 
-      <button type="button" class="btn-prd-trigger" onclick="openPrdModal()">
-        💡 고도화 PRD & DB API 스펙
+      <button type="button" class="btn-prd-trigger" onclick="openPrdModal('prd')">
+        💡 PRD & 개발자 질의 checklist
       </button>
       
       <span class="trust-pill">
@@ -1099,10 +1193,107 @@
   </header>
 
   <!-- 2. MAIN CONTAINER -->
-  <main class="main-container">
+  <main class="main-container" id="mainContainer">
 
     <!-- ==============================================
-         VIEW 1: 데모 신청 폼 (DEMO REQUEST FORM)
+         VIEW 0: AS-IS 기존 데모 신청 폼 (ORIGINAL AS-IS FORM)
+         * 첨부해 주신 이미지 기준 100% 동일 구현
+         ============================================== -->
+    <div id="viewAsIs" class="view-section">
+      <section class="hero-section">
+        <h1 class="hero-title">입력하신 이메일 주소로<br>데모 체험 계정을 발송합니다</h1>
+        <p class="hero-subtitle">데모 계정은 발급일로부터 14일간 사용 가능합니다.</p>
+      </section>
+
+      <form class="form-card" id="asisRequestForm" style="max-width: 580px; margin: 0 auto;">
+        <div style="background: #FEF2F2; border: 1px solid #FCA5A5; color: #991B1B; padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; margin-bottom: 24px; text-align: center;">
+          ⚠️ [AS-IS 기존 화면] 6개 기본 정보만 수집되며, demo_id 연결 및 유입경로/이용분석 데이터는 미수집됩니다.
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <!-- 1. 회사명 -->
+          <div class="field-group">
+            <label class="field-label" for="asis_company_name">
+              회사명 <span class="required">*</span>
+              <span class="dev-field-tag">company_name</span>
+            </label>
+            <input type="text" id="asis_company_name" class="form-input" placeholder="회사 또는 단체명을 입력해주세요" required>
+          </div>
+
+          <!-- 2. 예상 사용 인원 -->
+          <div class="field-group">
+            <label class="field-label" for="asis_user_count">
+              예상 사용 인원 <span class="required">*</span>
+              <span class="dev-field-tag">user_count</span>
+            </label>
+            <input type="text" id="asis_user_count" class="form-input" placeholder="예상 사용 인원을 입력해주세요" required>
+          </div>
+
+          <!-- 3. 담당자 이름 -->
+          <div class="field-group">
+            <label class="field-label" for="asis_user_name">
+              담당자 이름 <span class="required">*</span>
+              <span class="dev-field-tag">user_name</span>
+            </label>
+            <input type="text" id="asis_user_name" class="form-input" placeholder="담당자 이름을 입력해 주세요" required>
+          </div>
+
+          <!-- 4. 회사 이메일 -->
+          <div class="field-group">
+            <label class="field-label" for="asis_email">
+              회사 이메일 <span class="required">*</span>
+              <span class="dev-field-tag">email</span>
+            </label>
+            <input type="email" id="asis_email" class="form-input" placeholder="이메일을 입력해 주세요" required>
+          </div>
+
+          <!-- 5. 휴대전화 -->
+          <div class="field-group">
+            <label class="field-label" for="asis_phone">
+              휴대전화 <span class="required">*</span>
+              <span class="dev-field-tag">phone</span>
+            </label>
+            <input type="tel" id="asis_phone" class="form-input" placeholder="010-0000-0000" value="010-5029-1483" required>
+          </div>
+
+          <!-- 6. 직책 -->
+          <div class="field-group">
+            <label class="field-label" for="asis_job_title">
+              직책 <span class="required">*</span>
+              <span class="dev-field-tag">job_title</span>
+            </label>
+            <input type="text" id="asis_job_title" class="form-input" placeholder="담당하고 계시는 직책을 입력해 주세요" required>
+          </div>
+
+          <!-- reCAPTCHA -->
+          <div class="recaptcha-wrapper">
+            <div class="recaptcha-box">
+              <div class="recaptcha-left" onclick="toggleRecaptcha()">
+                <div class="recaptcha-check" id="recaptchaCheckAsIs"></div>
+                <span class="recaptcha-label">로봇이 아닙니다.</span>
+              </div>
+              <div class="recaptcha-right">
+                <svg class="recaptcha-logo" viewBox="0 0 48 48">
+                  <path fill="#4285F4" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.66 0 6.58 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                  <path fill="#34A853" d="M46.1 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.4c-.53 2.84-2.13 5.25-4.54 6.87l7.35 5.7c4.3-3.96 6.89-9.8 6.89-17.04z"/>
+                  <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.28-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                  <path fill="#EA4335" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.35-5.7c-2.15 1.45-4.92 2.3-8.54 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.58 42.62 14.66 48 24 48z"/>
+                </svg>
+                <div class="recaptcha-terms">reCAPTCHA<br>약관 · 개인정보</div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn-submit" style="background: #CBD5E1; color: #475569;" onclick="submitAsIs()">
+            데모 체험하기 (AS-IS 기존 방식 제출)
+          </button>
+        </div>
+      </form>
+    </div>
+
+
+    <!-- ==============================================
+         VIEW 1: TO-BE 고도화 데모 신청 폼 (ENHANCED FORM)
          ============================================== -->
     <div id="viewForm" class="view-section active">
       <section class="hero-section">
@@ -1478,6 +1669,79 @@
       </div>
     </div>
 
+
+    <!-- ==============================================
+         VIEW 3: AS-IS vs TO-BE 1:1 비교 뷰 (COMPARISON VIEW)
+         ============================================== -->
+    <div id="viewCompare" class="view-section">
+      <div class="hero-section">
+        <h2 style="font-size: 24px; font-weight: 800;">AS-IS vs TO-BE 화면 및 데이터 비교</h2>
+        <p class="hero-subtitle">운영 중인 기존 데모 신청 화면과 이번 전환 분석 고도화 폼의 변화를 1:1로 비교합니다.</p>
+      </div>
+
+      <div class="compare-grid">
+        <!-- LEFT: AS-IS CARD -->
+        <div class="compare-card asis-card">
+          <span class="compare-badge asis">🔴 AS-IS (기존 운영 화면)</span>
+          <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px;">단순 정보 입력 폼</h3>
+          <p style="font-size: 13px; color: #64748B; margin-bottom: 16px;">
+            첨부해 주신 이미지 기준의 기존 6개 기본 필수 항목만 존재
+          </p>
+
+          <div style="background: #FFF; border: 1px solid #E2E8F0; padding: 16px; border-radius: 8px; font-size: 13px;">
+            <strong style="color: #0F172A;">수집 항목 (총 6개):</strong>
+            <ul style="margin-left: 20px; margin-top: 6px; color: #475569;">
+              <li>회사명</li>
+              <li>예상 사용 인원</li>
+              <li>담당자 이름</li>
+              <li>회사 이메일</li>
+              <li>휴대전화</li>
+              <li>직책</li>
+            </ul>
+          </div>
+
+          <div class="diff-summary-list" style="background: #FEF2F2; border-color: #FCA5A5; color: #991B1B;">
+            <strong>🚨 AS-IS의 문제점 (PRD 기반):</strong>
+            <ul style="margin-left: 20px; margin-top: 6px;">
+              <li><code>demo_id</code> 및 추적 식별자 부재로 실사용 회원사 전환 매칭 불가</li>
+              <li>유입 채널(SEO, 광고 등) 및 폼 체류시간 데이터 미수집</li>
+              <li>영업 가망 우회 판별 기준(도입 시기, 업종, 목적) 부재</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- RIGHT: TO-BE CARD -->
+        <div class="compare-card tobe-card">
+          <span class="compare-badge tobe">🟢 TO-BE (이번 고도화 개선안)</span>
+          <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px;">전환 분석 데이터 구축 폼</h3>
+          <p style="font-size: 13px; color: #64748B; margin-bottom: 16px;">
+            영업 세그먼트 파악 + 자동 트래킹 파라미터 + 유료 전환 연동
+          </p>
+
+          <div style="background: #FFF; border: 1px solid #E2E8F0; padding: 16px; border-radius: 8px; font-size: 13px;">
+            <strong style="color: #0F172A;">추가/개선된 수집 항목 (총 15개 파라미터):</strong>
+            <ul style="margin-left: 20px; margin-top: 6px; color: #059669;">
+              <li><strong>[필수 추가]</strong> 도입 예정 시기</li>
+              <li><strong>[선택 추가]</strong> 업종 (직접 입력 반영)</li>
+              <li><strong>[선택 추가]</strong> 데모 신청 목적 (라디오 5종)</li>
+              <li><strong>[선택 추가]</strong> 관심 있는 주요 기능 (최대 3개)</li>
+              <li><strong>[선택 추가]</strong> 현재 영업 데이터 관리 방식</li>
+              <li><strong>[자동 수집]</strong> demo_id, 신청일시, 유입경로, 신규/재방문, 작성시간, Lead Score</li>
+            </ul>
+          </div>
+
+          <div class="diff-summary-list" style="background: #ECFDF5; border-color: #6EE7B7; color: #065F46;">
+            <strong>✨ TO-BE 개선 기대 효과:</strong>
+            <ul style="margin-left: 20px; margin-top: 6px;">
+              <li><code>demo_id</code> ↔ <code>company_id</code> 이메일/휴대폰 키 기반 자동/관리자 매칭</li>
+              <li>체험 대시보드 내 유료계정 전환 버튼 상시 노출로 즉시 가입 유도</li>
+              <li>Activation 4대 핵심 이벤트를 수집하여 이탈률 정밀 분석</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <!-- 3. FOOTER -->
@@ -1485,16 +1749,16 @@
     <div class="footer-links">
       <a href="#" onclick="openPrdModal('prd'); return false;">고도화 PRD 기획서</a>
       <a href="#" onclick="openPrdModal('schema'); return false;">DB & API 데이터 스펙</a>
+      <a href="#" onclick="openPrdModal('checklist'); return false;">❓ 개발자 질의 체크리스트</a>
       <a href="#">서비스 이용약관</a>
       <a href="#">개인정보처리방침</a>
-      <a href="#">보안 및 컴플라이언스</a>
     </div>
     <p>© 2026 SalesPulse Inc. All rights reserved. 서울특별시 강남구 테헤란로 521</p>
   </footer>
 
 
   <!-- ==============================================
-       MODAL 1: 고도화 PRD & 개발자 DB API 스펙 팝업
+       MODAL 1: 고도화 PRD & 개발자 DB API 스펙 & 개발자 질의 팝업
        ============================================== -->
   <div class="modal-overlay" id="prdModal">
     <div class="modal-card">
@@ -1510,6 +1774,9 @@
         </button>
         <button class="modal-tab-btn" id="modalTabSchema" onclick="switchModalTab('schema')">
           💻 DB 테이블 스펙 & API JSON Payload (REST API / DDL)
+        </button>
+        <button class="modal-tab-btn" id="modalTabChecklist" onclick="switchModalTab('checklist')">
+          ❓ 개발팀 질의 체크리스트 (이태민 개발자 확인용)
         </button>
       </div>
 
@@ -1787,6 +2054,97 @@ POST /api/v1/conversions/link-company
           </div>
         </div>
 
+        <!-- SUB TAB 3: DEVELOPER INTERVIEW CHECKLIST -->
+        <div id="subViewChecklist" class="prd-sub-view">
+          <div class="prd-section">
+            <div class="prd-section-title">
+              <span>❓</span> 개발팀(이태민 개발자 등) 질의 및 확인 체크리스트
+            </div>
+            <p style="margin-bottom: 16px;">
+              개발자에게 구체적인 기능 구현 방식을 물어보고 백엔드 스펙을 조율하기 위한 질문 리스트입니다.
+            </p>
+
+            <div class="question-card">
+              <div class="question-title">
+                <span>Q1.</span> demo_id 식별자 생성 규격 및 저장 시점
+              </div>
+              <div class="question-body">
+                데모 신청이 완료되는 시점에 <code>demo_id</code>를 DB의 Primary Key로 바로 생성할까요, 아니면 UUID v4 형태로 만드실 예정인가요?
+              </div>
+              <div class="question-recommend">
+                💡 <strong>추천 답변:</strong> 'DEMO-YYYYMMDD-XXXX' 형태의 식별자로 지정하면 관리자가 조회하고 CS 처리하기에 매우 수월합니다.
+              </div>
+            </div>
+
+            <div class="question-card">
+              <div class="question-title">
+                <span>Q2.</span> 이메일 + 휴대전화 복합 키 기반 매칭 처리 로직
+              </div>
+              <div class="question-body">
+                이태민 개발자님 의견대로 [후보 검색+관리자 확정]과 [데모 화면 내 회원가입]을 모두 수용할 때, 이메일과 휴대전화가 모두 일치하는 건을 1순위로 자동 매칭 팝업에 노출하면 될까요?
+              </div>
+              <div class="question-recommend">
+                💡 <strong>추천 답변:</strong> 이메일 OR 휴대폰 중 하나만 맞을 때는 '매칭 주의' 경고를 띄우고, 둘 다 맞으면 '자동 연결 승인' 버튼을 활성화합니다.
+              </div>
+            </div>
+
+            <div class="question-card">
+              <div class="question-title">
+                <span>Q3.</span> 재방문 자동 수집 및 개인정보 파기 주기
+              </div>
+              <div class="question-body">
+                개발 코멘트에서 "데모 신청 후 개인정보 파기 원칙"을 말씀해주셨는데, 기존 데모 신청 데이터는 14일 무료 기간 종료 후 즉시 파기(또는 익명화)하고, 재방문 여부는 로컬스토리지 쿠키 식별자로 처리할까요?
+              </div>
+              <div class="question-recommend">
+                💡 <strong>추천 답변:</strong> 개인정보는 14일 체험 후 30일 경과 시 자동 파기하되, UTM 및 재방문 카운트는 식별 해시값으로만 보관하도록 요구합니다.
+              </div>
+            </div>
+
+            <div class="question-card">
+              <div class="question-title">
+                <span>Q4.</span> 업종 (직접 입력) 데이터 텍스트 정제 및 분류 방식
+              </div>
+              <div class="question-body">
+                '업종' 항목을 기존 드롭다운에서 자유 텍스트 직접 입력으로 변경하였습니다. 백엔드에서 유사 키워드(예: IT, SaaS -> IT/소프트웨어)로 그룹핑하는 태깅 로직이나 정규화 작업을 진행하시나요?
+              </div>
+              <div class="question-recommend">
+                💡 <strong>추천 답변:</strong> 일단 VARCHAR(100) raw text로 저장하고, 통계 추출 시 LIKE 또는 백엔드 매핑 딕셔너리로 분류하자고 조율합니다.
+              </div>
+            </div>
+
+            <div class="question-card">
+              <div class="question-title">
+                <span>Q5.</span> Activation 로그 수집 스코어링 반영 이벤트 범위
+              </div>
+              <div class="question-body">
+                고객/영업기회/영업활동 CRUD 로그 수집 시, 데모 사용자의 Activation(핵심 경험 달성) 판정 기준 이벤트를 영업기회 1건 이상 등록 및 미팅로그 1회 입력 시점으로 정의하면 될까요?
+              </div>
+              <div class="question-recommend">
+                💡 <strong>추천 답변:</strong> 기존에 수집되던 CRUD 로그 중 `INSERT INTO deal_pipelines` 이벤트를 Activation Trigger로 사용하면 별도 로그 개발 부담이 줄어듭니다.
+              </div>
+            </div>
+
+            <div class="question-card">
+              <div class="question-title">
+                <span>Q6.</span> 데모 대시보드 내 유료 회원가입 Pre-fill 연동
+              </div>
+              <div class="question-body">
+                데모 체험 화면 상단 고정 바의 [유료 계정 전환 & 회원사 연동] 버튼을 누를 때, 기존 데모 세션의 회사명, 담당자명, 이메일이 신규 회원가입 폼에 자동으로 렌더링되도록 백엔드 세션 토큰을 제공받을 수 있을까요?
+              </div>
+            </div>
+
+            <div class="question-card">
+              <div class="question-title">
+                <span>Q7.</span> CS 상담 기록과 demo_id 외래키(FK) 바인딩
+              </div>
+              <div class="question-body">
+                CS 상담원이 아웃바운드 콜이나 Inbound 문의를 기록할 때 `cs_tickets` 테이블에 `demo_id`를 매칭할 수 있는 입력 필드와 DB 컬럼을 추가해 주실 수 있나요?
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1832,7 +2190,6 @@ POST /api/v1/conversions/link-company
           </div>
         </div>
 
-        <!-- SQL MATCH QUERY CODE PREVIEW FOR DEVELOPERS -->
         <div style="background: #0F172A; color: #38BDF8; padding: 10px 14px; border-radius: 8px; font-family: monospace; font-size: 11px; text-align: left; margin-bottom: 16px; overflow-x: auto;">
           -- [SQL MATCHING LOGIC PREVIEW]<br>
           SELECT * FROM demo_requests d <br>
@@ -1973,24 +2330,45 @@ POST /api/v1/conversions/link-company
       updateDevInspector();
     });
 
+    // AS-IS 폼 전송 액션
+    function submitAsIs() {
+      alert('[AS-IS 기존 방식 제출 완료]\n단순 기본 정보 6종만 DB에 저장되며, demo_id 연결 및 유입경로/이용분석 데이터는 생성되지 않습니다.');
+    }
+
     // 뷰 전환 함수
     function switchView(viewName) {
-      const formView = document.getElementById('viewForm');
-      const dashView = document.getElementById('viewDashboard');
-      const btnForm = document.getElementById('tabFormBtn');
-      const btnDash = document.getElementById('tabDashBtn');
+      const views = ['viewAsIs', 'viewForm', 'viewDashboard', 'viewCompare'];
+      const btns = ['tabAsIsBtn', 'tabFormBtn', 'tabDashBtn', 'tabCompareBtn'];
+      const mainContainer = document.getElementById('mainContainer');
 
-      if (viewName === 'form') {
-        formView.classList.add('active');
-        dashView.classList.remove('active');
-        btnForm.classList.add('active');
-        btnDash.classList.remove('active');
-      } else {
-        dashView.classList.add('active');
-        formView.classList.remove('active');
-        btnDash.classList.add('active');
-        btnForm.classList.remove('active');
+      views.forEach(v => {
+        const el = document.getElementById(v);
+        if (el) el.classList.remove('active');
+      });
+
+      btns.forEach(b => {
+        const el = document.getElementById(b);
+        if (el) el.classList.remove('active');
+      });
+
+      if (viewName === 'asis') {
+        document.getElementById('viewAsIs').classList.add('active');
+        document.getElementById('tabAsIsBtn').classList.add('active');
+        mainContainer.classList.remove('wide');
+      } else if (viewName === 'form') {
+        document.getElementById('viewForm').classList.add('active');
+        document.getElementById('tabFormBtn').classList.add('active');
+        mainContainer.classList.remove('wide');
+      } else if (viewName === 'dashboard') {
+        document.getElementById('viewDashboard').classList.add('active');
+        document.getElementById('tabDashBtn').classList.add('active');
+        mainContainer.classList.remove('wide');
+      } else if (viewName === 'compare') {
+        document.getElementById('viewCompare').classList.add('active');
+        document.getElementById('tabCompareBtn').classList.add('active');
+        mainContainer.classList.add('wide');
       }
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -2044,19 +2422,24 @@ POST /api/v1/conversions/link-company
     function switchModalTab(tabName) {
       const subPrd = document.getElementById('subViewPrd');
       const subSchema = document.getElementById('subViewSchema');
+      const subChecklist = document.getElementById('subViewChecklist');
+      
       const tabPrd = document.getElementById('modalTabPrd');
       const tabSchema = document.getElementById('modalTabSchema');
+      const tabChecklist = document.getElementById('modalTabChecklist');
+
+      [subPrd, subSchema, subChecklist].forEach(el => el.classList.remove('active'));
+      [tabPrd, tabSchema, tabChecklist].forEach(el => el.classList.remove('active'));
 
       if (tabName === 'prd') {
         subPrd.classList.add('active');
-        subSchema.classList.remove('active');
         tabPrd.classList.add('active');
-        tabSchema.classList.remove('active');
-      } else {
+      } else if (tabName === 'schema') {
         subSchema.classList.add('active');
-        subPrd.classList.remove('active');
         tabSchema.classList.add('active');
-        tabPrd.classList.remove('active');
+      } else if (tabName === 'checklist') {
+        subChecklist.classList.add('active');
+        tabChecklist.classList.add('active');
       }
     }
 
@@ -2082,16 +2465,18 @@ POST /api/v1/conversions/link-company
 
     // Dummy Captcha Toggle
     function toggleRecaptcha() {
-      const box = document.getElementById('recaptchaCheck');
+      const boxCheck = document.getElementById('recaptchaCheck');
+      const boxAsIs = document.getElementById('recaptchaCheckAsIs');
       isRecaptchaChecked = !isRecaptchaChecked;
+
+      const inner = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
       if (isRecaptchaChecked) {
-        box.style.background = '#0F9D58';
-        box.style.borderColor = '#0F9D58';
-        box.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+        if (boxCheck) { boxCheck.style.background = '#0F9D58'; boxCheck.style.borderColor = '#0F9D58'; boxCheck.innerHTML = inner; }
+        if (boxAsIs) { boxAsIs.style.background = '#0F9D58'; boxAsIs.style.borderColor = '#0F9D58'; boxAsIs.innerHTML = inner; }
       } else {
-        box.style.background = '#FFF';
-        box.style.borderColor = '#C1C1C1';
-        box.innerHTML = '';
+        if (boxCheck) { boxCheck.style.background = '#FFF'; boxCheck.style.borderColor = '#C1C1C1'; boxCheck.innerHTML = ''; }
+        if (boxAsIs) { boxAsIs.style.background = '#FFF'; boxAsIs.style.borderColor = '#C1C1C1'; boxAsIs.innerHTML = ''; }
       }
     }
   </script>
