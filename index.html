@@ -4489,6 +4489,29 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       if (notice) notice.style.display = 'none';
     }
 
+    function getCrmGuestSession() {
+      const demo = getSelectedDemo();
+      if (!demo) return null;
+      return {
+        demo_id: demo.demo_id,
+        demo_account: demo.demo_account,
+        company_name: demo.company_name,
+        contact_name: demo.contact_name,
+        email: demo.email,
+        phone: demo.phone,
+        industry: demo.industry,
+        expiry_date: demo.expiry_date,
+        conversion_status: demo.conversion_status,
+        company_id: demo.company_id
+      };
+    }
+
+    function openGuestSignupFromCrm(demoId) {
+      const targetDemo = appState.demoList.find(demo => demo.demo_id === demoId);
+      if (targetDemo) appState.selectedDemoId = targetDemo.demo_id;
+      openDirectSignupModal();
+    }
+
     // DIRECT SIGNUP 4-STEP WIZARD MODAL HANDLERS
     function openDirectSignupModal() {
       const curDemo = getSelectedDemo();
