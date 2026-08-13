@@ -415,6 +415,31 @@
       animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
+    /* DEMO CRM VIEW: preserve the supplied 1905 x 914 screen composition. */
+    .crm-reference-viewport {
+      --crm-reference-scale: 0.6509;
+      width: 100%;
+      aspect-ratio: 1905 / 914;
+      overflow: hidden;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+    }
+
+    .crm-reference-screen {
+      display: block;
+      width: 1905px;
+      height: 914px;
+      border: 0;
+      transform: scale(var(--crm-reference-scale));
+      transform-origin: top left;
+    }
+
+    @media (max-width: 1279px) {
+      .crm-reference-viewport {
+        --crm-reference-scale: calc((100vw - 40px) / 1905px);
+      }
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
@@ -2282,320 +2307,18 @@
 
 
     <!-- ==============================================
-         VIEW 2: WeSeed CRM 데모 체험 대시보드 & P0 즉시 연동 뷰 (프로토타입 정돈)
+         VIEW 2: 실제 WeSeed CRM 데모 체험 화면
          ============================================== -->
     <div id="viewDashboard" class="view-section">
-      
-      <!-- 상단 유료 전환 안내 바 -->
-      <div class="conversion-banner" id="topConversionBanner">
-        <div class="conversion-banner-text">
-          <h3 id="bannerTitleText">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            14일 무료 데모 체험 중입니다
-          </h3>
-          <p id="bannerSubText">현재 데모 신청 정보를 그대로 사용해 회원가입할 수 있습니다.</p>
-        </div>
-        <button type="button" class="btn-upgrade-action" id="bannerBtnAction" onclick="openDirectSignupModal()">
-          🚀 위시드 CRM 시작하기
-        </button>
+      <div class="crm-reference-viewport">
+        <iframe
+          class="crm-reference-screen"
+          id="crmReferenceScreen"
+          src="index2.html"
+          title="WESEED CRM 데모 체험 대시보드"
+          scrolling="no"
+        ></iframe>
       </div>
-
-      <!-- PROTOTYPE DASHBOARD KPI SUMMARY CARDS -->
-      <div class="dashboard-grid">
-        <div class="dash-card">
-          <div class="dash-card-header">무료 체험 / 계정 상태</div>
-          <div class="dash-card-value" style="color: #2563EB;" id="kpiStatusVal">D-14</div>
-          <div class="dash-card-sub" id="kpiStatusSub">데모 만료일: 2026.08.26</div>
-        </div>
-
-        <div class="dash-card">
-          <div class="dash-card-value" style="color: #8B5CF6; font-size: 18px; margin-top: 4px;" id="displayDemoId">
-            DEMO-2026-8942
-          </div>
-          <div class="dash-card-header" style="margin-top: 8px;" id="kpiIdHeader">할당된 데모 계정 ID (demo_id)</div>
-          <div class="dash-card-sub" style="color: #64748B;" id="kpiIdSub">이용 로그 자동 매칭 중</div>
-        </div>
-
-        <div class="dash-card">
-          <div class="dash-card-header">CRM 데모 계정 연동 상태</div>
-          <div class="dash-card-value" style="color: #10B981;" id="kpiLinkVal">활성화</div>
-          <div class="dash-card-sub" id="kpiLinkSub">🔥 영업 콜 유용 로그 기록 중</div>
-        </div>
-      </div>
-
-      <!-- WESEED CRM APPLICATION MOCKUP UI (IMAGES 1 & 2 EXACT REPLICATION) -->
-      <div class="crm-app-container">
-        
-        <!-- CRM TOP BAR (IMAGE 2 REPLICATION) -->
-        <div class="crm-top-bar">
-          <div class="crm-logo">
-            <span style="background: #2563EB; color: #FFF; border-radius: 6px; padding: 2px 7px; font-weight: 900; font-size: 15px;">W</span>
-            <span style="font-weight: 800; color: #0F172A; font-size: 16px; letter-spacing: -0.5px;">WESEED</span>
-          </div>
-
-          <div class="crm-search-box">
-            <span>🔍</span>
-            <input type="text" placeholder="통합검색" style="border: none; background: transparent; outline: none; width: 100%; font-size: 13px; color: #334155;">
-          </div>
-
-          <div style="display: flex; align-items: center; gap: 16px;">
-            <span style="font-size: 16px; color: #64748B; cursor: pointer;" title="공지사항" onclick="showToast('📢 공지사항 목록입니다.', 'info')">📢</span>
-            <span style="font-size: 16px; color: #64748B; cursor: pointer;" title="도움말" onclick="showToast('📖 서비스 사용자 도움말입니다.', 'info')">📖</span>
-            <span style="font-size: 16px; color: #64748B; cursor: pointer;" title="알림" onclick="showToast('🔔 신규 알림이 없습니다.', 'info')">🔔</span>
-
-            <!-- PROFILE MENU TOGGLE -->
-            <div class="crm-user-profile" onclick="toggleProfileDropdown(event)">
-              <div class="crm-profile-avatar" id="avatarIcon">게</div>
-
-              <!-- DROPDOWN MENU (IMAGE 2 REPLICATION) -->
-              <div class="crm-profile-dropdown" id="profileDropdown">
-                <div class="dropdown-user-info">
-                  <span class="dropdown-user-name" id="dropdownUserName">게스트</span>
-                  <span class="dropdown-user-tag" id="dropdownUserTag">guest0894</span>
-                </div>
-
-                <div class="dropdown-balance-box">
-                  <div class="dropdown-balance-row">
-                    <span>잔액</span>
-                    <span class="dropdown-balance-val" id="dropdownBalanceVal">-10,000,000원</span>
-                  </div>
-                  <div class="dropdown-balance-row" style="margin-bottom: 0;">
-                    <span>만료일</span>
-                    <span style="font-weight: 700; color: #059669;" id="dropdownExpiryVal">무제한 (D-14)</span>
-                  </div>
-                </div>
-
-                <button type="button" class="btn-crm-checkout" id="dropdownBtnCheckout" onclick="openDirectSignupModal()">
-                  결제하기 (회원가입 & 데모계정 연동)
-                </button>
-
-                <div class="dropdown-links">
-                  <a href="#" onclick="showToast('개인정보 변경 메뉴입니다.', 'info'); return false;">⚙️ 개인정보변경</a>
-                  <a href="#" onclick="showToast('원격 지원 메뉴입니다.', 'info'); return false;">📶 원격 지원</a>
-                  <a href="#" onclick="showToast('서비스 매뉴얼 메뉴입니다.', 'info'); return false;">❓ 서비스 매뉴얼</a>
-                  <a href="#" onclick="switchView('form'); return false;" style="color: #EF4444;">🚪 로그아웃</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- CRM BODY LAYOUT -->
-        <div class="crm-body">
-          <!-- SIDEBAR NAVIGATION (IMAGE 2 REPLICATION) -->
-          <div class="crm-sidebar">
-            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 700; color: #94A3B8; margin-bottom: 6px; padding: 0 4px;">
-              <span>즐겨찾기</span>
-              <span style="cursor: pointer;">+</span>
-            </div>
-            <div class="crm-menu-item active"><span>📊 대시보드</span></div>
-            <div class="crm-menu-item" onclick="showToast('고객관리 메뉴입니다.', 'info')"><span>👥 고객관리</span> <span>˅</span></div>
-            <div class="crm-menu-item" onclick="showToast('문의관리 메뉴입니다.', 'info')"><span>📝 문의관리</span> <span>˅</span></div>
-            <div class="crm-menu-item" onclick="showToast('일정관리 메뉴입니다.', 'info')"><span>📅 일정관리</span></div>
-            <div class="crm-menu-item" onclick="showToast('상품판매관리 메뉴입니다.', 'info')"><span>🛒 상품판매관리</span> <span>˅</span></div>
-            <div class="crm-menu-item" onclick="showToast('마케팅관리 메뉴입니다.', 'info')"><span>📢 마케팅관리</span> <span>˅</span></div>
-            <div class="crm-menu-item" onclick="showToast('영업관리 메뉴입니다.', 'info')"><span>💼 영업관리</span> <span>˅</span></div>
-            <div class="crm-menu-item" onclick="showToast('통계/분석 메뉴입니다.', 'info')"><span>📈 통계/분석</span> <span>˅</span></div>
-            <div class="crm-menu-item" onclick="showToast('게시판 메뉴입니다.', 'info')"><span>📌 게시판</span> <span>˅</span></div>
-            <div class="crm-menu-item" onclick="showToast('시스템관리 메뉴입니다.', 'info')"><span>⚙️ 시스템관리</span> <span>˅</span></div>
-          </div>
-
-          <!-- CRM MAIN CONTENT VIEW (IMAGE 2 REPLICATION) -->
-          <div class="crm-main-content">
-            
-            <!-- DEMO NOTICE MODAL (IMAGE 2 REPLICATION CENTER ALERT) -->
-            <div class="demo-notice-overlay" id="demoNoticeOverlay">
-              <div class="demo-notice-modal">
-                <div class="demo-notice-title">알림</div>
-                <div class="demo-notice-body">
-                  데모 체험 계정은<br>
-                  가상 데이터가 입력되어 있습니다.<br>
-                  안전한 서비스 이용을 위해<br>
-                  개인정보 등 실제 데이터 입력은<br>
-                  지양 부탁드립니다.
-                </div>
-                <div class="demo-notice-actions">
-                  <button type="button" class="btn-notice-confirm" onclick="closeDemoNotice()">확인</button>
-                  <button type="button" class="btn-notice-signup" onclick="closeDemoNotice(); openDirectSignupModal();">
-                    ⚡ 지금 회원가입하고 데모 계정 연동하기
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- CRM MAIN HEADER BAR WITH FILTER CONTROLS (IMAGE 2 REPLICATION) -->
-            <div class="crm-main-header-bar">
-              <h2>📊 대시보드</h2>
-
-              <div class="crm-header-controls">
-                <input type="text" class="crm-control-input" value="2026.08.01 ~ 2026.08.31" style="width: 170px;">
-                <select class="crm-control-select">
-                  <option selected>이번 달</option>
-                  <option>지난 달</option>
-                  <option>올해</option>
-                </select>
-                <select class="crm-control-select">
-                  <option selected>전체</option>
-                  <option>팀 A</option>
-                  <option>팀 B</option>
-                </select>
-                <button type="button" class="btn-crm-search" onclick="showToast('대시보드 조회 조건이 적용되었습니다.', 'info')">검색</button>
-              </div>
-            </div>
-
-            <!-- REGISTERED STATUS PANEL (IMAGE 2 REPLICATION) -->
-            <div class="crm-card-panel">
-              <div class="crm-card-panel-header">
-                <span>등록현황</span>
-                <span class="id-tag" id="crmStatusBadge">데모 체험 계정 (DEMO-2026-8942)</span>
-              </div>
-
-              <div class="crm-stats-grid">
-                <div class="crm-stat-card">
-                  <div class="crm-stat-label">💳 매출</div>
-                  <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">만원</span></div>
-                  <div class="crm-stat-sub">누적 8,254만원</div>
-                </div>
-                <div class="crm-stat-card">
-                  <div class="crm-stat-label">👤 고객</div>
-                  <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
-                  <div class="crm-stat-sub">누적 1,473건</div>
-                </div>
-                <div class="crm-stat-card">
-                  <div class="crm-stat-label">🏢 고객사</div>
-                  <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
-                  <div class="crm-stat-sub">누적 132건</div>
-                </div>
-                <div class="crm-stat-card">
-                  <div class="crm-stat-label">🟢 영업기회</div>
-                  <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
-                  <div class="crm-stat-sub">누적 90건</div>
-                </div>
-                <div class="crm-stat-card">
-                  <div class="crm-stat-label">📞 영업활동</div>
-                  <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
-                  <div class="crm-stat-sub">누적 159건</div>
-                </div>
-                <div class="crm-stat-card">
-                  <div class="crm-stat-label">📢 마케팅</div>
-                  <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
-                  <div class="crm-stat-sub">누적 1건</div>
-                </div>
-                <div class="crm-stat-card">
-                  <div class="crm-stat-label">💬 고객상담</div>
-                  <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
-                  <div class="crm-stat-sub">누적 156건</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- BOTTOM SUB CARDS GRID (IMAGE 2 REPLICATION) -->
-            <div class="crm-sub-cards-grid">
-              <!-- CARD 1: 지역분포 -->
-              <div class="crm-card-panel">
-                <div class="crm-card-panel-header">
-                  <span>지역분포</span>
-                  <select class="crm-control-select" style="height: 28px; font-size: 12px;">
-                    <option selected>고객</option>
-                    <option>고객사</option>
-                  </select>
-                </div>
-                <div style="height: 160px; display: flex; align-items: flex-end; justify-content: space-around; padding: 20px 10px 10px 10px; background: #F8FAFC; border-radius: 8px; border: 1px dashed #E2E8F0;">
-                  <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;"><div style="width: 24px; height: 90px; background: #3B82F6; border-radius: 4px 4px 0 0;"></div><span style="font-size: 11px; color: #64748B;">서울</span></div>
-                  <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;"><div style="width: 24px; height: 60px; background: #60A5FA; border-radius: 4px 4px 0 0;"></div><span style="font-size: 11px; color: #64748B;">경기</span></div>
-                  <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;"><div style="width: 24px; height: 35px; background: #93C5FD; border-radius: 4px 4px 0 0;"></div><span style="font-size: 11px; color: #64748B;">부산</span></div>
-                  <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;"><div style="width: 24px; height: 25px; background: #BFDBFE; border-radius: 4px 4px 0 0;"></div><span style="font-size: 11px; color: #64748B;">인천</span></div>
-                  <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;"><div style="width: 24px; height: 45px; background: #60A5FA; border-radius: 4px 4px 0 0;"></div><span style="font-size: 11px; color: #64748B;">대전</span></div>
-                  <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;"><div style="width: 24px; height: 15px; background: #DBEAFE; border-radius: 4px 4px 0 0;"></div><span style="font-size: 11px; color: #64748B;">기타</span></div>
-                </div>
-              </div>
-
-              <!-- CARD 2: 오늘의 일정 -->
-              <div class="crm-card-panel">
-                <div class="crm-card-panel-header">
-                  <span>오늘의 일정</span>
-                  <span style="font-size: 12px; color: #64748B; font-weight: 500;">2026.08.12 📅</span>
-                </div>
-                <div style="height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #F8FAFC; border-radius: 8px; border: 1px dashed #E2E8F0; color: #94A3B8; font-size: 12px; gap: 6px;">
-                  <span>📅 등록된 오늘의 일정이 없습니다.</span>
-                </div>
-              </div>
-
-              <!-- CARD 3: 알림 -->
-              <div class="crm-card-panel">
-                <div class="crm-card-panel-header">
-                  <span>알림</span>
-                  <div style="display: flex; gap: 4px;">
-                    <button type="button" style="padding: 2px 6px; font-size: 11px; background: #2563EB; color: #FFF; border: none; border-radius: 4px;">전체 알림</button>
-                    <button type="button" style="padding: 2px 6px; font-size: 11px; background: #F1F5F9; color: #64748B; border: none; border-radius: 4px;">읽지 않음</button>
-                  </div>
-                </div>
-                <div style="height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #F8FAFC; border-radius: 8px; border: 1px dashed #E2E8F0; color: #94A3B8; font-size: 12px; gap: 6px;">
-                  <span>🔔 수신된 알림 메시지가 없습니다.</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <!-- ACTIVATION PROGRESS CHECKLIST PANEL -->
-      <div class="demo-info-panel">
-        <div class="demo-info-header">
-          <h4>🎯 데모 체험 필수 Activation (핵심 기능 달성도)</h4>
-          <span class="id-tag" id="activationBadge">Activation 3/4 완료</span>
-        </div>
-
-        <div class="activation-list" id="activationList">
-          <div class="activation-item" onclick="toggleActivationStep(this, 1)">
-            <div class="activation-item-left">
-              <div class="status-check completed" id="chkStep1">✓</div>
-              <div>
-                <strong style="font-size: 14px;">최초 로그인 및 데모 프로필 세팅</strong>
-                <p style="font-size: 12px; color: #64748B;">입력된 업종 및 회사정보 기반 템플릿 생성 완료</p>
-              </div>
-            </div>
-            <span style="font-size: 12px; color: #10B981; font-weight: 700;" id="lblStep1">완료 (Log O)</span>
-          </div>
-
-          <div class="activation-item" onclick="toggleActivationStep(this, 2)">
-            <div class="activation-item-left">
-              <div class="status-check completed" id="chkStep2">✓</div>
-              <div>
-                <strong style="font-size: 14px;">첫 영업기회(Deal) 등록 및 파이프라인 이동</strong>
-                <p style="font-size: 12px; color: #64748B;">영업 스테이지 간 드래그 앤 드롭 테스트 완료</p>
-              </div>
-            </div>
-            <span style="font-size: 12px; color: #10B981; font-weight: 700;" id="lblStep2">완료 (Log O)</span>
-          </div>
-
-          <div class="activation-item" onclick="toggleActivationStep(this, 3)">
-            <div class="activation-item-left">
-              <div class="status-check completed" id="chkStep3">✓</div>
-              <div>
-                <strong style="font-size: 14px;">고객 미팅 기록 작성 & AI 영업 분석 조회</strong>
-                <p style="font-size: 12px; color: #64748B;">대시보드 통계 및 미팅 로그 작성 확인</p>
-              </div>
-            </div>
-            <span style="font-size: 12px; color: #10B981; font-weight: 700;" id="lblStep3">완료 (Log O)</span>
-          </div>
-
-          <div class="activation-item" onclick="openDirectSignupModal()">
-            <div class="activation-item-left">
-              <div class="status-check pending" id="chkStep4">!</div>
-              <div>
-                <strong style="font-size: 14px;">유료 회원사 전환 및 서비스 연동</strong>
-                <p style="font-size: 12px; color: #64748B;">demo_id의 이메일/휴대폰 키 기반 회원사(company_id) 자동 매칭</p>
-              </div>
-            </div>
-            <button type="button" id="btnStep4Action" style="background: #2563EB; color: #FFF; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer;" onclick="event.stopPropagation(); openDirectSignupModal();">
-              지금 연동
-            </button>
-          </div>
-        </div>
-      </div>
-
     </div>
 
 
