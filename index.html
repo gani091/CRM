@@ -3734,44 +3734,111 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
        MODAL 3: SYSADMIN 수동 회원사 후보 매칭 모달
        ============================================== -->
   <div class="modal-overlay" id="candidateMatchModal" style="display: none;">
-    <div class="modal-card" style="max-width: 540px;">
+    <div class="modal-card" style="max-width: 580px;">
       <div class="modal-header" style="background: #0F172A;">
-        <h2>🔍 회원사 후보 찾기 (관리자 수동 연결)</h2>
+        <h2>🔍 회원사 연결 (수동 후보 매칭)</h2>
         <button class="btn-close-modal" onclick="closeCandidateMatchModal()">&times;</button>
       </div>
       <div class="modal-body" style="padding: 24px;">
-        <p style="font-size: 13px; color: #64748B; margin-bottom: 16px;">
-          데모 신청 정보와 일치하는 정식 회원사 후보입니다. 매칭 연결 시 demo_id ↔ company_id 전환 이력이 기록됩니다.
+        
+        <!-- 데모 신청자 정보 -->
+        <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 10px; padding: 14px; margin-bottom: 16px;">
+          <div style="font-size: 12px; font-weight: 800; color: #1E40AF; margin-bottom: 6px;">📋 데모 신청자 정보</div>
+          <div class="grid-2" style="font-size: 13px; color: #1E3A8A; gap: 6px;">
+            <div><strong>회사명:</strong> <span id="candApplicantCompany">KD첨단소재</span></div>
+            <div><strong>담당자:</strong> <span id="candApplicantName">이동훈</span></div>
+            <div><strong>이메일:</strong> <span id="candApplicantEmail">sales@kdhms.com</span></div>
+            <div><strong>휴대전화:</strong> <span id="candApplicantPhone">010-7372-9989</span></div>
+          </div>
+        </div>
+
+        <!-- 회원사 후보 목록 -->
+        <div style="margin-bottom: 16px;">
+          <div style="font-size: 13px; font-weight: 800; color: #0F172A; margin-bottom: 10px;">🔍 일치하는 회원사 후보</div>
+          
+          <!-- 후보 1 (1순위) -->
+          <div style="background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 10px; padding: 14px; margin-bottom: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <strong style="font-size: 15px; color: #0F172A;">회원사 후보 1: KD첨단소재 (COMP-2026-9901)</strong>
+              <span class="badge-status green">높은 일치도 (1순위)</span>
+            </div>
+            <div style="font-size: 13px; color: #475569; margin-bottom: 8px;">
+              이메일: sales@kdhms.com | 전화번호: 010-7372-9989
+            </div>
+            <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 10px;">
+              <span class="badge-status green">✓ 이메일 일치</span>
+              <span class="badge-status green">✓ 휴대전화 일치</span>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 8px;">
+              <button type="button" class="btn-dev-action" onclick="showToast('회원사 상세 정보: KD첨단소재 (COMP-2026-9901)', 'info')">상세보기</button>
+              <button type="button" class="btn-submit" style="width: auto; height: 34px; margin-top: 0; padding: 0 16px; font-size: 13px; background: #2563EB;" onclick="openCandidateConfirmModal('COMP-2026-9901', 'KD첨단소재')">연결하기</button>
+            </div>
+          </div>
+
+          <!-- 후보 2 (2순위) -->
+          <div style="background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 10px; padding: 14px; margin-bottom: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <strong style="font-size: 15px; color: #0F172A;">회원사 후보 2: KD첨단소재 서울지점 (COMP-2026-8021)</strong>
+              <span class="badge-status blue">2순위 매칭</span>
+            </div>
+            <div style="font-size: 13px; color: #475569; margin-bottom: 8px;">
+              이메일: sales@kdhms.com | 전화번호: 010-9999-1122
+            </div>
+            <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 10px;">
+              <span class="badge-status green">✓ 이메일 일치</span>
+              <span class="badge-status gray">△ 휴대전화 불일치</span>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 8px;">
+              <button type="button" class="btn-dev-action" onclick="showToast('회원사 상세 정보: KD첨단소재 서울지점 (COMP-2026-8021)', 'info')">상세보기</button>
+              <button type="button" class="btn-submit" style="width: auto; height: 34px; margin-top: 0; padding: 0 16px; font-size: 13px; background: #2563EB;" onclick="openCandidateConfirmModal('COMP-2026-8021', 'KD첨단소재 서울지점')">연결하기</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; padding: 10px 14px; border-radius: 8px; font-size: 12px; margin-bottom: 16px;">
+          <strong>매칭 우선순위 정책:</strong><br>
+          • 1순위: 이메일 + 휴대전화 모두 일치 (높은 일치도)<br>
+          • 2순위: 이메일 일치<br>
+          • 3순위: 휴대전화 일치<br>
+          ⚠️ <em>회사명 또는 담당자 단독 동일 건은 중복 위험으로 후보에서 자동 제외합니다.</em>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px;">
+          <button type="button" class="btn-dev-action" style="padding: 10px 20px; font-size: 14px;" onclick="closeCandidateMatchModal()">닫기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==============================================
+       MODAL 4: SYSADMIN 수동 연결 확정 CONFIRM MODAL
+       ============================================== -->
+  <div class="modal-overlay" id="candidateConfirmModal" style="display: none;">
+    <div class="modal-card" style="max-width: 440px;">
+      <div class="modal-header" style="background: #0F172A;">
+        <h2>🔗 회원사 연결 확인</h2>
+        <button class="btn-close-modal" onclick="closeCandidateConfirmModal()">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 24px;">
+        <p style="font-size: 15px; font-weight: 800; color: #0F172A; margin-bottom: 16px;">
+          회원사를 연결하시겠습니까?
         </p>
 
-        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 16px; margin-bottom: 16px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <strong style="font-size: 16px; color: #0F172A;" id="candCompanyName">KD첨단소재</strong>
-            <span class="badge-status green">1순위 매칭</span>
-          </div>
-
-          <div style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #475569; margin-bottom: 12px;">
-            <div><strong>이메일:</strong> <span id="candEmail">sales@kdhms.com</span></div>
-            <div><strong>전화번호:</strong> <span id="candPhone">010-7372-9989</span></div>
-          </div>
-
-          <div style="display: flex; gap: 6px;">
-            <span class="badge-status green">✓ 이메일 일치</span>
-            <span class="badge-status green">✓ 휴대전화 일치</span>
-          </div>
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 14px; margin-bottom: 16px; font-size: 13px; display: flex; flex-direction: column; gap: 8px;">
+          <div><strong>데모 ID:</strong> <code style="color: #2563EB;" id="confirmTargetDemoId">DEMO-2026-8942</code></div>
+          <div><strong>회원사 ID:</strong> <code style="color: #10B981;" id="confirmTargetCompanyId">COMP-2026-9901</code></div>
+          <div><strong>회원사명:</strong> <span id="confirmTargetCompanyName">KD첨단소재</span></div>
         </div>
 
-        <div style="background: #EFF6FF; border: 1px solid #BFDBFE; color: #1E40AF; padding: 10px 14px; border-radius: 8px; font-size: 12px;">
-          <strong>매칭 우선순위 정책:</strong><br>
-          • 1순위: 이메일 + 휴대전화 모두 동일<br>
-          • 2순위: 이메일 동일<br>
-          • 3순위: 휴대전화 동일 (회사명/담당자 단독 매칭은 제외)
-        </div>
+        <p style="font-size: 12px; color: #64748B; margin-bottom: 20px; line-height: 1.4;">
+          연결 후 데모 전환 분석 데이터에 해당 회원사가 연결됩니다. (연결 방식: SYSADMIN_MANUAL)
+        </p>
 
-        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
-          <button type="button" class="btn-dev-action" onclick="closeCandidateMatchModal()">취소</button>
-          <button type="button" class="btn-submit" style="width: auto; height: 40px; margin-top: 0; padding: 0 20px; font-size: 14px; background: #2563EB;" onclick="confirmManualLink()">
-            🔗 이 회원사와 연결하기 (SYSADMIN_MANUAL)
+        <div style="display: flex; justify-content: flex-end; gap: 10px;">
+          <button type="button" class="btn-dev-action" onclick="closeCandidateConfirmModal()">취소</button>
+          <button type="button" class="btn-submit" style="width: auto; height: 38px; margin-top: 0; padding: 0 20px; font-size: 14px; background: #2563EB;" onclick="executeCandidateLink()">
+            연결
           </button>
         </div>
       </div>
@@ -3779,17 +3846,26 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
   </div>
 
 
-  <!-- FLOATING DEV INSPECTOR PANEL FOR REALTIME DATA REVIEW -->
+  <!-- FLOATING DEV INSPECTOR PANEL FOR REALTIME DATA REVIEW (5 TABS SUPPORT) -->
   <div class="dev-inspector-panel" id="devInspectorPanel">
-    <div class="dev-inspector-header">
-      <span>📡 REALTIME PAYLOAD INSPECTOR</span>
-      <span style="font-size: 10px; color: #A7F3D0;">LIVE MONITOR</span>
+    <div class="dev-inspector-header" style="flex-direction: column; align-items: flex-start; gap: 6px;">
+      <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+        <span>📡 REALTIME PAYLOAD INSPECTOR</span>
+        <span style="font-size: 10px; color: #A7F3D0;">LIVE MONITOR</span>
+      </div>
+      <div style="display: flex; gap: 4px; flex-wrap: wrap; margin-top: 2px;">
+        <button type="button" class="btn-dev-action" style="padding: 2px 6px; font-size: 10px;" onclick="setDevInspectorTab('demo_request')">Demo Request</button>
+        <button type="button" class="btn-dev-action" style="padding: 2px 6px; font-size: 10px;" onclick="setDevInspectorTab('demo_account')">Demo Account</button>
+        <button type="button" class="btn-dev-action" style="padding: 2px 6px; font-size: 10px;" onclick="setDevInspectorTab('activation')">Activation</button>
+        <button type="button" class="btn-dev-action" style="padding: 2px 6px; font-size: 10px;" onclick="setDevInspectorTab('signup')">Signup Funnel</button>
+        <button type="button" class="btn-dev-action" style="padding: 2px 6px; font-size: 10px;" onclick="setDevInspectorTab('conversion')">Conversion Link</button>
+      </div>
     </div>
     <div class="dev-inspector-body" id="devInspectorContent">
 // 폼 입력 시 실시간 전송 Payload가 감지됩니다...
     </div>
     <div class="dev-inspector-footer">
-      <span style="font-size: 10px; color: #94A3B8;">POST /api/v1/demo-requests</span>
+      <span style="font-size: 10px; color: #94A3B8;">POST /api/v1/conversions</span>
       <button class="btn-dev-action" onclick="copyCurrentInspector()">Copy Payload</button>
     </div>
   </div>
@@ -3810,8 +3886,10 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
     let activationSteps = [true, true, true, false];
     let isPaidMember = false;
     let currentDevInspectorTab = 'demo_request';
+    let pendingCandidateCompId = 'COMP-2026-9901';
+    let pendingCandidateCompName = 'KD첨단소재';
 
-    // APP STATE DATA STORE (P0 SPECIFIED DATA OBJECTS)
+    // APP STATE DATA STORE (P0 SPECIFIED 5 TEST CASES & CONVERSION LINK OBJECTS)
     const appState = {
       activeView: 'form',
       sysDemoViewMode: 'tobe', // asis, tobe, compare
@@ -3834,21 +3912,33 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
           interested_features: ["고객·고객사 관리", "영업기회 관리", "통계·분석"],
           current_system: "엑셀 / 수기 / 개인 메모",
           acquisition_channel: "검색 엔진 (SEO/SA)",
-          note: "실제 CRM 도입 검토 중인 리드 계정입니다.",
+          note: "실제 CRM 도입 검토 중인 리드 계정입니다. (수동 연결 테스트 건)",
           
           demo_status: "DEMO_ACTIVE",        // DEMO_ACTIVE, DEMO_EXPIRED
           signup_status: "COMPLETED",        // NOT_STARTED, STARTED, COMPLETED
           payment_status: "PAID",            // null, PENDING, PAID
           conversion_status: "CONVERTED",    // NOT_CONVERTED, SIGNUP_STARTED, SIGNUP_COMPLETED, PAYMENT_PENDING, CONVERTED, DEMO_EXPIRED
+          link_status: "LINKED",             // UNLINKED, LINKED
           company_id: "COMP-2026-9901",
-          linked_by: "DIRECT_SIGNUP",        // DIRECT_SIGNUP, SYSADMIN_MANUAL
+          linked_by: "SYSADMIN_MANUAL",      // DIRECT_SIGNUP, SYSADMIN_MANUAL
           linked_at: "2026-08-13 11:35",
           converted_at: "2026-08-13 11:35",
 
+          timestamps: {
+            demo_requested_at: "2026-08-11 09:00",
+            demo_issued_at: "2026-08-11 09:01",
+            first_login_at: "2026-08-11 09:10",
+            first_activation_at: "2026-08-11 09:20",
+            signup_started_at: "2026-08-13 11:20",
+            signup_completed_at: "2026-08-13 11:30",
+            paid_at: "2026-08-13 11:35",
+            converted_at: "2026-08-13 11:35"
+          },
+
           activation_logs: [
-            { code: "DEMO_LOGIN", name: "데모 최초 로그인", status: true, timestamp: "2026-08-13 09:11", count: 4 },
-            { code: "CUSTOMER_CREATE", name: "고객/고객사 등록", status: true, timestamp: "2026-08-13 09:20", count: 2 },
-            { code: "OPPORTUNITY_CREATE", name: "영업기회 등록", status: true, timestamp: "2026-08-13 09:32", count: 1 },
+            { code: "DEMO_LOGIN", name: "데모 최초 로그인", status: true, timestamp: "2026-08-11 09:10", count: 4 },
+            { code: "CUSTOMER_CREATE", name: "고객/고객사 등록", status: true, timestamp: "2026-08-11 09:20", count: 2 },
+            { code: "OPPORTUNITY_CREATE", name: "영업기회 등록", status: true, timestamp: "2026-08-11 09:32", count: 1 },
             { code: "ACTIVITY_CREATE", name: "영업활동 등록", status: false, timestamp: null, count: 0 }
           ]
         },
@@ -3869,20 +3959,79 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
           interested_features: ["고객·고객사 관리", "영업기회 관리", "통계·분석"],
           current_system: "엑셀 / 수기 / 개인 메모",
           acquisition_channel: "검색 엔진 (SEO/SA)",
-          note: "데모체험 진행 중인 신규 계정",
+          note: "CASE 1: 데모체험 진행 중인 신규 계정 (미전환)",
           
           demo_status: "DEMO_ACTIVE",
           signup_status: "NOT_STARTED",
           payment_status: null,
           conversion_status: "NOT_CONVERTED",
+          link_status: "UNLINKED",
           company_id: null,
           linked_by: null,
           linked_at: null,
           converted_at: null,
 
+          timestamps: {
+            demo_requested_at: "2026-08-12 11:45",
+            demo_issued_at: "2026-08-12 11:46",
+            first_login_at: "2026-08-12 14:00",
+            first_activation_at: "2026-08-12 14:15",
+            signup_started_at: null,
+            signup_completed_at: null,
+            paid_at: null,
+            converted_at: null
+          },
+
           activation_logs: [
-            { code: "DEMO_LOGIN", name: "데모 최초 로그인", status: true, timestamp: "2026-08-13 09:11", count: 2 },
-            { code: "CUSTOMER_CREATE", name: "고객/고객사 등록", status: true, timestamp: "2026-08-13 09:20", count: 1 },
+            { code: "DEMO_LOGIN", name: "데모 최초 로그인", status: true, timestamp: "2026-08-12 14:00", count: 2 },
+            { code: "CUSTOMER_CREATE", name: "고객/고객사 등록", status: true, timestamp: "2026-08-12 14:15", count: 1 },
+            { code: "OPPORTUNITY_CREATE", name: "영업기회 등록", status: false, timestamp: null, count: 0 },
+            { code: "ACTIVITY_CREATE", name: "영업활동 등록", status: false, timestamp: null, count: 0 }
+          ]
+        },
+        {
+          demo_id: "DEMO-2026-1002",
+          company_name: "미래소프트",
+          user_count: "6-20명",
+          contact_name: "박개발",
+          phone: "010-3344-5566",
+          email: "dev@miraesoft.com",
+          job_title: "팀장",
+          service_type: "CRM",
+          demo_account: "guest1002",
+          expiry_date: "2026-08-24",
+          created_at: "2026-08-10",
+          industry: "IT/SaaS",
+          demo_purpose: "기능 확인",
+          interested_features: ["영업기회 관리", "통계·분석"],
+          current_system: "수기 메모",
+          acquisition_channel: "검색 엔진 (SEO/SA)",
+          note: "CASE 2: 회원가입 진행 중 계정 (Step 02 휴대폰 인증 완료)",
+
+          demo_status: "DEMO_ACTIVE",
+          signup_status: "STARTED",
+          payment_status: null,
+          conversion_status: "SIGNUP_STARTED",
+          link_status: "UNLINKED",
+          company_id: null,
+          linked_by: null,
+          linked_at: null,
+          converted_at: null,
+
+          timestamps: {
+            demo_requested_at: "2026-08-10 10:00",
+            demo_issued_at: "2026-08-10 10:01",
+            first_login_at: "2026-08-10 11:00",
+            first_activation_at: "2026-08-10 11:20",
+            signup_started_at: "2026-08-13 10:00",
+            signup_completed_at: null,
+            paid_at: null,
+            converted_at: null
+          },
+
+          activation_logs: [
+            { code: "DEMO_LOGIN", name: "데모 최초 로그인", status: true, timestamp: "2026-08-10 11:00", count: 3 },
+            { code: "CUSTOMER_CREATE", name: "고객/고객사 등록", status: true, timestamp: "2026-08-10 11:20", count: 2 },
             { code: "OPPORTUNITY_CREATE", name: "영업기회 등록", status: false, timestamp: null, count: 0 },
             { code: "ACTIVITY_CREATE", name: "영업활동 등록", status: false, timestamp: null, count: 0 }
           ]
@@ -3904,22 +4053,81 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
           interested_features: ["견적·계약 관리", "매출 관리"],
           current_system: "타사 CRM 솔루션 사용 중",
           acquisition_channel: "디스플레이/SNS 광고",
-          note: "회원가입 완료 후 결제 대기 중인 계정 (Scenario B 시뮬레이션)",
+          note: "CASE 3 (Scenario C): 회원가입 완료 후 결제 이탈 (결제 대기)",
           
           demo_status: "DEMO_ACTIVE",
           signup_status: "COMPLETED",
           payment_status: "PENDING",
           conversion_status: "PAYMENT_PENDING",
+          link_status: "LINKED",
           company_id: "COMP-2026-9902",
-          linked_by: null,
-          linked_at: null,
+          linked_by: "DIRECT_SIGNUP",
+          linked_at: "2026-08-08 15:30",
           converted_at: null,
+
+          timestamps: {
+            demo_requested_at: "2026-08-07 14:00",
+            demo_issued_at: "2026-08-07 14:01",
+            first_login_at: "2026-08-07 14:10",
+            first_activation_at: "2026-08-07 14:30",
+            signup_started_at: "2026-08-08 15:00",
+            signup_completed_at: "2026-08-08 15:30",
+            paid_at: null,
+            converted_at: null
+          },
 
           activation_logs: [
             { code: "DEMO_LOGIN", name: "데모 최초 로그인", status: true, timestamp: "2026-08-07 14:10", count: 5 },
             { code: "CUSTOMER_CREATE", name: "고객/고객사 등록", status: true, timestamp: "2026-08-07 14:30", count: 3 },
             { code: "OPPORTUNITY_CREATE", name: "영업기회 등록", status: true, timestamp: "2026-08-08 10:15", count: 2 },
             { code: "ACTIVITY_CREATE", name: "영업활동 등록", status: true, timestamp: "2026-08-09 11:20", count: 1 }
+          ]
+        },
+        {
+          demo_id: "DEMO-2026-1004",
+          company_name: "글로벌인사이트",
+          user_count: "50명 이상",
+          contact_name: "최대표",
+          phone: "010-9988-7766",
+          email: "ceo@globalinsight.kr",
+          job_title: "대표이사",
+          service_type: "CRM",
+          demo_account: "guest1004",
+          expiry_date: "2026-08-18",
+          created_at: "2026-08-04",
+          industry: "컨설팅",
+          demo_purpose: "실제 CRM 도입 검토",
+          interested_features: ["고객·고객사 관리", "영업기회 관리", "매출 관리"],
+          current_system: "엑셀 수기 관리",
+          acquisition_channel: "지인 추천 / 영업",
+          note: "CASE 4: 직접 회원가입 & 결제 완료 계정 (DIRECT_SIGNUP)",
+
+          demo_status: "DEMO_ACTIVE",
+          signup_status: "COMPLETED",
+          payment_status: "PAID",
+          conversion_status: "CONVERTED",
+          link_status: "LINKED",
+          company_id: "COMP-2026-3004",
+          linked_by: "DIRECT_SIGNUP",
+          linked_at: "2026-08-05 16:20",
+          converted_at: "2026-08-05 16:25",
+
+          timestamps: {
+            demo_requested_at: "2026-08-04 11:00",
+            demo_issued_at: "2026-08-04 11:01",
+            first_login_at: "2026-08-04 11:15",
+            first_activation_at: "2026-08-04 11:40",
+            signup_started_at: "2026-08-05 16:00",
+            signup_completed_at: "2026-08-05 16:20",
+            paid_at: "2026-08-05 16:25",
+            converted_at: "2026-08-05 16:25"
+          },
+
+          activation_logs: [
+            { code: "DEMO_LOGIN", name: "데모 최초 로그인", status: true, timestamp: "2026-08-04 11:15", count: 8 },
+            { code: "CUSTOMER_CREATE", name: "고객/고객사 등록", status: true, timestamp: "2026-08-04 11:40", count: 6 },
+            { code: "OPPORTUNITY_CREATE", name: "영업기회 등록", status: true, timestamp: "2026-08-04 14:10", count: 4 },
+            { code: "ACTIVITY_CREATE", name: "영업활동 등록", status: true, timestamp: "2026-08-05 10:00", count: 3 }
           ]
         }
       ]
@@ -4017,6 +4225,7 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
 
           const randNum = Math.floor(1000 + Math.random() * 9000);
           generatedDemoId = "DEMO-2026-" + randNum;
+          const nowStr = new Date().toISOString().replace('T', ' ').substring(0, 16);
 
           // Create new record in data store
           const newDemo = {
@@ -4042,13 +4251,25 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
             signup_status: "NOT_STARTED",
             payment_status: null,
             conversion_status: "NOT_CONVERTED",
+            link_status: "UNLINKED",
             company_id: null,
             linked_by: null,
             linked_at: null,
             converted_at: null,
 
+            timestamps: {
+              demo_requested_at: nowStr,
+              demo_issued_at: nowStr,
+              first_login_at: null,
+              first_activation_at: null,
+              signup_started_at: null,
+              signup_completed_at: null,
+              paid_at: null,
+              converted_at: null
+            },
+
             activation_logs: [
-              { code: "DEMO_LOGIN", name: "데모 최초 로그인", status: true, timestamp: new Date().toISOString().replace('T', ' ').substring(0, 16), count: 1 },
+              { code: "DEMO_LOGIN", name: "데모 최초 로그인", status: true, timestamp: nowStr, count: 1 },
               { code: "CUSTOMER_CREATE", name: "고객/고객사 등록", status: false, timestamp: null, count: 0 },
               { code: "OPPORTUNITY_CREATE", name: "영업기회 등록", status: false, timestamp: null, count: 0 },
               { code: "ACTIVITY_CREATE", name: "영업활동 등록", status: false, timestamp: null, count: 0 }
@@ -4270,20 +4491,27 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       }
       showToast('✅ 휴대폰 인증이 완료되었습니다!', 'success');
       const curDemo = getSelectedDemo();
+      const nowStr = new Date().toISOString().replace('T', ' ').substring(0, 16);
       if (curDemo) {
         curDemo.signup_status = "STARTED";
         curDemo.conversion_status = "SIGNUP_STARTED";
+        if (curDemo.timestamps) curDemo.timestamps.signup_started_at = nowStr;
       }
       updateDevInspector();
     }
 
     function completeStep3AndNext() {
       const curDemo = getSelectedDemo();
+      const nowStr = new Date().toISOString().replace('T', ' ').substring(0, 16);
       if (curDemo) {
         curDemo.signup_status = "COMPLETED";
         curDemo.company_id = "COMP-2026-9901";
+        curDemo.link_status = "LINKED";
+        curDemo.linked_by = "DIRECT_SIGNUP";
+        curDemo.linked_at = nowStr;
         curDemo.payment_status = "PENDING";
         curDemo.conversion_status = "PAYMENT_PENDING";
+        if (curDemo.timestamps) curDemo.timestamps.signup_completed_at = nowStr;
       }
       showToast('회원사 정보 입력 완료! 요금 결제 단계로 이동합니다.', 'info');
       renderSysDemoList();
@@ -4303,9 +4531,14 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
         curDemo.signup_status = "COMPLETED";
         curDemo.payment_status = "PAID";
         curDemo.conversion_status = "CONVERTED";
+        curDemo.link_status = "LINKED";
         curDemo.linked_by = "DIRECT_SIGNUP";
-        curDemo.linked_at = nowStr;
+        curDemo.linked_at = curDemo.linked_at || nowStr;
         curDemo.converted_at = nowStr;
+        if (curDemo.timestamps) {
+          curDemo.timestamps.paid_at = nowStr;
+          curDemo.timestamps.converted_at = nowStr;
+        }
       }
 
       showToast(`위시드 CRM 가입이 완료되었습니다.\n데모 계정(${curDemo.demo_id})과 신규 회원사(COMP-2026-9901)가 연결되었습니다.`, 'success');
@@ -4374,8 +4607,18 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       closeDirectSignupModal();
     }
 
-    // CANDIDATE MATCHING MODAL HANDLERS (SCENARIO C)
+    // CANDIDATE MATCHING MODAL & CONFIRM MODAL HANDLERS (SCENARIO B)
     function openCandidateMatchModal() {
+      const curDemo = getSelectedDemo();
+      const cComp = document.getElementById('candApplicantCompany');
+      if (cComp) cComp.innerText = curDemo.company_name;
+      const cName = document.getElementById('candApplicantName');
+      if (cName) cName.innerText = curDemo.contact_name;
+      const cEmail = document.getElementById('candApplicantEmail');
+      if (cEmail) cEmail.innerText = curDemo.email;
+      const cPhone = document.getElementById('candApplicantPhone');
+      if (cPhone) cPhone.innerText = curDemo.phone;
+
       const modal = document.getElementById('candidateMatchModal');
       if (modal) {
         modal.style.display = 'flex';
@@ -4391,21 +4634,55 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       }
     }
 
-    function confirmManualLink() {
+    function openCandidateConfirmModal(compId, compName) {
+      pendingCandidateCompId = compId;
+      pendingCandidateCompName = compName;
+
+      const curDemo = getSelectedDemo();
+      const dEl = document.getElementById('confirmTargetDemoId');
+      if (dEl) dEl.innerText = curDemo.demo_id;
+      const cEl = document.getElementById('confirmTargetCompanyId');
+      if (cEl) cEl.innerText = compId;
+      const cnEl = document.getElementById('confirmTargetCompanyName');
+      if (cnEl) cnEl.innerText = compName;
+
+      const modal = document.getElementById('candidateConfirmModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        modal.classList.add('active');
+      }
+    }
+
+    function closeCandidateConfirmModal() {
+      const modal = document.getElementById('candidateConfirmModal');
+      if (modal) {
+        modal.style.display = 'none';
+        modal.classList.remove('active');
+      }
+    }
+
+    function executeCandidateLink() {
       const curDemo = getSelectedDemo();
       const nowStr = new Date().toISOString().replace('T', ' ').substring(0, 16);
 
       if (curDemo) {
-        curDemo.company_id = "COMP-2026-9901";
-        curDemo.signup_status = "COMPLETED";
-        curDemo.payment_status = "PAID";
-        curDemo.conversion_status = "CONVERTED";
+        curDemo.company_id = pendingCandidateCompId;
         curDemo.linked_by = "SYSADMIN_MANUAL";
+        curDemo.link_status = "LINKED";
         curDemo.linked_at = nowStr;
-        curDemo.converted_at = nowStr;
+
+        // SEPARATION RULE: If payment is PAID -> CONVERTED; if PENDING or null -> PAYMENT_PENDING / NOT_CONVERTED
+        if (curDemo.payment_status === "PAID") {
+          curDemo.conversion_status = "CONVERTED";
+          curDemo.converted_at = nowStr;
+          if (curDemo.timestamps) curDemo.timestamps.converted_at = nowStr;
+        } else {
+          curDemo.conversion_status = "PAYMENT_PENDING";
+        }
       }
 
-      showToast(`✅ 데모 계정(${curDemo.demo_id})과 정식 회원사(COMP-2026-9901)가 관리자에 의해 수동 연결되었습니다.`, 'success');
+      showToast(`회원사 연결이 완료되었습니다.\n(${curDemo.demo_id} ↔ ${pendingCandidateCompId})`, 'success');
+      closeCandidateConfirmModal();
       closeCandidateMatchModal();
       renderSysDemoList();
       updateSysDetailView();
@@ -4554,7 +4831,7 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       const isPending = curDemo.conversion_status === 'PAYMENT_PENDING';
       const badgeColor = getConversionBadgeClass(curDemo.conversion_status);
       const statusText = getConversionStatusLabel(curDemo.conversion_status);
-      const linkMethodText = curDemo.linked_by === 'DIRECT_SIGNUP' ? '데모 CRM 직접 회원가입' : (curDemo.linked_by === 'SYSADMIN_MANUAL' ? '관리자 수동 연결 (SYSADMIN)' : '-');
+      const linkMethodText = curDemo.linked_by === 'DIRECT_SIGNUP' ? '데모 CRM 직접 회원가입 (DIRECT_SIGNUP)' : (curDemo.linked_by === 'SYSADMIN_MANUAL' ? '관리자 수동 연결 (SYSADMIN_MANUAL)' : '-');
 
       if (isConverted) {
         convContainer.innerHTML = `
@@ -4564,30 +4841,22 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
               <div class="field-readonly-box"><span class="badge-status green">전환 완료</span></div>
             </div>
             <div>
+              <label class="field-label">연결 회원사 ID <span class="tag-p0">P0</span></label>
+              <div class="field-readonly-box">
+                <a class="link-id" onclick="navigateToCompanyDetail('${curDemo.company_id}')">${curDemo.company_id}</a>
+              </div>
+            </div>
+            <div>
+              <label class="field-label">연결 방식</label>
+              <div class="field-readonly-box">${linkMethodText}</div>
+            </div>
+            <div>
               <label class="field-label">회원가입 완료일</label>
               <div class="field-readonly-box">${curDemo.linked_at || '2026.08.13 11:32'}</div>
             </div>
             <div>
               <label class="field-label">결제 상태</label>
               <div class="field-readonly-box"><span class="badge-status green">결제 완료 (PAID)</span></div>
-            </div>
-            <div>
-              <label class="field-label">결제일</label>
-              <div class="field-readonly-box">${curDemo.converted_at || '2026.08.13 11:35'}</div>
-            </div>
-            <div>
-              <label class="field-label">회원사 ID <span class="tag-p0">P0</span></label>
-              <div class="field-readonly-box">
-                <a class="link-id" onclick="navigateToCompanyDetail('${curDemo.company_id}')">${curDemo.company_id}</a>
-              </div>
-            </div>
-            <div>
-              <label class="field-label">회원사명</label>
-              <div class="field-readonly-box">${curDemo.company_name}</div>
-            </div>
-            <div>
-              <label class="field-label">연결 방식</label>
-              <div class="field-readonly-box">${linkMethodText}</div>
             </div>
             <div>
               <label class="field-label">전환 완료일</label>
@@ -4624,14 +4893,14 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
               <div class="field-readonly-box"><span class="badge-status orange">결제 대기 (PAYMENT_PENDING)</span></div>
             </div>
             <div>
-              <label class="field-label">회원가입 상태</label>
-              <div class="field-readonly-box"><span class="badge-status blue">가입 완료 (결제전 이탈)</span></div>
-            </div>
-            <div>
-              <label class="field-label">생성된 회원사 ID <span class="tag-p0">P0</span></label>
+              <label class="field-label">연결 회원사 ID <span class="tag-p0">P0</span></label>
               <div class="field-readonly-box">
                 <a class="link-id" onclick="navigateToCompanyDetail('${curDemo.company_id}')">${curDemo.company_id}</a>
               </div>
+            </div>
+            <div>
+              <label class="field-label">연결 방식</label>
+              <div class="field-readonly-box">${linkMethodText}</div>
             </div>
             <div>
               <label class="field-label">결제 상태</label>
@@ -4639,7 +4908,7 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
             </div>
           </div>
           <div style="background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; padding: 12px; border-radius: 8px; font-size: 12px; margin-top: 12px;">
-            ⚠️ 회원가입은 완료되었으나 결제가 완료되지 않아 <strong>최종 전환(CONVERTED)</strong>으로 산출되지 않습니다.
+            ⚠️ 회원가입(회원사 생성)은 완료되었으나 결제가 완료되지 않아 <strong>최종 유료 전환(CONVERTED)</strong>으로 산출되지 않습니다.
           </div>
         `;
       } else {
@@ -4650,20 +4919,20 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
               <div class="field-readonly-box"><span class="badge-status gray">미전환</span></div>
             </div>
             <div>
-              <label class="field-label">회원가입 상태</label>
-              <div class="field-readonly-box">미진행</div>
+              <label class="field-label">연결 회원사 ID</label>
+              <div class="field-readonly-box">-</div>
+            </div>
+            <div>
+              <label class="field-label">연결 방식</label>
+              <div class="field-readonly-box">-</div>
             </div>
             <div>
               <label class="field-label">결제 상태</label>
               <div class="field-readonly-box">-</div>
             </div>
-            <div>
-              <label class="field-label">연결된 회원사</label>
-              <div class="field-readonly-box">-</div>
-            </div>
           </div>
 
-          <div style="margin-top: 16px; display: flex; items-center; justify-content: space-between; background: #F8FAFC; border: 1px solid #E2E8F0; padding: 14px; border-radius: 8px;">
+          <div style="margin-top: 16px; display: flex; align-items: center; justify-content: space-between; background: #F8FAFC; border: 1px solid #E2E8F0; padding: 14px; border-radius: 8px;">
             <span style="font-size: 13px; color: #475569;">기존 영업 활동을 통해 회원사가 생성된 경우 수동 매칭을 진행할 수 있습니다.</span>
             <button type="button" class="btn-submit" style="width: auto; height: 38px; margin-top: 0; padding: 0 16px; font-size: 13px; background: #2563EB;" onclick="openCandidateMatchModal()">
               🔍 회원사 후보 찾기
@@ -4839,7 +5108,7 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       }
     }
 
-    // EXPANDED DEV INSPECTOR TAB SWITCHER
+    // EXPANDED DEV INSPECTOR TAB SWITCHER (5 TABS SUPPORT)
     function setDevInspectorTab(tabName) {
       currentDevInspectorTab = tabName;
       updateDevInspector();
@@ -4867,7 +5136,22 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       if (currentDevInspectorTab === 'demo_request') {
         contentEl.innerText = JSON.stringify({
           demo_id: curDemo ? curDemo.demo_id : generatedDemoId,
-          ...formDataObj
+          analysis_annotations: {
+            industry: "업종별 conversion 분석",
+            demo_purpose: "신청 의도별 conversion 분석",
+            interested_features: "관심 기능 ↔ Activation 비교",
+            acquisition_channel: "유입 경로별 conversion 분석",
+            user_count: "예상 이용인원별 conversion 분석"
+          },
+          payload: formDataObj
+        }, null, 2);
+      } else if (currentDevInspectorTab === 'demo_account') {
+        contentEl.innerText = JSON.stringify({
+          demo_id: curDemo.demo_id,
+          demo_account: curDemo.demo_account,
+          demo_status: curDemo.demo_status,
+          expiry_date: curDemo.expiry_date,
+          created_at: curDemo.created_at
         }, null, 2);
       } else if (currentDevInspectorTab === 'activation') {
         contentEl.innerText = JSON.stringify({
@@ -4878,25 +5162,33 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
         contentEl.innerText = JSON.stringify({
           demo_id: curDemo.demo_id,
           company_id: curDemo.company_id,
-          signup_status: curDemo.signup_status
-        }, null, 2);
-      } else if (currentDevInspectorTab === 'payment') {
-        contentEl.innerText = JSON.stringify({
-          company_id: curDemo.company_id,
-          payment_status: curDemo.payment_status,
-          plan: "표준형 CRM",
-          amount: 220000
+          signup_status: curDemo.signup_status,
+          signup_events: [
+            "SIGNUP_CTA_CLICK",
+            "SIGNUP_STARTED",
+            "PHONE_VERIFIED",
+            "SIGNUP_INFO_COMPLETED"
+          ]
         }, null, 2);
       } else if (currentDevInspectorTab === 'conversion') {
         contentEl.innerText = JSON.stringify({
           demo_id: curDemo.demo_id,
           company_id: curDemo.company_id,
+          link_status: curDemo.link_status || (curDemo.company_id ? "LINKED" : "UNLINKED"),
+          link_method: curDemo.linked_by,
           signup_status: curDemo.signup_status,
           payment_status: curDemo.payment_status,
           conversion_status: curDemo.conversion_status,
-          linked_by: curDemo.linked_by,
-          linked_at: curDemo.linked_at,
-          converted_at: curDemo.converted_at
+          timestamps: curDemo.timestamps || {
+            demo_requested_at: curDemo.created_at,
+            demo_issued_at: curDemo.created_at,
+            first_login_at: curDemo.created_at + " 09:10",
+            first_activation_at: curDemo.created_at + " 09:20",
+            signup_started_at: curDemo.linked_at,
+            signup_completed_at: curDemo.linked_at,
+            paid_at: curDemo.converted_at,
+            converted_at: curDemo.converted_at
+          }
         }, null, 2);
       }
     }
