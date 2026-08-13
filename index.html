@@ -1284,6 +1284,37 @@
       line-height: 1.6;
     }
 
+    /* P0 developer discussion board */
+    .p0-board { display:flex; flex-direction:column; gap:16px; }
+    .p0-board-header { display:flex; align-items:flex-start; justify-content:space-between; gap:20px; }
+    .p0-board-header h2 { font-size:24px; font-weight:900; margin-bottom:7px; }
+    .p0-board-header p { color:#64748B; font-size:13px; line-height:1.6; }
+    .p0-doc-actions { display:flex; gap:7px; flex-shrink:0; }
+    .p0-doc-actions button { height:34px; padding:0 12px; border:1px solid #CBD5E1; border-radius:6px; background:#FFF; color:#334155; font-size:12px; font-weight:700; cursor:pointer; }
+    .p0-goal { background:#0F172A; color:#FFF; border-radius:12px; padding:16px 18px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .p0-goal strong { font-size:15px; }
+    .p0-goal span { color:#CBD5E1; font-size:12px; }
+    .p0-flow { display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
+    .p0-flow-step { background:#FFF; border:1px solid #CBD5E1; border-radius:7px; padding:9px 12px; font-size:11px; font-weight:800; color:#334155; }
+    .p0-flow-step.key { color:#1D4ED8; border-color:#93C5FD; background:#EFF6FF; }
+    .p0-flow-arrow { color:#94A3B8; }
+    .p0-board-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .p0-board-card { background:#FFF; border:1px solid #E2E8F0; border-radius:10px; padding:16px; }
+    .p0-board-card.full { grid-column:1/-1; }
+    .p0-board-card h3 { font-size:14px; font-weight:900; margin-bottom:11px; color:#0F172A; }
+    .p0-board-card ul { margin-left:18px; color:#475569; font-size:12px; line-height:1.7; }
+    .p0-board-card code { color:#1D4ED8; font-weight:700; }
+    .p0-delta-table { width:100%; border-collapse:collapse; font-size:11px; }
+    .p0-delta-table th,.p0-delta-table td { border:1px solid #E2E8F0; padding:9px 10px; text-align:left; vertical-align:top; line-height:1.5; }
+    .p0-delta-table th { background:#F8FAFC; color:#475569; }
+    .p0-delta-table td:first-child { font-weight:800; color:#334155; white-space:nowrap; }
+    .p0-accept { color:#047857; font-weight:700; }
+    .p0-remove { color:#B91C1C; font-weight:700; }
+    .p0-decision-list { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+    .p0-decision { border:1px solid #E2E8F0; border-radius:7px; padding:10px; font-size:11px; color:#475569; line-height:1.5; }
+    .p0-decision strong { display:block; color:#0F172A; margin-bottom:3px; }
+    @media(max-width:900px){.p0-board-header{flex-direction:column}.p0-board-grid{grid-template-columns:1fr}.p0-board-card.full{grid-column:auto}.p0-decision-list{grid-template-columns:1fr}}
+
     /* MODAL OVERLAY & CONTENT - CRITICAL DISPLAY NONE FIX */
     .modal-overlay {
       position: fixed;
@@ -1984,13 +2015,10 @@
           📊 데모 CRM 체험 & 즉시 연동
         </button>
         <button type="button" class="nav-tab-btn" id="tabCompareBtn" onclick="switchView('compare')">
-          🔄 AS-IS vs TO-BE 비교
+          🔥 P0 개발 논의
         </button>
         <button type="button" class="nav-tab-btn" id="tabSysDemoBtn" onclick="switchView('sysDemo')">
-          🛠 SYSADMIN 데모체험관리
-        </button>
-        <button type="button" class="nav-tab-btn" id="tabSysCompanyBtn" onclick="switchView('sysCompany')">
-          🏢 SYSADMIN 회원사관리
+          🛠 SYSADMIN 전환 검증
         </button>
       </nav>
     </div>
@@ -2425,75 +2453,37 @@
 
 
     <!-- ==============================================
-         VIEW 3: AS-IS vs TO-BE 1:1 비교 뷰 (COMPARISON VIEW)
+         VIEW 3: P0 개발 논의 보드
          ============================================== -->
     <div id="viewCompare" class="view-section">
-      <div class="hero-section">
-        <h2 style="font-size: 24px; font-weight: 800;">AS-IS vs TO-BE 화면 및 데이터 비교</h2>
-        <p class="hero-subtitle">운영 중인 기존 홈페이지 문의하기 폼과 이번 데모체험 전환 분석 고도화 폼의 변화를 1:1로 비교합니다.</p>
-      </div>
-
-      <div class="compare-grid">
-        <!-- LEFT: AS-IS CARD -->
-        <div class="compare-card asis-card">
-          <span class="compare-badge asis">🔴 AS-IS (기존 문의 접수 폼)</span>
-          <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px;">단순 문의 접수 폼</h3>
-          <p style="font-size: 13px; color: #64748B; margin-bottom: 16px;">
-            첨부해 주신 이미지 기준의 문의 내용 구분 및 8개 기본 필수 항목만 존재
-          </p>
-
-          <div style="background: #FFF; border: 1px solid #E2E8F0; padding: 16px; border-radius: 8px; font-size: 13px;">
-            <strong style="color: #0F172A;">수집 항목 (총 8개):</strong>
-            <ul style="margin-left: 20px; margin-top: 6px; color: #475569;">
-              <li>문의 내용 구분 (기능/요금 등)</li>
-              <li>회사명</li>
-              <li>예상 사용 인원</li>
-              <li>담당자 이름</li>
-              <li>휴대전화</li>
-              <li>직책</li>
-              <li>회사 이메일</li>
-              <li>문의 내용 (서술형 텍스트)</li>
-            </ul>
-          </div>
-
-          <div class="diff-summary-list" style="background: #FEF2F2; border-color: #FCA5A5; color: #991B1B;">
-            <strong>🚨 AS-IS의 문제점 (PRD 기반):</strong>
-            <ul style="margin-left: 20px; margin-top: 6px;">
-              <li><code>demo_id</code> 및 추적 식별자 부재로 실사용 회원사 전환 매칭 불가</li>
-              <li>업종(입력값), 데모체험 목적, 관심 기능 미수집으로 사용자 분석 불가</li>
-              <li>데모 체험 후 유료 결제 전환 연동 프로세스 부재</li>
-            </ul>
-          </div>
+      <div class="p0-board">
+        <div class="p0-board-header">
+          <div><h2>🔥 P0 개발 논의 가이드</h2><p>화면 비교가 아니라 실제 회원 전환에 필요한 계약, 상태, 연결 규칙과 완료 기준만 정리했습니다.</p></div>
+          <div class="p0-doc-actions"><button onclick="openPrdModal('prd')">PRD 원문</button><button onclick="openPrdModal('schema')">DB · API</button><button onclick="openPrdModal('checklist')">미결정 질문</button><button onclick="switchView('sysCompany')">회원사 화면</button></div>
         </div>
 
-        <!-- RIGHT: TO-BE CARD -->
-        <div class="compare-card tobe-card">
-          <span class="compare-badge tobe">🟢 TO-BE (이번 고도화 개선안)</span>
-          <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px;">전환 분석 데이터 구축 폼</h3>
-          <p style="font-size: 13px; color: #64748B; margin-bottom: 16px;">
-            영업 세그먼트 파악 + 자동 트래킹 파라미터 + 유료 전환 연동
-          </p>
+        <div class="p0-goal"><div><strong>단일 P0 목표</strong><br><span>데모 신청자를 식별 가능한 guest로 발급하고, 가입·결제 완료 시 같은 사용자를 정식 회원사로 연결한다.</span></div><span>전환 기준: 가입 완료 + 결제 완료</span></div>
 
-          <div style="background: #FFF; border: 1px solid #E2E8F0; padding: 16px; border-radius: 8px; font-size: 13px;">
-            <strong style="color: #0F172A;">추가/개선된 수집 항목:</strong>
-            <ul style="margin-left: 20px; margin-top: 6px; color: #059669;">
-              <li><strong>[삭제 완료]</strong> 불필요한 '도입 예정 시기', '데모 신청 경력' 삭제</li>
-              <li><strong>[선택 추가]</strong> 업종 (직접 입력값)</li>
-              <li><strong>[선택 추가]</strong> 데모체험 목적 (위시드 CRM 검토/기능확인/사내테스트/타사비교/기타)</li>
-              <li><strong>[선택 추가]</strong> 관심 기능 항목 (고객/영업기회/영업활동/일정/견적계약/매출/통계분석/기타 - 최대 3개)</li>
-              <li><strong>[P0 핵심 구축]</strong> 데모 CRM 내 직접 결제/회원가입 & demo_id 승계 연동</li>
-              <li><strong>[자동 수집]</strong> demo_id, 신청일시, 유입경로, 작성시간</li>
-            </ul>
-          </div>
+        <div class="p0-flow" aria-label="P0 전환 흐름"><span class="p0-flow-step">데모 신청</span><span class="p0-flow-arrow">→</span><span class="p0-flow-step key">demo_id 발급</span><span class="p0-flow-arrow">→</span><span class="p0-flow-step">guest 로그인</span><span class="p0-flow-arrow">→</span><span class="p0-flow-step key">정보 Pre-fill 가입</span><span class="p0-flow-arrow">→</span><span class="p0-flow-step">company_id 생성</span><span class="p0-flow-arrow">→</span><span class="p0-flow-step key">결제 완료</span><span class="p0-flow-arrow">→</span><span class="p0-flow-step key">CONVERTED</span></div>
 
-          <div class="diff-summary-list" style="background: #ECFDF5; border-color: #6EE7B7; color: #065F46;">
-            <strong>✨ TO-BE 개선 기대 효과:</strong>
-            <ul style="margin-left: 20px; margin-top: 6px;">
-              <li><code>demo_id</code> ↔ <code>company_id</code> 이메일/휴대폰 키 기반 자동/관리자 매칭</li>
-              <li>체험 대시보드 내 유료계정 전환 버튼 상시 노출로 즉시 가입 유도</li>
-              <li>Activation 4대 핵심 이벤트를 수집하여 이탈률 및 사용 패턴 정밀 분석</li>
-            </ul>
-          </div>
+        <div class="p0-board-grid">
+          <section class="p0-board-card full"><h3>1. AS-IS → TO-BE 변경 계약</h3><table class="p0-delta-table"><thead><tr><th>영역</th><th>AS-IS</th><th>TO-BE P0</th><th>완료 기준</th></tr></thead><tbody>
+            <tr><td>신청</td><td>문의 데이터만 저장, 전환 식별자 없음</td><td>신청 즉시 불변 <code>demo_id</code>와 guest 계정 생성</td><td class="p0-accept">재시도해도 중복 발급되지 않음</td></tr>
+            <tr><td>체험</td><td>데모와 신청자 연결 불가</td><td>guest 세션에 <code>demo_id</code> 포함, 4대 Activation 기록</td><td class="p0-accept">모든 이벤트에 demo_id가 저장됨</td></tr>
+            <tr><td>가입</td><td>별도 회원가입으로 정보 재입력</td><td>회사명·담당자·전화·이메일·업종 Pre-fill</td><td class="p0-accept">Step 3 완료 시 company_id 생성·연결</td></tr>
+            <tr><td>전환</td><td>가입과 결제를 구분하지 않음</td><td><code>PAYMENT_PENDING</code>과 <code>CONVERTED</code> 분리</td><td class="p0-accept">결제 성공 webhook 이후에만 CONVERTED</td></tr>
+            <tr><td>운영</td><td>데모·회원사 화면이 단절</td><td>SYSADMIN 양방향 조회와 수동 매칭 지원</td><td class="p0-accept">demo_id ↔ company_id 상호 이동 가능</td></tr>
+          </tbody></table></section>
+
+          <section class="p0-board-card"><h3>2. 상태·데이터 원칙</h3><ul><li><code>demo_id</code>: 신청 완료 시 생성하는 불변 식별자</li><li><code>company_id</code>: 회원사 정보 입력 완료 시 생성</li><li>가입 완료: <code>PAYMENT_PENDING</code>, 전환율에서 제외</li><li>결제 완료: <code>PAID + CONVERTED</code>, 전환율에 포함</li><li>결제 시스템 webhook을 결제 상태의 Source of Truth로 사용</li></ul></section>
+          <section class="p0-board-card"><h3>3. 매칭·중복 방지 원칙</h3><ul><li>자동 연결: 데모 CRM 내부 가입은 세션의 <code>demo_id</code>로 직접 연결</li><li>수동 후보 1순위: 이메일 + 전화번호 동일</li><li>2순위 이메일, 3순위 전화번호 동일</li><li class="p0-remove">회사명 또는 담당자명만으로 자동 연결하지 않음</li><li>이미 연결된 demo/company의 재연결은 차단하고 감사 로그 저장</li></ul></section>
+
+          <section class="p0-board-card"><h3>4. P0 범위에 유지</h3><ul><li>데모 신청 핵심정보 및 선택 분석정보</li><li>guest 계정·가상 데이터 안내·프로필 가입 CTA</li><li>회원가입 4단계와 기존 신청정보 Pre-fill</li><li>4대 Activation: LOGIN, CUSTOMER, OPPORTUNITY, ACTIVITY</li><li>SYSADMIN 전환 상태·수동 연결·양방향 조회</li></ul></section>
+          <section class="p0-board-card"><h3>5. 삭제·제외한 범위</h3><ul><li class="p0-remove">중복 AS-IS/TO-BE 비교 카드와 기대효과 문구</li><li class="p0-remove">도입 예정 시기, 데모 신청 경력 입력 필드</li><li class="p0-remove">회사명/담당자명 단독 자동 매칭</li><li class="p0-remove">회원가입 완료를 최종 전환으로 집계하는 로직</li><li>P1/P2: CS 사유 분석, AI 분석, 고급 세그먼트 대시보드</li></ul></section>
+
+          <section class="p0-board-card full"><h3>6. 개발팀과 확정할 항목</h3><div class="p0-decision-list"><div class="p0-decision"><strong>식별자·멱등성</strong>demo_id/company_id 생성 규격, 신청·가입 재시도 시 idempotency key</div><div class="p0-decision"><strong>세션·보안</strong>guest 세션 토큰에 담을 claim, TTL, 만료/재발급 정책</div><div class="p0-decision"><strong>결제 이벤트</strong>성공 webhook 명칭, 중복 수신 처리, 환불·취소 시 상태 정책</div><div class="p0-decision"><strong>중복 회원</strong>동일 이메일/전화의 기존 회원 발견 시 로그인·연결·차단 중 처리 방식</div><div class="p0-decision"><strong>데이터 승계</strong>가상 데이터 제외 범위와 실제 생성 데이터의 회원사 소유권 이전 방식</div><div class="p0-decision"><strong>권한·감사</strong>SYSADMIN 수동 연결 권한, 해제 정책, linked_by/linked_at 기록 보존</div></div></section>
+
+          <section class="p0-board-card full"><h3>7. P0 인수 테스트</h3><table class="p0-delta-table"><thead><tr><th>시나리오</th><th>기대 상태</th><th>검증 위치</th></tr></thead><tbody><tr><td>신청 후 guest 로그인</td><td>DEMO_ACTIVE, demo_id 일치</td><td>데모 CRM 프로필 / SYSADMIN 데모 상세</td></tr><tr><td>가입 Step 3 완료, 결제 이탈</td><td>company_id 생성, PAYMENT_PENDING, 전환 제외</td><td>SYSADMIN 양쪽 상세</td></tr><tr><td>결제 webhook 성공</td><td>PAID, CONVERTED, converted_at 기록</td><td>데모 상세 / 회원사 결제정보</td></tr><tr><td>기존 회원사 수동 연결</td><td>SYSADMIN_MANUAL, 매칭 근거·관리자 기록</td><td>데모 상세 P0 영역</td></tr><tr><td>동일 요청 재전송</td><td>중복 demo/company/link 미생성</td><td>DB unique 제약·API 응답</td></tr></tbody></table></section>
         </div>
       </div>
     </div>
@@ -3034,7 +3024,7 @@
             <p><strong>[문제 Situation]</strong> 현재 데모 계정과 실제 회원사의 연결 정보가 없어 <em>전환율 산출, 행동 분석, 실사용 비교</em>가 모두 불가함.</p>
             <p style="margin-top: 6px;"><strong>[핵심 목표 (우선순위)]</strong> ① 전환 데이터 연결 ② 신청 시 항목 추가하여 데이터 확보 ③ 데모 시 사용자 핵심 Activation 정의 ④ 결제 미전환 사유 정형화</p>
 
-            <h4 style="margin-top: 16px; font-weight: 700; color: #0F172A;">전환율 데이터 확보를 위한 8단계 프로세스</h4>
+            <h4 style="margin-top: 16px; font-weight: 700; color: #0F172A;">P0 회원 전환을 위한 7단계 프로세스</h4>
             <div class="flow-diagram">
               <div class="flow-node highlight">데모 신청</div>
               <div class="flow-arrow">→</div>
@@ -3044,13 +3034,11 @@
               <div class="flow-arrow">→</div>
               <div class="flow-node">핵심기능경험</div>
               <div class="flow-arrow">→</div>
-              <div class="flow-node">상담(CS)</div>
+              <div class="flow-node target">정보 Pre-fill 가입</div>
               <div class="flow-arrow">→</div>
-              <div class="flow-node">서비스신청</div>
+              <div class="flow-node target">company_id 생성</div>
               <div class="flow-arrow">→</div>
-              <div class="flow-node target">CRM 신규가입</div>
-              <div class="flow-arrow">→</div>
-              <div class="flow-node target">유료이용</div>
+              <div class="flow-node target">결제완료·전환</div>
             </div>
           </div>
 
@@ -3370,7 +3358,7 @@ POST /api/v1/conversions/link-company
                 <span>Q5.</span> 데모 대시보드 내 유료 회원가입 Pre-fill 연동
               </div>
               <div class="question-body">
-                데모 체험 화면 상단 고정 바의 [유료 계정 전환 & 회원사 연동] 버튼을 누를 때, 기존 데모 세션의 회사명, 담당자명, 이메일이 신규 회원가입 폼에 자동으로 렌더링되도록 백엔드 세션 토큰을 제공받을 수 있을까요?
+                데모 CRM 우측 guest 프로필의 [회원가입하기] 버튼을 누를 때, demo_id 세션을 기준으로 회사명, 담당자명, 전화번호, 이메일, 업종을 회원가입 폼에 안전하게 Pre-fill할 수 있는 백엔드 세션 토큰을 제공할 수 있을까요?
               </div>
             </div>
 
@@ -3401,11 +3389,11 @@ POST /api/v1/conversions/link-company
 2. **최신 변경사항 (요청 반영)**
    - **데모 신청 폼 필드 정돈**: 불필요한 `도입 예정 시기`, `데모 신청 경력(신규/재방문)` 2개 필드 삭제 (신청 경력은 시스템 자동 로그로 대체).
    - **P0 핵심 기능 구축 (데모 내 직접 회원가입 & 데이터 연동)**:
-     - CRM 데모 계정 진입 시 **가상 데이터 안내 팝업(이미지 1)** 노출 및 `[⚡ 회원가입하고 데이터 승계받기]` CTA 제공.
-     - CRM 상단 프로필 드롭다운(이미지 2) 내 **`[결제하기]`** 버튼으로 3단계 회원가입 폼 바로 연결.
-     - 홈페이지 요금제 회원가입 폼(이미지 3 & 4: 약관동의 → 휴대폰 인증 → 정보입력)을 데모 CRM 내부 팝업으로 연동.
+     - CRM 데모 계정 진입 시 **가상 데이터 안내 팝업**을 노출하고 우측 guest 프로필 메뉴에서 가입 상태를 확인.
+     - guest 프로필의 **`[회원가입하기]`** 버튼으로 4단계 회원가입·결제 Wizard를 연결.
+     - 회원가입 Wizard(약관동의 → 휴대폰 인증 → 회원사 정보 → 결제)를 데모 CRM 내부에서 실행.
      - 데모 신청 시 작성했던 정보(`회사명`, `담당자명`, `휴대전화`, `이메일`, `업종`)가 **자동으로 Pre-fill(사전 입력)**되어 사용자 회원가입 절차 최적화.
-     - 회원가입 완료 시 `demo_id` ↔ `company_id` 매칭이 완료되어 기존 데모 데이터가 신규 유료 회원사 계정으로 승계.
+     - 회원사 정보 입력 완료 시 `demo_id` ↔ `company_id`를 연결하고 `PAYMENT_PENDING` 처리. 결제 성공 후에만 `CONVERTED`로 최종 집계.
 
 ---
 
@@ -3865,8 +3853,6 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
     let userSubmittedName = "이동훈";
     let userSubmittedPhone = "010-7372-9989";
     let userSubmittedIndustry = "IT/SaaS";
-    let activationSteps = [true, true, true, false];
-    let isPaidMember = false;
     let currentDevInspectorTab = 'demo_request';
     let pendingCandidateCompId = 'COMP-2026-9901';
     let pendingCandidateCompName = 'KD첨단소재';
@@ -4379,22 +4365,8 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
           appState.demoList.unshift(newDemo);
           appState.selectedDemoId = generatedDemoId;
 
-          // Reset paid state if previously submitted
-          isPaidMember = false;
-          resetToDemoState();
-
-          // Update dashboard values
-          const dashDemoId = document.getElementById('dashDemoIdSpan');
-          if (dashDemoId) dashDemoId.innerText = generatedDemoId;
-          const displayDemoId = document.getElementById('displayDemoId');
-          if (displayDemoId) displayDemoId.innerText = generatedDemoId;
-          const crmBadge = document.getElementById('crmStatusBadge');
-          if (crmBadge) crmBadge.innerText = `데모 체험 계정 (${generatedDemoId})`;
-
           showToast(`🎉 데모 체험 계정(${generatedDemoId})이 성공적으로 발급되었습니다!`, 'success');
           switchView('dashboard');
-          
-          openDemoNotice();
         });
       }
 
@@ -4403,68 +4375,6 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       updateDevInspector();
       updateFeatureCounter();
     });
-
-    function resetToDemoState() {
-      const banner = document.getElementById('topConversionBanner');
-      if (banner) {
-        banner.className = 'conversion-banner';
-        const titleText = document.getElementById('bannerTitleText');
-        if (titleText) titleText.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> 14일 무료 데모 체험 중입니다`;
-        const subText = document.getElementById('bannerSubText');
-        if (subText) subText.innerText = `현재 데모 신청 정보를 그대로 사용해 회원가입할 수 있습니다.`;
-        
-        const btn = document.getElementById('bannerBtnAction');
-        if (btn) {
-          btn.innerText = '🚀 위시드 CRM 시작하기';
-          btn.style.display = 'inline-block';
-        }
-      }
-
-      const kpiVal = document.getElementById('kpiStatusVal');
-      if (kpiVal) { kpiVal.innerText = 'D-14'; kpiVal.style.color = '#2563EB'; }
-      const kpiSub = document.getElementById('kpiStatusSub');
-      if (kpiSub) kpiSub.innerText = '데모 만료일: 2026.08.26';
-
-      const kpiHeader = document.getElementById('kpiIdHeader');
-      if (kpiHeader) kpiHeader.innerText = '할당된 데모 계정 ID (demo_id)';
-      const displayDemoId = document.getElementById('displayDemoId');
-      if (displayDemoId) displayDemoId.innerText = generatedDemoId;
-
-      const kpiLinkVal = document.getElementById('kpiLinkVal');
-      if (kpiLinkVal) { kpiLinkVal.innerText = '활성화'; kpiLinkVal.style.color = '#10B981'; }
-
-      const dropdownUserName = document.getElementById('dropdownUserName');
-      if (dropdownUserName) dropdownUserName.innerText = '게스트';
-      const dropdownUserTag = document.getElementById('dropdownUserTag');
-      if (dropdownUserTag) dropdownUserTag.innerText = 'guest0894';
-      const dropdownBalanceVal = document.getElementById('dropdownBalanceVal');
-      if (dropdownBalanceVal) { dropdownBalanceVal.innerText = '-10,000,000원'; dropdownBalanceVal.style.color = '#EF4444'; }
-      const dropdownExpiryVal = document.getElementById('dropdownExpiryVal');
-      if (dropdownExpiryVal) dropdownExpiryVal.innerText = '무제한 (D-14)';
-      const dropdownBtnCheckout = document.getElementById('dropdownBtnCheckout');
-      if (dropdownBtnCheckout) {
-        dropdownBtnCheckout.innerText = '결제하기 (회원가입 & 데모계정 연동)';
-        dropdownBtnCheckout.style.background = '#2563EB';
-      }
-      const avatarIcon = document.getElementById('avatarIcon');
-      if (avatarIcon) avatarIcon.innerText = '게';
-
-      activationSteps[3] = false;
-      const chk = document.getElementById('chkStep4');
-      if (chk) {
-        chk.className = 'status-check pending';
-        chk.innerText = '!';
-      }
-      const lbl = document.getElementById('lblStep4');
-      if (lbl) {
-        lbl.style.color = '#94A3B8';
-        lbl.innerText = '대기 중 (결제전)';
-      }
-      const btn4 = document.getElementById('btnStep4Action');
-      if (btn4) btn4.style.display = 'inline-block';
-      const actBadge = document.getElementById('activationBadge');
-      if (actBadge) actBadge.innerText = 'Activation 3/4 완료';
-    }
 
     // CRM PROFILE DROPDOWN TOGGLE
     function toggleProfileDropdown(event) {
@@ -4477,17 +4387,6 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       const dropdown = document.getElementById('profileDropdown');
       if (dropdown) dropdown.classList.remove('active');
     });
-
-    // NOTICE MODAL OVERLAY
-    function openDemoNotice() {
-      const notice = document.getElementById('demoNoticeOverlay');
-      if (notice) notice.style.display = 'flex';
-    }
-
-    function closeDemoNotice() {
-      const notice = document.getElementById('demoNoticeOverlay');
-      if (notice) notice.style.display = 'none';
-    }
 
     function getCrmGuestSession() {
       const demo = getSelectedDemo();
@@ -4645,7 +4544,6 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
 
     // ON PAYMENT COMPLETION (SCENARIO A)
     function completeDirectSignup() {
-      isPaidMember = true;
       const curDemo = getSelectedDemo();
       const nowStr = new Date().toISOString().replace('T', ' ').substring(0, 16);
       const companyId = curDemo?.company_id || `COMP-2026-${curDemo?.demo_id.slice(-4) || '0000'}`;
@@ -4666,64 +4564,6 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       }
 
       showToast(`위시드 CRM 가입이 완료되었습니다.\n데모 계정(${curDemo.demo_id})과 신규 회원사(${companyId})가 연결되었습니다.`, 'success');
-      
-      // Update Top Banner
-      const banner = document.getElementById('topConversionBanner');
-      if (banner) {
-        banner.className = 'conversion-banner paid-state';
-        const titleText = document.getElementById('bannerTitleText');
-        if (titleText) titleText.innerHTML = `✨ 정식 회원사(COMP-2026-9901) 가입 및 데모 계정 연동 완료!`;
-        const subText = document.getElementById('bannerSubText');
-        if (subText) subText.innerText = `데모 계정(${curDemo.demo_id})의 모든 이용 이력이 신규 유료 회원사 계정(COMP-2026-9901)과 연결되었습니다.`;
-        const bannerBtn = document.getElementById('bannerBtnAction');
-        if (bannerBtn) bannerBtn.style.display = 'none';
-      }
-
-      // Update KPI Cards
-      const kpiVal = document.getElementById('kpiStatusVal');
-      if (kpiVal) { kpiVal.innerText = '정식 서비스'; kpiVal.style.color = '#10B981'; }
-      const kpiSub = document.getElementById('kpiStatusSub');
-      if (kpiSub) kpiSub.innerText = '플랜: 표준형 CRM';
-      const kpiHeader = document.getElementById('kpiIdHeader');
-      if (kpiHeader) kpiHeader.innerText = '신규 회원사 ID (company_id)';
-      const displayDemoId = document.getElementById('displayDemoId');
-      if (displayDemoId) displayDemoId.innerText = 'COMP-2026-9901';
-      const kpiIdSub = document.getElementById('kpiIdSub');
-      if (kpiIdSub) kpiIdSub.innerText = `demo_id (${curDemo.demo_id}) 연동 완료`;
-      const kpiLinkVal = document.getElementById('kpiLinkVal');
-      if (kpiLinkVal) { kpiLinkVal.innerText = '전환 완료'; kpiLinkVal.style.color = '#10B981'; }
-      const kpiLinkSub = document.getElementById('kpiLinkSub');
-      if (kpiLinkSub) kpiLinkSub.innerText = '✨ Demo ↔ Company 연결됨';
-
-      // Update Profile Menu Dropdown
-      const dropdownUserName = document.getElementById('dropdownUserName');
-      if (dropdownUserName) dropdownUserName.innerText = curDemo.contact_name + " (정식회원)";
-      const dropdownUserTag = document.getElementById('dropdownUserTag');
-      if (dropdownUserTag) dropdownUserTag.innerText = "COMP-2026-9901";
-      const dropdownBalanceVal = document.getElementById('dropdownBalanceVal');
-      if (dropdownBalanceVal) { dropdownBalanceVal.innerText = "0원 (결제 완료)"; dropdownBalanceVal.style.color = "#10B981"; }
-      const dropdownExpiryVal = document.getElementById('dropdownExpiryVal');
-      if (dropdownExpiryVal) dropdownExpiryVal.innerText = "2027.08.12 (1년 정액)";
-      const dropdownBtnCheckout = document.getElementById('dropdownBtnCheckout');
-      if (dropdownBtnCheckout) {
-        dropdownBtnCheckout.innerText = "✓ 정식 유료 플랜 이용 중";
-        dropdownBtnCheckout.style.background = "#10B981";
-      }
-      const avatarIcon = document.getElementById('avatarIcon');
-      if (avatarIcon) avatarIcon.innerText = curDemo.contact_name.substring(0, 1);
-      const crmBadge = document.getElementById('crmStatusBadge');
-      if (crmBadge) crmBadge.innerText = `정식 유료 회원사 (COMP-2026-9901) - 데모 연결됨`;
-
-      // Update Activation step 4
-      activationSteps[3] = true;
-      const chk = document.getElementById('chkStep4');
-      const lbl = document.getElementById('lblStep4');
-      if (chk) { chk.className = 'status-check completed'; chk.innerText = '✓'; }
-      if (lbl) { lbl.style.color = '#10B981'; lbl.innerText = '전환 완료 (COMP-2026-9901)'; }
-      const btn4 = document.getElementById('btnStep4Action');
-      if (btn4) btn4.style.display = 'none';
-      const actBadge = document.getElementById('activationBadge');
-      if (actBadge) actBadge.innerText = 'Activation 4/4 (100% 완료)';
 
       renderSysDemoList();
       updateSysDetailView();
@@ -5179,7 +5019,7 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
     function switchView(viewName) {
       appState.activeView = viewName;
       const views = ['viewAsIs', 'viewForm', 'viewDashboard', 'viewCompare', 'viewSysDemo', 'viewSysCompany'];
-      const btns = ['tabAsIsBtn', 'tabFormBtn', 'tabDashBtn', 'tabCompareBtn', 'tabSysDemoBtn', 'tabSysCompanyBtn'];
+      const btns = ['tabAsIsBtn', 'tabFormBtn', 'tabDashBtn', 'tabCompareBtn', 'tabSysDemoBtn'];
       const mainContainer = document.getElementById('mainContainer');
 
       views.forEach(v => {
@@ -5191,9 +5031,6 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
         const el = document.getElementById(b);
         if (el) el.classList.remove('active');
       });
-
-      const currentView = document.getElementById('view' + viewName.charAt(0).toUpperCase() + viewName.slice(1));
-      const currentTab = document.getElementById('tab' + viewName.charAt(0).toUpperCase() + viewName.slice(1) + 'Btn');
 
       if (viewName === 'asis') {
         if (document.getElementById('viewAsIs')) document.getElementById('viewAsIs').classList.add('active');
@@ -5219,7 +5056,7 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
         updateSysDetailView();
       } else if (viewName === 'sysCompany') {
         if (document.getElementById('viewSysCompany')) document.getElementById('viewSysCompany').classList.add('active');
-        if (document.getElementById('tabSysCompanyBtn')) document.getElementById('tabSysCompanyBtn').classList.add('active');
+        if (document.getElementById('tabSysDemoBtn')) document.getElementById('tabSysDemoBtn').classList.add('active');
         if (mainContainer) mainContainer.classList.add('wide');
       }
 
@@ -5284,26 +5121,6 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
         return;
       }
       showToast('📩 AS-IS 기존 방식 문의하기 접수가 완료되었습니다.', 'info');
-    }
-
-    function toggleActivationStep(element, stepIndex) {
-      activationSteps[stepIndex - 1] = !activationSteps[stepIndex - 1];
-      const chk = document.getElementById(`chkStep${stepIndex}`);
-      const lbl = document.getElementById(`lblStep${stepIndex}`);
-
-      if (activationSteps[stepIndex - 1]) {
-        if (chk) { chk.className = 'status-check completed'; chk.innerText = '✓'; }
-        if (lbl) { lbl.style.color = '#10B981'; lbl.innerText = '완료 (Log O)'; }
-        showToast(`Activation 단계 ${stepIndex}이 완료 처리되었습니다.`, 'success');
-      } else {
-        if (chk) { chk.className = 'status-check pending'; chk.innerText = '!'; }
-        if (lbl) { lbl.style.color = '#94A3B8'; lbl.innerText = '대기 중 (Log X)'; }
-        showToast(`Activation 단계 ${stepIndex}이 미완료 처리되었습니다.`, 'warning');
-      }
-
-      const completedCount = activationSteps.filter(Boolean).length;
-      const actBadge = document.getElementById('activationBadge');
-      if (actBadge) actBadge.innerText = `Activation ${completedCount}/4 완료`;
     }
 
     function toggleDevMode() {
