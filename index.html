@@ -415,11 +415,11 @@
       animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* DEMO CRM VIEW: preserve the supplied 1905 x 914 screen composition. */
+    /* DEMO CRM VIEW: enlarge the reference screen while preserving its layout. */
     .crm-reference-viewport {
-      --crm-reference-scale: 0.6509;
+      --crm-reference-scale: 0.8267;
       width: 100%;
-      aspect-ratio: 1905 / 914;
+      aspect-ratio: 1500 / 914;
       overflow: hidden;
       background: #F8FAFC;
       border: 1px solid #E2E8F0;
@@ -427,7 +427,7 @@
 
     .crm-reference-screen {
       display: block;
-      width: 1905px;
+      width: 1500px;
       height: 914px;
       border: 0;
       transform: scale(var(--crm-reference-scale));
@@ -436,7 +436,7 @@
 
     @media (max-width: 1279px) {
       .crm-reference-viewport {
-        --crm-reference-scale: calc((100vw - 40px) / 1905px);
+        --crm-reference-scale: calc((100vw - 40px) / 1500px);
       }
     }
 
