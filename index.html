@@ -948,83 +948,171 @@
     .dropdown-links a:hover { color: #2563EB; }
 
     /* CRM LAYOUT BODY */
-    .crm-body { display: flex; min-height: 480px; }
+    .crm-body { display: flex; min-height: 540px; }
 
     .crm-sidebar {
-      width: 170px;
+      width: 175px;
       background: #FFFFFF;
       border-right: 1px solid #E2E8F0;
       padding: 14px 10px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      font-size: 12px;
+      gap: 8px;
+      font-size: 13px;
       color: #475569;
       flex-shrink: 0;
     }
 
-    .crm-menu-item { display: flex; align-items: center; justify-content: space-between; padding: 7px 8px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+    .crm-menu-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px; }
     .crm-menu-item:hover, .crm-menu-item.active { background: #EFF6FF; color: #2563EB; }
 
-    .crm-main-content { flex: 1; padding: 20px; background: #F8FAFC; position: relative; }
+    .crm-main-content { flex: 1; padding: 20px; background: #F8FAFC; position: relative; display: flex; flex-direction: column; gap: 16px; }
 
-    .crm-dashboard-title { font-size: 18px; font-weight: 800; color: #0F172A; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .crm-main-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
 
-    .crm-stats-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-bottom: 20px; }
-    @media (max-width: 900px) { .crm-stats-grid { grid-template-columns: repeat(3, 1fr); } }
+    .crm-main-header-bar h2 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0F172A;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-    .crm-stat-card { background: #FFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 10px 8px; text-align: center; }
-    .crm-stat-label { font-size: 11px; color: #64748B; font-weight: 600; margin-bottom: 2px; }
-    .crm-stat-val { font-size: 16px; font-weight: 800; color: #0F172A; }
-    .crm-stat-sub { font-size: 10px; color: #94A3B8; margin-top: 2px; }
+    .crm-header-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
 
-    /* IMAGE 1 REPLICATION - DEMO NOTICE POPUP */
+    .crm-control-input, .crm-control-select {
+      height: 34px;
+      padding: 0 10px;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      background: #FFF;
+      font-size: 13px;
+      color: #334155;
+      outline: none;
+    }
+
+    .btn-crm-search {
+      height: 34px;
+      padding: 0 16px;
+      background: #2563EB;
+      color: #FFF;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-crm-search:hover { background: #1D4ED8; }
+
+    .crm-card-panel {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .crm-card-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #F1F5F9;
+    }
+
+    .crm-stats-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+    @media (max-width: 960px) { .crm-stats-grid { grid-template-columns: repeat(4, 1fr); } }
+    @media (max-width: 640px) { .crm-stats-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .crm-stat-card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 12px 8px; text-align: center; }
+    .crm-stat-label { font-size: 11px; color: #64748B; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .crm-stat-val { font-size: 18px; font-weight: 800; color: #0F172A; }
+    .crm-stat-sub { font-size: 10px; color: #94A3B8; margin-top: 4px; }
+
+    .crm-sub-cards-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .crm-sub-cards-grid { grid-template-columns: 1fr; }
+    }
+
+    /* IMAGE 1 & 2 REPLICATION - DEMO NOTICE POPUP */
     .demo-notice-overlay {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(15, 23, 42, 0.4);
-      backdrop-filter: blur(2px);
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(3px);
       z-index: 150;
       display: flex;
       align-items: center;
       justify-content: center;
+      border-radius: 16px;
     }
 
     .demo-notice-modal {
       background: #FFFFFF;
       border-radius: 16px;
-      width: 360px;
-      padding: 24px 20px;
+      width: 380px;
+      padding: 28px 24px;
       text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
 
-    .demo-notice-title { font-size: 18px; font-weight: 800; color: #0F172A; margin-bottom: 12px; }
-    .demo-notice-body { font-size: 13px; color: #475569; line-height: 1.6; margin-bottom: 20px; word-break: keep-all; }
+    .demo-notice-title { font-size: 18px; font-weight: 800; color: #0F172A; margin-bottom: 14px; }
+    .demo-notice-body { font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 22px; word-break: keep-all; font-weight: 500; }
     
-    .demo-notice-actions { display: flex; flex-direction: column; gap: 8px; }
+    .demo-notice-actions { display: flex; flex-direction: column; gap: 10px; }
 
     .btn-notice-confirm {
       background: #2563EB;
       color: #FFF;
       border: none;
-      padding: 10px;
+      padding: 12px;
       border-radius: 8px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
       cursor: pointer;
+      width: 100%;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
     }
+
+    .btn-notice-confirm:hover { background: #1D4ED8; }
 
     .btn-notice-signup {
       background: linear-gradient(135deg, #10B981, #059669);
       color: #FFF;
       border: none;
-      padding: 10px;
+      padding: 12px;
       border-radius: 8px;
       font-size: 13px;
       font-weight: 700;
       cursor: pointer;
+      width: 100%;
+      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
     }
+
+    .btn-notice-signup:hover { background: linear-gradient(135deg, #059669, #047857); }
 
     /* DIRECT SIGNUP WIZARD MODAL (IMAGE 4 REPLICATION) */
     .signup-wizard-card {
@@ -2235,25 +2323,25 @@
         </div>
       </div>
 
-      <!-- WESEED CRM APPLICATION MOCKUP UI (IMAGES 1 & 2 REPLICATION) -->
+      <!-- WESEED CRM APPLICATION MOCKUP UI (IMAGES 1 & 2 EXACT REPLICATION) -->
       <div class="crm-app-container">
         
         <!-- CRM TOP BAR (IMAGE 2 REPLICATION) -->
         <div class="crm-top-bar">
           <div class="crm-logo">
-            <span style="background: #2563EB; color: #FFF; border-radius: 6px; padding: 2px 6px; font-weight: 900; font-size: 14px;">W</span>
-            <span>WESEED CRM</span>
+            <span style="background: #2563EB; color: #FFF; border-radius: 6px; padding: 2px 7px; font-weight: 900; font-size: 15px;">W</span>
+            <span style="font-weight: 800; color: #0F172A; font-size: 16px; letter-spacing: -0.5px;">WESEED</span>
           </div>
 
           <div class="crm-search-box">
             <span>🔍</span>
-            <span>통합검색</span>
+            <input type="text" placeholder="통합검색" style="border: none; background: transparent; outline: none; width: 100%; font-size: 13px; color: #334155;">
           </div>
 
           <div style="display: flex; align-items: center; gap: 16px;">
-            <span style="font-size: 16px; color: #64748B; cursor: pointer;" title="공지사항">📢</span>
-            <span style="font-size: 16px; color: #64748B; cursor: pointer;" title="도움말">📖</span>
-            <span style="font-size: 16px; color: #64748B; cursor: pointer;" title="알림">🔔</span>
+            <span style="font-size: 16px; color: #64748B; cursor: pointer;" title="공지사항" onclick="showToast('📢 공지사항 목록입니다.', 'info')">📢</span>
+            <span style="font-size: 16px; color: #64748B; cursor: pointer;" title="도움말" onclick="showToast('📖 서비스 사용자 도움말입니다.', 'info')">📖</span>
+            <span style="font-size: 16px; color: #64748B; cursor: pointer;" title="알림" onclick="showToast('🔔 신규 알림이 없습니다.', 'info')">🔔</span>
 
             <!-- PROFILE MENU TOGGLE -->
             <div class="crm-user-profile" onclick="toggleProfileDropdown(event)">
@@ -2278,7 +2366,7 @@
                 </div>
 
                 <button type="button" class="btn-crm-checkout" id="dropdownBtnCheckout" onclick="openDirectSignupModal()">
-                  결제하기 (회원가입 & 데이터승계)
+                  결제하기 (회원가입 & 데모계정 연동)
                 </button>
 
                 <div class="dropdown-links">
@@ -2294,28 +2382,28 @@
 
         <!-- CRM BODY LAYOUT -->
         <div class="crm-body">
-          <!-- SIDEBAR NAVIGATION -->
+          <!-- SIDEBAR NAVIGATION (IMAGE 2 REPLICATION) -->
           <div class="crm-sidebar">
-            <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #94A3B8; margin-bottom: 6px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 700; color: #94A3B8; margin-bottom: 6px; padding: 0 4px;">
               <span>즐겨찾기</span>
-              <span>+</span>
+              <span style="cursor: pointer;">+</span>
             </div>
             <div class="crm-menu-item active"><span>📊 대시보드</span></div>
-            <div class="crm-menu-item"><span>👥 고객관리</span> <span>▾</span></div>
-            <div class="crm-menu-item"><span>📝 문의관리</span> <span>▾</span></div>
-            <div class="crm-menu-item"><span>📅 일정관리</span></div>
-            <div class="crm-menu-item"><span>🛒 상품판매관리</span> <span>▾</span></div>
-            <div class="crm-menu-item"><span>📢 마케팅관리</span> <span>▾</span></div>
-            <div class="crm-menu-item"><span>💼 영업관리</span> <span>▾</span></div>
-            <div class="crm-menu-item"><span>📈 통계/분석</span> <span>▾</span></div>
-            <div class="crm-menu-item"><span>📌 게시판</span> <span>▾</span></div>
-            <div class="crm-menu-item"><span>⚙️ 시스템관리</span> <span>▾</span></div>
+            <div class="crm-menu-item" onclick="showToast('고객관리 메뉴입니다.', 'info')"><span>👥 고객관리</span> <span>˅</span></div>
+            <div class="crm-menu-item" onclick="showToast('문의관리 메뉴입니다.', 'info')"><span>📝 문의관리</span> <span>˅</span></div>
+            <div class="crm-menu-item" onclick="showToast('일정관리 메뉴입니다.', 'info')"><span>📅 일정관리</span></div>
+            <div class="crm-menu-item" onclick="showToast('상품판매관리 메뉴입니다.', 'info')"><span>🛒 상품판매관리</span> <span>˅</span></div>
+            <div class="crm-menu-item" onclick="showToast('마케팅관리 메뉴입니다.', 'info')"><span>📢 마케팅관리</span> <span>˅</span></div>
+            <div class="crm-menu-item" onclick="showToast('영업관리 메뉴입니다.', 'info')"><span>💼 영업관리</span> <span>˅</span></div>
+            <div class="crm-menu-item" onclick="showToast('통계/분석 메뉴입니다.', 'info')"><span>📈 통계/분석</span> <span>˅</span></div>
+            <div class="crm-menu-item" onclick="showToast('게시판 메뉴입니다.', 'info')"><span>📌 게시판</span> <span>˅</span></div>
+            <div class="crm-menu-item" onclick="showToast('시스템관리 메뉴입니다.', 'info')"><span>⚙️ 시스템관리</span> <span>˅</span></div>
           </div>
 
-          <!-- CRM MAIN CONTENT VIEW -->
+          <!-- CRM MAIN CONTENT VIEW (IMAGE 2 REPLICATION) -->
           <div class="crm-main-content">
             
-            <!-- DEMO NOTICE MODAL (IMAGE 1 REPLICATION) -->
+            <!-- DEMO NOTICE MODAL (IMAGE 2 REPLICATION CENTER ALERT) -->
             <div class="demo-notice-overlay" id="demoNoticeOverlay">
               <div class="demo-notice-modal">
                 <div class="demo-notice-title">알림</div>
@@ -2335,47 +2423,116 @@
               </div>
             </div>
 
-            <!-- DASHBOARD STATS WIDGETS (IMAGE 1 & 2 REPLICATION) -->
-            <div class="crm-dashboard-title">
-              <span>📊 대시보드 현황</span>
-              <span class="id-tag" style="margin-left: auto;" id="crmStatusBadge">데모 체험 계정 (DEMO-2026-8942)</span>
+            <!-- CRM MAIN HEADER BAR WITH FILTER CONTROLS (IMAGE 2 REPLICATION) -->
+            <div class="crm-main-header-bar">
+              <h2>📊 대시보드</h2>
+
+              <div class="crm-header-controls">
+                <input type="text" class="crm-control-input" value="2026.08.01 ~ 2026.08.31" style="width: 170px;">
+                <select class="crm-control-select">
+                  <option selected>이번 달</option>
+                  <option>지난 달</option>
+                  <option>올해</option>
+                </select>
+                <select class="crm-control-select">
+                  <option selected>전체</option>
+                  <option>팀 A</option>
+                  <option>팀 B</option>
+                </select>
+                <button type="button" class="btn-crm-search" onclick="showToast('대시보드 조회 조건이 적용되었습니다.', 'info')">검색</button>
+              </div>
             </div>
 
-            <div class="crm-stats-grid">
-              <div class="crm-stat-card">
-                <div class="crm-stat-label">💳 매출</div>
-                <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">만원</span></div>
-                <div class="crm-stat-sub">누적 8,254 만원</div>
+            <!-- REGISTERED STATUS PANEL (IMAGE 2 REPLICATION) -->
+            <div class="crm-card-panel">
+              <div class="crm-card-panel-header">
+                <span>등록현황</span>
+                <span class="id-tag" id="crmStatusBadge">데모 체험 계정 (DEMO-2026-8942)</span>
               </div>
-              <div class="crm-stat-card">
-                <div class="crm-stat-label">👤 고객</div>
-                <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
-                <div class="crm-stat-sub">누적 1,473 건</div>
+
+              <div class="crm-stats-grid">
+                <div class="crm-stat-card">
+                  <div class="crm-stat-label">💳 매출</div>
+                  <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">만원</span></div>
+                  <div class="crm-stat-sub">누적 8,254만원</div>
+                </div>
+                <div class="crm-stat-card">
+                  <div class="crm-stat-label">👤 고객</div>
+                  <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
+                  <div class="crm-stat-sub">누적 1,473건</div>
+                </div>
+                <div class="crm-stat-card">
+                  <div class="crm-stat-label">🏢 고객사</div>
+                  <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
+                  <div class="crm-stat-sub">누적 132건</div>
+                </div>
+                <div class="crm-stat-card">
+                  <div class="crm-stat-label">🟢 영업기회</div>
+                  <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
+                  <div class="crm-stat-sub">누적 90건</div>
+                </div>
+                <div class="crm-stat-card">
+                  <div class="crm-stat-label">📞 영업활동</div>
+                  <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
+                  <div class="crm-stat-sub">누적 159건</div>
+                </div>
+                <div class="crm-stat-card">
+                  <div class="crm-stat-label">📢 마케팅</div>
+                  <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
+                  <div class="crm-stat-sub">누적 1건</div>
+                </div>
+                <div class="crm-stat-card">
+                  <div class="crm-stat-label">💬 고객상담</div>
+                  <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
+                  <div class="crm-stat-sub">누적 156건</div>
+                </div>
               </div>
-              <div class="crm-stat-card">
-                <div class="crm-stat-label">🏢 고객사</div>
-                <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
-                <div class="crm-stat-sub">누적 132 건</div>
+            </div>
+
+            <!-- BOTTOM SUB CARDS GRID (IMAGE 2 REPLICATION) -->
+            <div class="crm-sub-cards-grid">
+              <!-- CARD 1: 지역분포 -->
+              <div class="crm-card-panel">
+                <div class="crm-card-panel-header">
+                  <span>지역분포</span>
+                  <select class="crm-control-select" style="height: 28px; font-size: 12px;">
+                    <option selected>고객</option>
+                    <option>고객사</option>
+                  </select>
+                </div>
+                <div style="height: 160px; display: flex; align-items: flex-end; justify-content: space-around; padding: 20px 10px 10px 10px; background: #F8FAFC; border-radius: 8px; border: 1px dashed #E2E8F0;">
+                  <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;"><div style="width: 24px; height: 90px; background: #3B82F6; border-radius: 4px 4px 0 0;"></div><span style="font-size: 11px; color: #64748B;">서울</span></div>
+                  <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;"><div style="width: 24px; height: 60px; background: #60A5FA; border-radius: 4px 4px 0 0;"></div><span style="font-size: 11px; color: #64748B;">경기</span></div>
+                  <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;"><div style="width: 24px; height: 35px; background: #93C5FD; border-radius: 4px 4px 0 0;"></div><span style="font-size: 11px; color: #64748B;">부산</span></div>
+                  <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;"><div style="width: 24px; height: 25px; background: #BFDBFE; border-radius: 4px 4px 0 0;"></div><span style="font-size: 11px; color: #64748B;">인천</span></div>
+                  <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;"><div style="width: 24px; height: 45px; background: #60A5FA; border-radius: 4px 4px 0 0;"></div><span style="font-size: 11px; color: #64748B;">대전</span></div>
+                  <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;"><div style="width: 24px; height: 15px; background: #DBEAFE; border-radius: 4px 4px 0 0;"></div><span style="font-size: 11px; color: #64748B;">기타</span></div>
+                </div>
               </div>
-              <div class="crm-stat-card">
-                <div class="crm-stat-label">🎯 영업기회</div>
-                <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
-                <div class="crm-stat-sub">누적 90 건</div>
+
+              <!-- CARD 2: 오늘의 일정 -->
+              <div class="crm-card-panel">
+                <div class="crm-card-panel-header">
+                  <span>오늘의 일정</span>
+                  <span style="font-size: 12px; color: #64748B; font-weight: 500;">2026.08.12 📅</span>
+                </div>
+                <div style="height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #F8FAFC; border-radius: 8px; border: 1px dashed #E2E8F0; color: #94A3B8; font-size: 12px; gap: 6px;">
+                  <span>📅 등록된 오늘의 일정이 없습니다.</span>
+                </div>
               </div>
-              <div class="crm-stat-card">
-                <div class="crm-stat-label">📞 영업활동</div>
-                <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
-                <div class="crm-stat-sub">누적 159 건</div>
-              </div>
-              <div class="crm-stat-card">
-                <div class="crm-stat-label">📢 마케팅</div>
-                <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
-                <div class="crm-stat-sub">누적 1 건</div>
-              </div>
-              <div class="crm-stat-card">
-                <div class="crm-stat-label">💬 고객상담</div>
-                <div class="crm-stat-val">0 <span style="font-size: 12px; font-weight: 500;">건</span></div>
-                <div class="crm-stat-sub">누적 156 건</div>
+
+              <!-- CARD 3: 알림 -->
+              <div class="crm-card-panel">
+                <div class="crm-card-panel-header">
+                  <span>알림</span>
+                  <div style="display: flex; gap: 4px;">
+                    <button type="button" style="padding: 2px 6px; font-size: 11px; background: #2563EB; color: #FFF; border: none; border-radius: 4px;">전체 알림</button>
+                    <button type="button" style="padding: 2px 6px; font-size: 11px; background: #F1F5F9; color: #64748B; border: none; border-radius: 4px;">읽지 않음</button>
+                  </div>
+                </div>
+                <div style="height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #F8FAFC; border-radius: 8px; border: 1px dashed #E2E8F0; color: #94A3B8; font-size: 12px; gap: 6px;">
+                  <span>🔔 수신된 알림 메시지가 없습니다.</span>
+                </div>
               </div>
             </div>
 
