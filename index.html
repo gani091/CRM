@@ -1829,6 +1829,108 @@
       color: #2563EB;
       border-bottom-color: #2563EB;
     }
+
+    /* SYSADMIN reference screens */
+    body:has(#viewSysDemo.active) .floating-widget,
+    body:has(#viewSysCompany.active) .floating-widget { display: none; }
+
+    .admin-console { background:#fff; border:1px solid #dfe4eb; min-height:620px; color:#111827; overflow:hidden; font-size:12px; }
+    .admin-topbar { height:58px; display:flex; align-items:center; border-bottom:1px solid #d9dee6; padding:0 16px; background:#fff; }
+    .admin-menu-icon { font-size:20px; color:#5f6b7a; width:38px; }
+    .admin-brand { display:flex; align-items:center; gap:8px; width:310px; font-size:17px; font-weight:900; }
+    .admin-brand-mark { display:inline-flex; gap:2px; transform:skew(-18deg); }
+    .admin-brand-mark i { width:7px; height:17px; border-radius:7px; background:#2468ee; }
+    .admin-global-search { margin:auto; width:325px; height:35px; border:0; border-radius:6px; background:#f0f2f5; padding:0 13px; color:#697386; }
+    .admin-top-actions { width:310px; margin-left:auto; display:flex; justify-content:flex-end; align-items:center; gap:18px; color:#526071; font-size:17px; }
+    .admin-ai { padding:7px 12px; background:#e1ebff; color:#2362d7; border-radius:6px; font-size:12px; font-weight:700; }
+    .admin-avatar { width:34px; height:34px; border-radius:50%; background:#f2f4f7; display:grid; place-items:center; }
+    .admin-layout { display:grid; grid-template-columns:145px 1fr; min-height:560px; }
+    .admin-sidebar { border-right:1px solid #d5dbe3; background:#fff; height:560px; overflow:hidden; padding:0 3px; }
+    .admin-side-scroll { height:100%; overflow:hidden; padding:0 0 12px; }
+    .admin-side-item { height:39px; display:flex; align-items:center; gap:10px; padding:0 14px; color:#42526a; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; border-radius:4px; }
+    .admin-side-item::before { content:'◦'; color:#758296; }
+    .admin-side-item.active { background:#dbe7ff; color:#111827; font-weight:800; }
+    .admin-side-item.active::before { color:#1868ef; }
+    .admin-main { padding:27px 16px 40px; min-width:0; }
+    .admin-page-heading { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+    .admin-page-title { font-size:20px; font-weight:900; display:flex; gap:10px; align-items:center; }
+    .admin-list-tools { display:flex; align-items:center; gap:8px; }
+    .admin-result-count { font-size:12px; color:#475569; white-space:nowrap; }
+    .admin-search-wrap { height:38px; width:270px; display:flex; align-items:center; border:1px solid #cbd3dd; border-radius:6px; overflow:hidden; }
+    .admin-search-wrap input { border:0; outline:0; flex:1; min-width:0; height:100%; padding:0 10px; color:#334155; }
+    .admin-search-wrap button { border:0; background:#fff; width:38px; height:100%; font-size:17px; color:#64748b; cursor:pointer; }
+    .admin-icon-btn { width:38px; height:38px; border:0; border-radius:6px; background:#f3f5f7; color:#687386; font-size:17px; cursor:pointer; }
+    .admin-data-table { width:100%; border-collapse:separate; border-spacing:0; border:1px solid #d4dae2; border-radius:7px; overflow:hidden; table-layout:fixed; }
+    .admin-data-table th,.admin-data-table td { border-right:1px solid #e1e5ea; border-bottom:1px solid #e1e5ea; height:41px; padding:0 8px; text-align:left; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .admin-data-table th { height:36px; background:#fafbfc; color:#536174; font-size:11px; font-weight:600; }
+    .admin-data-table tr:last-child td { border-bottom:0; }
+    .admin-data-table th:last-child,.admin-data-table td:last-child { border-right:0; }
+    .admin-data-table tbody tr { cursor:pointer; }
+    .admin-data-table tbody tr:hover td { background:#f7faff; }
+    .admin-data-table .check-col { width:35px; text-align:center; }
+    .admin-data-table input[type=checkbox] { width:15px; height:15px; accent-color:#2468f2; }
+    .admin-list-footer { display:flex; justify-content:space-between; align-items:center; margin-top:10px; }
+    .admin-page-size { width:90px; height:31px; border:1px solid #cad2dc; background:#fff; border-radius:5px; padding:0 7px; }
+    .admin-pagination { display:flex; gap:6px; }
+    .admin-pagination button { min-width:30px; height:30px; border:0; border-radius:6px; background:#f3f5f7; color:#40506a; cursor:pointer; }
+    .admin-pagination button.active { background:#dbe7ff; color:#1764df; font-weight:800; }
+
+    .admin-detail-screen { background:#fff; min-height:535px; color:#172033; font-size:12px; }
+    .admin-detail-toolbar { height:68px; display:flex; align-items:center; justify-content:space-between; padding:0 0 0 4px; }
+    .admin-detail-title { font-size:13px; font-weight:900; display:flex; align-items:center; gap:9px; }
+    .admin-detail-actions { display:flex; align-items:center; gap:8px; }
+    .admin-action-btn { height:37px; border:0; border-radius:6px; padding:0 17px; font-weight:700; cursor:pointer; }
+    .admin-action-btn.light { background:#dfeaff; color:#2467dd; }
+    .admin-action-btn.primary { background:#2368f5; color:#fff; }
+    .admin-action-btn.trash { width:38px; padding:0; background:#f4f6f8; color:#637083; font-size:17px; }
+    .admin-detail-card { border:1px solid #dfe4ea; border-radius:11px; padding:20px 21px 18px; }
+    .admin-detail-card h3 { font-size:14px; margin:0 0 18px; color:#35445c; }
+    .admin-form-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:15px 14px; }
+    .admin-field label { display:block; font-size:11px; color:#3d4d63; margin-bottom:7px; }
+    .admin-field label.required::before { content:'*'; color:#f04452; margin-right:2px; }
+    .admin-field input,.admin-field select,.admin-field textarea { width:100%; border:1px solid #c9d1dc; border-radius:5px; background:#fff; color:#172033; outline:0; }
+    .admin-field input,.admin-field select { height:30px; padding:0 8px; }
+    .admin-field input[readonly],.admin-field select:disabled { background:#f6f7f9; color:#8090a4; }
+    .admin-field.full { grid-column:1/-1; }
+    .admin-field textarea { height:150px; padding:9px; resize:none; }
+
+    .p0-audit { margin-top:12px; border:1px solid #dfe4eb; border-radius:8px; background:#fff; }
+    .p0-audit summary { height:40px; display:flex; align-items:center; gap:8px; padding:0 13px; cursor:pointer; color:#33537b; font-weight:800; list-style:none; }
+    .p0-audit summary::before { content:'▸'; color:#2468f2; }
+    .p0-audit[open] summary::before { content:'▾'; }
+    .p0-audit-body { border-top:1px solid #e4e8ee; padding:14px; }
+    .p0-state-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
+    .p0-state-cell { min-height:54px; border:1px solid #dfe5ed; border-radius:6px; padding:7px 9px; background:#f9fbfd; }
+    .p0-state-cell small { display:block; color:#718096; margin-bottom:5px; }
+    .p0-state-cell strong { font-size:11px; color:#1f3e66; word-break:break-all; }
+    .p0-test-actions { display:flex; align-items:center; gap:7px; margin-top:10px; }
+    .p0-test-actions button { height:31px; border:1px solid #b9cae5; background:#fff; color:#245a9a; border-radius:5px; padding:0 11px; cursor:pointer; font-size:11px; font-weight:700; }
+    .p0-activation-list { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; margin-top:10px; }
+    .p0-activation { border:1px solid #dce3eb; border-radius:5px; padding:7px; font-size:10px; color:#506174; }
+    .p0-activation.done { background:#effaf5; border-color:#b9ead4; color:#137554; }
+
+    .company-console .admin-layout { grid-template-columns:135px 1fr; }
+    .company-workspace { display:grid; grid-template-columns:360px 1fr; min-height:560px; }
+    .company-summary { border-right:1px solid #ccd4de; padding:15px 14px; }
+    .company-toolbar { display:flex; justify-content:space-between; align-items:center; height:42px; margin-bottom:4px; }
+    .company-toolbar-actions { display:flex; gap:8px; }
+    .company-basic-title { height:44px; margin:0 -14px 10px; padding:0 14px; display:flex; align-items:center; background:#e9f0ff; color:#133f83; font-size:14px; font-weight:900; }
+    .company-info-row { border-bottom:1px solid #dce2e9; padding:8px 8px 10px; }
+    .company-info-row label { display:block; font-size:10px; color:#34445b; margin-bottom:8px; }
+    .company-info-row label.required::before { content:'*'; color:#f04452; margin-right:3px; }
+    .company-info-row strong { font-size:12px; font-weight:500; }
+    .company-payment { padding:15px 16px; }
+    .company-tabs { height:39px; border:1px solid #d5dbe3; border-radius:7px; background:#f5f6f8; display:flex; align-items:center; padding:3px; margin-bottom:10px; }
+    .company-tabs button { height:31px; border:0; background:transparent; padding:0 13px; color:#536174; font-size:11px; font-weight:700; cursor:pointer; }
+    .company-tabs button.active { background:#fff; color:#111827; border:1px solid #d5dbe3; border-radius:5px; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+    .company-payment-card { border:1px solid #dce2e8; border-radius:10px; padding:16px; }
+    .company-payment-card h3 { font-size:14px; margin:0 0 17px; }
+    .company-pay-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px 20px; }
+    .company-pay-grid .admin-field input,.company-pay-grid .admin-field select { height:30px; }
+
+    @media(max-width:900px){
+      .admin-brand{width:170px}.admin-top-actions{width:170px}.admin-layout,.company-console .admin-layout{grid-template-columns:1fr}.admin-sidebar{display:none}.admin-main{overflow:auto}.admin-form-grid{grid-template-columns:1fr 1fr}.company-workspace{grid-template-columns:1fr}.company-summary{border-right:0}.p0-state-grid{grid-template-columns:1fr 1fr}.p0-activation-list{grid-template-columns:1fr 1fr}
+    }
   </style>
 </head>
 <body>
@@ -4059,8 +4161,126 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       }
     }
 
+    const adminSideItems = ['공통코드관리','메타정보관리','부가서비스내역','월별 메시지사용량 통계','휴일관리','시스템로그','오류로그','시스템발송내역','역할관리','사용자관리','부서관리','게시판관리','챗봇사용내역','랜딩페이지관리','AI모델관리','WeSeed-문의관리','WeSeed-데모체험관리','WeSeed-팝업관리','WeSeed-새소식','WeSeed-도입사례관리','WeSeed-인터뷰관리'];
+
+    function adminBrandMarkup() {
+      return `<div class="admin-brand"><span class="admin-brand-mark"><i></i><i></i><i></i></span><span>WESEED</span></div>`;
+    }
+
+    function adminTopbarMarkup() {
+      return `<div class="admin-topbar">
+        <span class="admin-menu-icon">☰</span>${adminBrandMarkup()}
+        <input class="admin-global-search" aria-label="통합검색" placeholder="◯  통합검색">
+        <div class="admin-top-actions"><span class="admin-ai">✦ AI 챗봇</span><span>▦</span><span>♧</span><span>♧</span><span class="admin-avatar">♙</span></div>
+      </div>`;
+    }
+
+    function adminSidebarMarkup(activeItem) {
+      const companyItems = ['마케팅관리','시스템관리','회원사관리','메뉴관리','시스템설정',...adminSideItems.slice(0,15)];
+      const items = activeItem === '회원사관리' ? companyItems : adminSideItems;
+      return `<aside class="admin-sidebar"><div class="admin-side-scroll">${items.map(item => `<div class="admin-side-item ${item === activeItem ? 'active' : ''}">${item}</div>`).join('')}</div></aside>`;
+    }
+
+    function seedReferenceAdminRecords() {
+      if (appState.referenceAdminSeeded) return;
+      const baseActivation = () => [
+        { code:'DEMO_LOGIN', name:'데모 최초 로그인', status:true, timestamp:'2026-08-04 10:10', count:1 },
+        { code:'CUSTOMER_CREATE', name:'고객/고객사 등록', status:false, timestamp:null, count:0 },
+        { code:'OPPORTUNITY_CREATE', name:'영업기회 등록', status:false, timestamp:null, count:0 },
+        { code:'ACTIVITY_CREATE', name:'영업활동 등록', status:false, timestamp:null, count:0 }
+      ];
+      const rows = [
+        ['DEMO-2026-0955','test','2','test','010-6427-5019','ss@softzion.com','ss','guest0955','2026-08-04','2026-08-18'],
+        ['DEMO-2026-0966','flora','1','진석영','010-6606-3676','jsy9696@naver.com','없음','guest0966','2026-08-03','2026-08-17'],
+        ['DEMO-2026-1513','에비션','5','김종희','010-5751-1513','ceo@evition.co.kr','대표','guest1513','2026-08-02','2026-08-16'],
+        ['DEMO-2026-5913','퀀트하우','50','김재한','010-5530-5913','jaykim0218@daum.net','이사','guest5913','2026-08-02','2026-08-16'],
+        ['DEMO-2026-5515','Moobean','18','유민우','010-9204-5515','alsn9914@gmail.com','매니저','guest5515','2026-07-31','2026-08-14'],
+        ['DEMO-2026-4260','로비파트너스','10','김병모','010-7410-4260','robi.bm12@gmail.com','본부장','guest4260','2026-07-30','2026-08-13'],
+        ['DEMO-2026-0869','test 영란','1','홍길동','010-8055-0869','yrkim@softzion.com','사원','guest0869','2026-07-30','2026-08-13'],
+        ['DEMO-2026-9100','(주)라파비','1','조상수','010-2674-9100','jss@raphab.com','대표','guest9100','2026-07-30','2026-08-13'],
+        ['DEMO-2026-9101','(주)라파비','1','조상수','010-2674-9100','jss@raphab.com','대표','guest9101','2026-07-30','2026-08-13'],
+        ['DEMO-2026-8583','(주)동방','10','김명균','010-4272-8583','sales@dbmedical.co.kr','대리','guest8583','2026-07-28','2026-08-11']
+      ];
+      const records = rows.map((r,index) => ({
+        demo_id:r[0], company_name:r[1], user_count:r[2], contact_name:r[3], phone:r[4], email:r[5], job_title:r[6], service_type:'CRM', demo_account:r[7], created_at:r[8], expiry_date:r[9], industry:index === 7 ? '제조' : '', demo_purpose:index === 7 ? '실제 CRM 도입 검토' : '', interested_features:[], current_system:'', acquisition_channel:'', note:'', demo_status:'DEMO_ACTIVE', signup_status:index === 7 ? 'COMPLETED' : 'NOT_STARTED', payment_status:index === 7 ? 'PAID' : null, conversion_status:index === 7 ? 'CONVERTED' : 'NOT_CONVERTED', link_status:index === 7 ? 'LINKED' : 'UNLINKED', company_id:index === 7 ? 'COMP-2026-RAPHAB' : null, linked_by:index === 7 ? 'DIRECT_SIGNUP' : null, linked_at:index === 7 ? '2026-08-13 09:10' : null, converted_at:index === 7 ? '2026-08-13 09:15' : null,
+        timestamps:{demo_requested_at:`${r[8]} 09:00`,demo_issued_at:`${r[8]} 09:01`,first_login_at:`${r[8]} 10:10`,first_activation_at:null,signup_started_at:index===7?'2026-08-13 09:00':null,signup_completed_at:index===7?'2026-08-13 09:10':null,paid_at:index===7?'2026-08-13 09:15':null,converted_at:index===7?'2026-08-13 09:15':null},
+        activation_logs:baseActivation()
+      }));
+      appState.demoList = [...records, ...appState.demoList];
+      appState.selectedDemoId = records[0].demo_id;
+      appState.referenceAdminSeeded = true;
+      appState.sysDemoPage = 'list';
+      appState.selectedCompanyId = 'COMP-2026-RAPHAB';
+    }
+
+    function mountSysAdminScreens() {
+      seedReferenceAdminRecords();
+      const demoView = document.getElementById('viewSysDemo');
+      const companyView = document.getElementById('viewSysCompany');
+      if (demoView) demoView.innerHTML = `<div id="sysDemoMount"></div>`;
+      if (companyView) companyView.innerHTML = `<div id="sysCompanyMount"></div>`;
+      renderSysDemoShell();
+      renderSysCompanyShell();
+    }
+
+    function renderSysDemoShell() {
+      const mount = document.getElementById('sysDemoMount');
+      if (!mount) return;
+      if (appState.sysDemoPage === 'detail') {
+        mount.innerHTML = `<div class="admin-detail-screen">
+          <div class="admin-detail-toolbar">
+            <div class="admin-detail-title"><span>👥</span><span>WeSeed-데모체험관리 조회</span></div>
+            <div class="admin-detail-actions"><button class="admin-action-btn light" onclick="showSysDemoList()">목록</button><button class="admin-action-btn trash" title="삭제" onclick="deleteCurrentDemo()">♲</button><button class="admin-action-btn primary" onclick="saveSysDemoDetail()">저장</button></div>
+          </div>
+          <section class="admin-detail-card">
+            <h3>기본 정보</h3>
+            <div class="admin-form-grid">
+              <div class="admin-field"><label class="required">회사명</label><input id="dt_company_name"></div>
+              <div class="admin-field"><label class="required">담당자명</label><input id="dt_contact_name"></div>
+              <div class="admin-field"><label>회사이메일</label><input id="dt_email"></div>
+              <div class="admin-field"><label class="required">전화번호</label><input id="dt_phone"></div>
+              <div class="admin-field"><label>직책</label><input id="dt_job_title"></div>
+              <div class="admin-field"><label>서비스구분</label><select id="dt_service_type"><option>CRM</option></select></div>
+              <div class="admin-field"><label>데모ID</label><input id="dt_demo_account" readonly></div>
+              <div class="admin-field"><label>계정만료일</label><input id="dt_expiry_date" type="text"></div>
+              <div class="admin-field full"><label>비고</label><textarea id="dt_note"></textarea></div>
+            </div>
+          </section>
+          <details class="p0-audit"><summary>🔥 P0 전환·연동 정보 확인</summary><div class="p0-audit-body" id="conversionDetailsContainer"></div></details>
+        </div>`;
+        updateSysDetailView();
+        return;
+      }
+      mount.innerHTML = `<div class="admin-console">${adminTopbarMarkup()}<div class="admin-layout">${adminSidebarMarkup('WeSeed-데모체험관리')}<main class="admin-main">
+        <div class="admin-page-heading"><h2 class="admin-page-title"><span>👥</span>WeSeed-데모체험관리</h2><div class="admin-list-tools"><span class="admin-result-count">검색 결과 1,287 건</span><div class="admin-search-wrap"><input id="sysDemoSearchInput" placeholder="텍스트를 검색하세요" oninput="filterDemoList(this.value)"><button title="상세검색">☷</button><button onclick="filterDemoList(document.getElementById('sysDemoSearchInput').value)" title="검색">⌕</button></div><button class="admin-icon-btn" onclick="deleteCheckedDemos()" title="삭제">♲</button></div></div>
+        <table class="admin-data-table"><thead><tr><th class="check-col"><input id="sysDemoCheckAll" type="checkbox" onchange="toggleAllDemoChecks(this.checked)"></th><th style="width:9%">서비스구분</th><th style="width:12%">회사명</th><th style="width:11%">예상사용인원</th><th style="width:8%">담당자명</th><th style="width:16%">전화번호</th><th style="width:22%">회사이메일</th><th style="width:7%">직책</th><th style="width:13%">등록일시</th></tr></thead><tbody id="sysDemoTbody"></tbody></table>
+        <div class="admin-list-footer"><select class="admin-page-size"><option>10</option></select><div class="admin-pagination"><button class="active">1</button><button>2</button><button>3</button><button>4</button><button>5</button><button>6</button><button>7</button><button>8</button><button>…</button><button>129</button><button>›</button></div></div>
+      </main></div></div>`;
+      renderSysDemoList();
+    }
+
+    function renderSysCompanyShell() {
+      const mount = document.getElementById('sysCompanyMount');
+      if (!mount) return;
+      const linkedDemo = appState.demoList.find(d => d.company_id === appState.selectedCompanyId) || appState.demoList.find(d => d.company_id === 'COMP-2026-RAPHAB') || appState.demoList.find(d => d.company_id);
+      const isReferenceCompany = appState.selectedCompanyId === 'COMP-2026-RAPHAB';
+      const companyName = isReferenceCompany ? '(주)라파비' : (linkedDemo?.company_name || '(주)라파비');
+      const representative = isReferenceCompany ? '조상수' : (linkedDemo?.contact_name || '조상수');
+      const companyIndustry = isReferenceCompany ? '제조' : (linkedDemo?.industry || '-');
+      mount.innerHTML = `<div class="admin-console company-console">${adminTopbarMarkup()}<div class="admin-layout">${adminSidebarMarkup('회원사관리')}<main class="company-workspace">
+        <section class="company-summary"><div class="company-toolbar"><button class="admin-action-btn light" onclick="showToast('회원사 목록으로 이동합니다.','info')">‹&nbsp; 목록</button><div class="company-toolbar-actions"><button class="admin-icon-btn" title="더보기">•••</button><button class="admin-action-btn light">결제하기</button><button class="admin-action-btn primary" onclick="showToast('회원사 정보가 저장되었습니다.','success')">저장</button></div></div><h3 style="font-size:12px;margin:0 0 9px">회원사관리조회</h3><div class="company-basic-title">기본 정보</div>
+          <div class="company-info-row"><label class="required">회원사명</label><strong id="comp_name_val">${companyName}</strong></div><div class="company-info-row"><label class="required">법인명</label><strong>${companyName}</strong></div><div class="company-info-row"><label class="required">대표자</label><strong>${representative}</strong></div><div class="company-info-row"><label class="required">사업자번호</label><strong>878-87-03003</strong></div><div class="company-info-row"><label class="required">업태</label><strong>살균조명</strong></div><div class="company-info-row"><label class="required">업종</label><strong>${companyIndustry}</strong></div><div class="company-info-row"><label class="required">우편번호</label><strong>50834</strong></div><div class="company-info-row"><label class="required">주소</label><strong>경남 김해시 인제로 197</strong></div><div class="company-info-row"><label class="required">상세주소</label><strong>프라임임생명공학관 7층 IJCS-1호</strong></div><div class="company-info-row"><label class="required">담당자</label><strong>${representative}</strong></div><div class="company-info-row"><label>SMS발신번호</label><strong></strong></div>
+        </section>
+        <section class="company-payment"><div class="company-tabs"><button class="active">결제정보</button><button>부가서비스 정보</button><button>사용자정보</button></div><div class="company-payment-card"><h3>회원사 정보</h3><div class="company-pay-grid">
+          <div class="admin-field"><label class="required">회원사상태</label><select><option>승인</option></select></div><div class="admin-field"><label>서비스만료일</label><input value="2026.08.13"></div><div class="admin-field"><label class="required">결제구분</label><select><option>매월</option></select></div><div class="admin-field"><label class="required">인원(신청/사용)</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:7px"><input value="1"><input value="1" readonly></div></div><div class="admin-field"><label>월결제금액</label><input value="20,000" readonly></div><div class="admin-field"><label>가입비</label><input value="200,000"></div><div class="admin-field"><label>1인당 월 결제금액</label><input value="20,000"></div>
+        </div></div><details class="p0-audit"><summary>🔥 P0 데모체험 연동 정보</summary><div class="p0-audit-body" id="companyP0Details"></div></details></section>
+      </main></div></div>`;
+      renderCompanyP0Details();
+    }
+
     // DOM CONTENT LOADED INITIALIZATION
     document.addEventListener('DOMContentLoaded', function() {
+      mountSysAdminScreens();
       setRecaptchaState('tobe', true);
       setRecaptchaState('asis', true);
 
@@ -4385,7 +4605,7 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       const nowStr = new Date().toISOString().replace('T', ' ').substring(0, 16);
       if (curDemo) {
         curDemo.signup_status = "COMPLETED";
-        curDemo.company_id = "COMP-2026-9901";
+        curDemo.company_id = curDemo.company_id || `COMP-2026-${curDemo.demo_id.slice(-4)}`;
         curDemo.link_status = "LINKED";
         curDemo.linked_by = "DIRECT_SIGNUP";
         curDemo.linked_at = nowStr;
@@ -4405,9 +4625,10 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       isPaidMember = true;
       const curDemo = getSelectedDemo();
       const nowStr = new Date().toISOString().replace('T', ' ').substring(0, 16);
+      const companyId = curDemo?.company_id || `COMP-2026-${curDemo?.demo_id.slice(-4) || '0000'}`;
 
       if (curDemo) {
-        curDemo.company_id = "COMP-2026-9901";
+        curDemo.company_id = companyId;
         curDemo.signup_status = "COMPLETED";
         curDemo.payment_status = "PAID";
         curDemo.conversion_status = "CONVERTED";
@@ -4421,7 +4642,7 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
         }
       }
 
-      showToast(`위시드 CRM 가입이 완료되었습니다.\n데모 계정(${curDemo.demo_id})과 신규 회원사(COMP-2026-9901)가 연결되었습니다.`, 'success');
+      showToast(`위시드 CRM 가입이 완료되었습니다.\n데모 계정(${curDemo.demo_id})과 신규 회원사(${companyId})가 연결되었습니다.`, 'success');
       
       // Update Top Banner
       const banner = document.getElementById('topConversionBanner');
@@ -4619,43 +4840,75 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
 
       const filtered = appState.demoList.filter(d => {
         const q = query.toLowerCase();
-        return !q || d.demo_id.toLowerCase().includes(q) || d.company_name.toLowerCase().includes(q) || d.contact_name.toLowerCase().includes(q);
-      });
+        return !q || [d.demo_id,d.company_name,d.contact_name,d.phone,d.email,d.job_title].some(value => String(value || '').toLowerCase().includes(q));
+      }).slice(0,10);
 
-      tbody.innerHTML = filtered.map(d => {
-        const isSel = d.demo_id === appState.selectedDemoId ? 'class="selected"' : '';
-        const badgeColor = getConversionBadgeClass(d.conversion_status);
-        const convLabel = getConversionStatusLabel(d.conversion_status);
-        const demoStatusLabel = getDemoStatusLabel(d.demo_status);
-        const compLink = d.company_id ? `<span class="link-id" onclick="event.stopPropagation(); navigateToCompanyDetail('${d.company_id}')">${d.company_id}</span>` : '-';
-
-        return `
-          <tr ${isSel} onclick="selectDemoDetail('${d.demo_id}')">
-            <td class="link-id">${d.demo_id}</td>
-            <td>${d.service_type}</td>
-            <td><strong>${d.company_name}</strong></td>
-            <td>${d.user_count}</td>
-            <td>${d.contact_name}</td>
-            <td>${d.phone}</td>
-            <td>${d.email}</td>
-            <td>${d.created_at}</td>
-            <td><span class="badge-status blue">${demoStatusLabel}</span></td>
-            <td><span class="badge-status ${badgeColor}">${convLabel}</span></td>
-            <td>${compLink}</td>
-          </tr>
-        `;
-      }).join('');
+      tbody.innerHTML = filtered.map(d => `<tr onclick="selectDemoDetail('${d.demo_id}')">
+        <td class="check-col"><input class="demo-row-check" type="checkbox" value="${d.demo_id}" onclick="event.stopPropagation()"></td>
+        <td>${d.service_type}</td><td><strong>${d.company_name}</strong></td><td style="text-align:right">${d.user_count}</td><td>${d.contact_name}</td><td>${d.phone}</td><td>${d.email}</td><td>${d.job_title}</td><td>${d.created_at}</td>
+      </tr>`).join('');
     }
 
     function selectDemoDetail(demoId) {
       appState.selectedDemoId = demoId;
-      renderSysDemoList();
-      updateSysDetailView();
+      appState.sysDemoPage = 'detail';
+      renderSysDemoShell();
+    }
+
+    function showSysDemoList() {
+      appState.sysDemoPage = 'list';
+      renderSysDemoShell();
+    }
+
+    function toggleAllDemoChecks(checked) {
+      document.querySelectorAll('.demo-row-check').forEach(box => { box.checked = checked; });
+    }
+
+    function deleteCheckedDemos() {
+      const ids = Array.from(document.querySelectorAll('.demo-row-check:checked')).map(box => box.value);
+      if (!ids.length) { showToast('삭제할 항목을 선택해 주세요.','warning'); return; }
+      appState.demoList = appState.demoList.filter(d => !ids.includes(d.demo_id));
+      renderSysDemoList(document.getElementById('sysDemoSearchInput')?.value || '');
+      showToast(`${ids.length}건이 삭제되었습니다.`,'success');
+    }
+
+    function deleteCurrentDemo() {
+      const currentId = appState.selectedDemoId;
+      appState.demoList = appState.demoList.filter(d => d.demo_id !== currentId);
+      appState.selectedDemoId = appState.demoList[0]?.demo_id || null;
+      showSysDemoList();
+      showToast('데모체험 신청 정보가 삭제되었습니다.','success');
+    }
+
+    function saveSysDemoDetail() {
+      const demo = getSelectedDemo();
+      if (!demo) return;
+      demo.company_name = document.getElementById('dt_company_name')?.value || demo.company_name;
+      demo.contact_name = document.getElementById('dt_contact_name')?.value || demo.contact_name;
+      demo.email = document.getElementById('dt_email')?.value || demo.email;
+      demo.phone = document.getElementById('dt_phone')?.value || demo.phone;
+      demo.job_title = document.getElementById('dt_job_title')?.value || demo.job_title;
+      demo.expiry_date = document.getElementById('dt_expiry_date')?.value || demo.expiry_date;
+      demo.note = document.getElementById('dt_note')?.value || '';
+      showToast('변경사항이 저장되었습니다.','success');
     }
 
     function updateSysDetailView() {
       const curDemo = getSelectedDemo();
       if (!curDemo) return;
+
+      const setValue = (id, value) => { const el = document.getElementById(id); if (el) el.value = value ?? ''; };
+      setValue('dt_company_name', curDemo.company_name);
+      setValue('dt_contact_name', curDemo.contact_name);
+      setValue('dt_email', curDemo.email);
+      setValue('dt_phone', curDemo.phone);
+      setValue('dt_job_title', curDemo.job_title);
+      setValue('dt_service_type', curDemo.service_type);
+      setValue('dt_demo_account', curDemo.demo_account);
+      setValue('dt_expiry_date', String(curDemo.expiry_date || '').replaceAll('-','.'));
+      setValue('dt_note', curDemo.note);
+      renderDemoP0Details(curDemo);
+      return;
 
       const spanId = document.getElementById('detailDemoIdSpan');
       if (spanId) spanId.innerText = curDemo.demo_id;
@@ -4822,23 +5075,80 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       }
     }
 
+    function renderDemoP0Details(demo = getSelectedDemo()) {
+      const container = document.getElementById('conversionDetailsContainer');
+      if (!container || !demo) return;
+      const linkText = demo.linked_by === 'DIRECT_SIGNUP' ? 'DIRECT_SIGNUP' : (demo.linked_by === 'SYSADMIN_MANUAL' ? 'SYSADMIN_MANUAL' : '-');
+      const activations = Array.isArray(demo.activation_logs) ? demo.activation_logs : [];
+      container.innerHTML = `<div class="p0-state-grid">
+        <div class="p0-state-cell"><small>demo_id</small><strong>${demo.demo_id}</strong></div>
+        <div class="p0-state-cell"><small>Funnel 상태</small><strong>${demo.conversion_status}</strong></div>
+        <div class="p0-state-cell"><small>payment_status</small><strong>${demo.payment_status || '-'}</strong></div>
+        <div class="p0-state-cell"><small>company_id</small><strong>${demo.company_id ? `<a class="link-id" onclick="navigateToCompanyDetail('${demo.company_id}')">${demo.company_id}</a>` : '-'}</strong></div>
+        <div class="p0-state-cell"><small>연결 방식</small><strong>${linkText}</strong></div>
+      </div>
+      <div class="p0-activation-list">${activations.map(log => `<div class="p0-activation ${log.status ? 'done' : ''}"><strong>${log.code}</strong><br>${log.status ? `완료 · ${log.count}회` : '미완료'}</div>`).join('')}</div>
+      <div class="p0-test-actions"><button onclick="simulateSignupCompleted()">회원가입 완료 상태 테스트</button><button onclick="simulatePaymentCompleted()">결제 완료 상태 테스트</button><button onclick="openCandidateMatchModal()">회원사 후보 찾기</button><span style="margin-left:auto;color:#738196;font-size:10px">회원가입 완료 + 결제 완료일 때만 CONVERTED</span></div>`;
+    }
+
+    function simulateSignupCompleted() {
+      const demo = getSelectedDemo();
+      if (!demo) return;
+      const now = new Date().toISOString().replace('T',' ').substring(0,16);
+      demo.signup_status = 'COMPLETED';
+      demo.company_id = demo.company_id || `COMP-2026-${demo.demo_id.slice(-4)}`;
+      demo.link_status = 'LINKED';
+      demo.linked_by = 'DIRECT_SIGNUP';
+      demo.linked_at = demo.linked_at || now;
+      demo.payment_status = 'PENDING';
+      demo.conversion_status = 'PAYMENT_PENDING';
+      demo.timestamps.signup_started_at = demo.timestamps.signup_started_at || now;
+      demo.timestamps.signup_completed_at = now;
+      renderDemoP0Details(demo);
+      showToast('회원가입 완료·결제 대기 상태가 반영되었습니다.','success');
+    }
+
+    function simulatePaymentCompleted() {
+      const demo = getSelectedDemo();
+      if (!demo) return;
+      if (!demo.company_id) simulateSignupCompleted();
+      const now = new Date().toISOString().replace('T',' ').substring(0,16);
+      demo.payment_status = 'PAID';
+      demo.conversion_status = 'CONVERTED';
+      demo.converted_at = now;
+      demo.timestamps.paid_at = now;
+      demo.timestamps.converted_at = now;
+      renderDemoP0Details(demo);
+      showToast('결제 완료로 최종 전환(CONVERTED) 처리되었습니다.','success');
+    }
+
+    function renderCompanyP0Details() {
+      const container = document.getElementById('companyP0Details');
+      if (!container) return;
+      const linkedDemo = appState.demoList.find(d => d.company_id === appState.selectedCompanyId) || appState.demoList.find(d => d.company_id) || getSelectedDemo();
+      if (!linkedDemo) { container.innerHTML = '<span>연결된 데모체험 정보가 없습니다.</span>'; return; }
+      container.innerHTML = `<div class="p0-state-grid">
+        <div class="p0-state-cell"><small>Demo ID</small><strong><a class="link-id" onclick="navigateToDemoDetail('${linkedDemo.demo_id}')">${linkedDemo.demo_id}</a></strong></div>
+        <div class="p0-state-cell"><small>데모 계정</small><strong>${linkedDemo.demo_account}</strong></div>
+        <div class="p0-state-cell"><small>전환 상태</small><strong>${linkedDemo.conversion_status}</strong></div>
+        <div class="p0-state-cell"><small>회원가입일</small><strong>${linkedDemo.timestamps?.signup_completed_at || '-'}</strong></div>
+        <div class="p0-state-cell"><small>결제 완료일</small><strong>${linkedDemo.timestamps?.paid_at || '-'}</strong></div>
+      </div><div style="font-size:10px;color:#718096;margin-top:9px">양방향 조회: Demo ID를 클릭하면 해당 데모 상세 화면으로 이동합니다.</div>`;
+    }
+
     // BIDIRECTIONAL DRILL-DOWN NAVIGATION FUNCTIONS
     function navigateToDemoDetail(demoId) {
       appState.selectedDemoId = demoId;
+      appState.sysDemoPage = 'detail';
       switchView('sysDemo');
-      renderSysDemoList();
-      updateSysDetailView();
+      renderSysDemoShell();
       showToast(`🔍 데모 상세 화면(${demoId})으로 이동하였습니다.`, 'info');
     }
 
     function navigateToCompanyDetail(companyId) {
+      appState.selectedCompanyId = companyId;
       switchView('sysCompany');
-      
-      const compName = document.getElementById('comp_name_val');
-      if (compName) compName.value = "KD첨단소재";
-      const compLink = document.getElementById('compDemoIdLink');
-      if (compLink) compLink.innerText = appState.selectedDemoId || "DEMO-2026-8942";
-
+      renderSysCompanyShell();
       showToast(`🔍 회원사 상세 화면(${companyId})으로 이동하였습니다.`, 'info');
     }
 
