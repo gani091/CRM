@@ -12,7 +12,7 @@
 - 데모 계정 발급 후 CRM 대시보드의 guest 프로필 메뉴에서 `demo_id`, 데모 계정, 만료일, 가입 상태를 조회합니다.
 
 ### 2. company_id 생성 시점
-- 데모 CRM guest 프로필의 `[회원가입하기]` 클릭 후 **Step 03 회원사 정보 입력** 완료 시점에 `company_id` (예: `COMP-2026-9901`)가 생성됩니다.
+- 데모 CRM 우측 상단의 `[회원가입하기]` 클릭 후 **Step 03 회원사 정보 입력** 완료 시점에 `company_id` (예: `COMP-2026-9901`)가 생성됩니다.
 
 ### 3. 최종 전환 기준 (핵심 정의)
 > **⚠️ 회원가입 완료 ≠ 최종 전환**
@@ -89,6 +89,8 @@
 
 | 항목명 | 수집 방식 | 필수 여부 | DB 타입 / 코드값 |
 | :--- | :--- | :--- | :--- |
+| **예상 사용 인원** | 숫자 직접 입력 | 필수 | `INTEGER`, 1 이상 |
+| **신청경로** | 단일 선택 (셀렉트) | 선택 | `GOOGLE_ADS`, `NAVER_SEARCH_ADS`, `WESEED_WEB`, `REFERRAL`, `SALES_GUIDE`, `ETC` |
 | **업종** | 직접 텍스트 입력 | 선택 | `VARCHAR(100)` (예: IT/SaaS, 제조업, 유통 등) |
 | **데모체험 목적** | 단일 선택 (라디오) | 선택 | `PURPOSE_EVALUATE` (실제 CRM 도입 검토)<br>`PURPOSE_CHECK_FEATURES` (기능 확인)<br>`PURPOSE_TEST_FIT` (사내 업무 적용 테스트)<br>`PURPOSE_COMPARE_CRM` (타 CRM과 비교)<br>`PURPOSE_ETC` (기타 + 직접 입력) |
 | **관심 기능** | 다중 선택 (체크박스/최대 3개) | 선택 | `FEAT_CUSTOMER` (고객·고객사 관리)<br>`FEAT_OPPORTUNITY` (영업기회 관리)<br>`FEAT_ACTIVITY` (영업활동 관리)<br>`FEAT_SCHEDULE` (일정 관리)<br>`FEAT_QUOTE_CONTRACT` (견적·계약 관리)<br>`FEAT_REVENUE` (매출 관리)<br>`FEAT_ANALYTICS` (통계·분석)<br>`FEAT_ETC` (기타 + 직접 입력) |
@@ -102,7 +104,7 @@
 ```json
 {
   "company_name": "위시드 테크",
-  "user_count": "21-50명",
+  "user_count": 20,
   "user_name": "김영업",
   "email": "lead@weseed.io",
   "phone": "010-1234-5678",
@@ -114,7 +116,7 @@
     "영업기회 관리",
     "통계·분석"
   ],
-  "current_system": "엑셀 / 수기 / 개인 메모",
+  "application_source": "구글 광고",
   "privacy_agree": true,
   "system_metadata": {
     "created_at": "2026-08-12T11:45:00.000Z",
@@ -130,7 +132,7 @@
 CREATE TABLE demo_requests (
     demo_id VARCHAR(50) PRIMARY KEY DEFAULT 'DEMO-' || TO_CHAR(NOW(), 'YYYYMMDD') || '-' || LPAD(CAST(FLOOR(RANDOM()*10000) AS TEXT), 4, '0'),
     company_name VARCHAR(100) NOT NULL,
-    user_count VARCHAR(30) NOT NULL,
+    user_count INTEGER NOT NULL CHECK (user_count >= 1),
     user_name VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
     phone VARCHAR(20) NOT NULL,
@@ -138,7 +140,7 @@ CREATE TABLE demo_requests (
     industry VARCHAR(100),
     demo_purpose VARCHAR(100),
     interested_features JSONB,
-    current_system VARCHAR(100),
+    application_source VARCHAR(50),
     privacy_agree BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     acquisition_channel VARCHAR(100),
