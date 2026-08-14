@@ -1,0 +1,76 @@
+name: Add SYSADMIN Company Tab
+
+on:
+  push:
+    paths:
+      - '.github/workflows/add-syscompany-tab.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Add SYSADMIN member company tab
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          html = path.read_text(encoding='utf-8')
+
+          old_tab = '''        <button type="button" class="nav-tab-btn" id="tabSysDemoBtn" onclick="switchView('sysDemo')">
+          🛠 SYSADMIN 전환 검증
+        </button>'''
+          new_tab = '''        <button type="button" class="nav-tab-btn" id="tabSysDemoBtn" onclick="switchView('sysDemo')">
+          🛠 SYSADMIN 데모체험관리
+        </button>
+        <button type="button" class="nav-tab-btn" id="tabSysCompanyBtn" onclick="switchView('sysCompany')">
+          🏢 SYSADMIN 회원사관리조회
+        </button>'''
+          if old_tab not in html:
+              raise SystemExit('SYSADMIN demo tab pattern not found')
+          html = html.replace(old_tab, new_tab, 1)
+
+          old_btns = "const btns = ['tabAsIsBtn', 'tabFormBtn', 'tabDashBtn', 'tabCompareBtn', 'tabSysDemoBtn'];"
+          new_btns = "const btns = ['tabAsIsBtn', 'tabFormBtn', 'tabDashBtn', 'tabCompareBtn', 'tabSysDemoBtn', 'tabSysCompanyBtn'];"
+          if old_btns not in html:
+              raise SystemExit('switchView button array pattern not found')
+          html = html.replace(old_btns, new_btns, 1)
+
+          old_company_active = "if (document.getElementById('tabSysDemoBtn')) document.getElementById('tabSysDemoBtn').classList.add('active');\n        if (mainContainer) mainContainer.classList.add('wide');\n      }"
+          new_company_active = "if (document.getElementById('tabSysCompanyBtn')) document.getElementById('tabSysCompanyBtn').classList.add('active');\n        if (mainContainer) mainContainer.classList.add('wide');\n        renderSysCompanyShell();\n      }"
+          # Replace only the final sysCompany branch occurrence by using rfind.
+          pos = html.rfind(old_company_active)
+          if pos == -1:
+              raise SystemExit('sysCompany active-tab pattern not found')
+          html = html[:pos] + new_company_active + html[pos + len(old_company_active):]
+
+          # Keep prototype navigation visible on common desktop widths.
+          marker = '''    .weseed-nav-links a:hover { color: var(--primary-color); }'''
+          addition = '''    .weseed-nav-links a:hover { color: var(--primary-color); }
+
+    @media (max-width: 1700px) {
+      .weseed-nav-links { display: none; }
+    }'''
+          if marker in html and '@media (max-width: 1700px)' not in html:
+              html = html.replace(marker, addition, 1)
+
+          path.write_text(html, encoding='utf-8')
+          PY
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Expose SYSADMIN member company view tab"
+          git push origin main
