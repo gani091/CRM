@@ -1,0 +1,25 @@
+name: Run Demo Field Synchronization
+
+on:
+  push:
+    paths:
+      - '.github/workflows/run-sync-demo-fields.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - run: python scripts/sync_demo_fields.py
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Sync demo application fields across P0 screens"
+          git push origin main
