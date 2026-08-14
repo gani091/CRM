@@ -1,0 +1,34 @@
+name: Apply P0 Final Prototype Patch
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/apply_p0_final.py
+
+permissions:
+  contents: write
+
+jobs:
+  apply-p0-final:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply P0 final patch
+        run: python scripts/apply_p0_final.py
+
+      - name: Commit patched prototype
+        run: |
+          if git diff --quiet -- index.html index2.html README.md; then
+            echo "No prototype changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html index2.html README.md
+          git commit -m "Apply final P0 demo conversion UX"
+          git push origin HEAD:main
