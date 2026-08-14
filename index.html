@@ -2026,7 +2026,7 @@
       <!-- NAV VIEW SWITCHER TABS -->
       <nav class="nav-tabs">
         <button type="button" class="nav-tab-btn" id="tabAsIsBtn" onclick="switchView('asis')">
-          📌 AS-IS <span class="badge-mini asis">기존 문의 폼</span>
+          📌 AS-IS <span class="badge-mini asis">현재 데모 폼</span>
         </button>
         <button type="button" class="nav-tab-btn active" id="tabFormBtn" onclick="switchView('form')">
           🚀 TO-BE <span class="badge-mini tobe">고도화 데모 폼</span>
@@ -2068,129 +2068,54 @@
          VIEW 0: AS-IS 기존 홈페이지 문의하기 폼 (ORIGINAL AS-IS FORM)
          ============================================== -->
     <div id="viewAsIs" class="view-section">
-      <section class="hero-section">
-        <div class="hero-category">문의하기</div>
-        <h1 class="hero-title">위시드의 어떤 서비스가 궁금하신가요?</h1>
+      <section class="hero-section" style="max-width:760px;margin:0 auto 30px;text-align:center;">
+        <div class="hero-category">위시드 CRM 데모체험</div>
+        <h1 class="hero-title" style="line-height:1.35;">입력하신 이메일 주소로<br>데모 체험 계정을 발송합니다</h1>
+        <p style="margin-top:16px;color:#64748B;font-size:16px;">데모 계정은 발급일로부터 14일간 사용 가능합니다.</p>
       </section>
 
       <form class="form-card" id="asisRequestForm" style="max-width: 600px; margin: 0 auto;" onsubmit="handleAsIsSubmit(event)">
-        <div style="background: #FEF2F2; border: 1px solid #FCA5A5; color: #991B1B; padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; margin-bottom: 24px; text-align: center;">
-          ⚠️ [AS-IS 기존 문의 폼] 단순 문의 접수 형태이며, demo_id 연결 및 유입경로/업종/데모목적 데이터는 미수집됩니다.
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: 20px;">
-          <!-- 1. 문의 내용 구분 -->
+        <div style="display:flex;flex-direction:column;gap:20px;">
           <div class="field-group">
-            <label class="field-label" for="asis_category">
-              문의 내용 구분 <span class="required">*</span>
-              <span class="dev-field-tag">inquiry_category</span>
-            </label>
-            <select id="asis_category" class="form-select" required>
-              <option value="기능 문의" selected>기능 문의</option>
-              <option value="요금 및 도입 문의">요금 및 도입 문의</option>
-              <option value="기술 지원">기술 지원</option>
-              <option value="기타 문의">기타 문의</option>
-            </select>
-          </div>
-
-          <!-- 2. 회사명 -->
-          <div class="field-group">
-            <label class="field-label" for="asis_company_name">
-              회사명 <span class="required">*</span>
-              <span class="dev-field-tag">company_name</span>
-            </label>
+            <label class="field-label" for="asis_company_name">회사명 <span class="required">*</span><span class="dev-field-tag">company_name</span></label>
             <input type="text" id="asis_company_name" class="form-input" placeholder="회사 또는 단체명을 입력해주세요" required>
           </div>
-
-          <!-- 3. 예상 사용 인원 -->
           <div class="field-group">
-            <label class="field-label" for="asis_user_count">
-              예상 사용 인원 <span class="required">*</span>
-              <span class="dev-field-tag">user_count</span>
-            </label>
-            <input type="text" id="asis_user_count" class="form-input" placeholder="예상 사용 인원을 입력해주세요" required>
+            <label class="field-label" for="asis_user_count">예상 사용 인원 <span class="required">*</span><span class="dev-field-tag">user_count</span></label>
+            <input type="number" id="asis_user_count" class="form-input" min="1" placeholder="예상 사용 인원을 입력해주세요" required>
           </div>
-
-          <!-- 4. 담당자 이름 -->
           <div class="field-group">
-            <label class="field-label" for="asis_user_name">
-              담당자 이름 <span class="required">*</span>
-              <span class="dev-field-tag">user_name</span>
-            </label>
-            <input type="text" id="asis_user_name" class="form-input" placeholder="담당자 이름을 입력해 주세요" required>
+            <label class="field-label" for="asis_contact_name">담당자 이름 <span class="required">*</span><span class="dev-field-tag">contact_name</span></label>
+            <input type="text" id="asis_contact_name" class="form-input" placeholder="담당자 이름을 입력해 주세요" required>
           </div>
-
-          <!-- 5. 휴대전화 -->
           <div class="field-group">
-            <label class="field-label" for="asis_phone">
-              휴대전화 <span class="required">*</span>
-              <span class="dev-field-tag">phone</span>
-            </label>
-            <input type="tel" id="asis_phone" class="form-input" placeholder="휴대전화를 입력해 주세요" required>
+            <label class="field-label" for="asis_email">회사 이메일 <span class="required">*</span><span class="dev-field-tag">email</span></label>
+            <input type="email" id="asis_email" class="form-input" placeholder="이메일을 입력해 주세요" required>
           </div>
-
-          <!-- 6. 직책 -->
           <div class="field-group">
-            <label class="field-label" for="asis_job_title">
-              직책 <span class="required">*</span>
-              <span class="dev-field-tag">job_title</span>
-            </label>
+            <label class="field-label" for="asis_phone">휴대전화 <span class="required">*</span><span class="dev-field-tag">phone</span></label>
+            <input type="tel" id="asis_phone" class="form-input" value="010-5029-1483" readonly aria-readonly="true">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="asis_job_title">직책 <span class="required">*</span><span class="dev-field-tag">job_title</span></label>
             <input type="text" id="asis_job_title" class="form-input" placeholder="담당하고 계시는 직책을 입력해 주세요" required>
           </div>
 
-          <!-- 7. 회사 이메일 -->
-          <div class="field-group">
-            <label class="field-label" for="asis_email">
-              회사 이메일 <span class="required">*</span>
-              <span class="dev-field-tag">email</span>
-            </label>
-            <input type="email" id="asis_email" class="form-input" placeholder="이메일을 입력해 주세요" required>
-          </div>
-
-          <!-- 8. 문의 내용 -->
-          <div class="field-group">
-            <label class="field-label" for="asis_content">
-              문의 내용 <span class="required">*</span>
-              <span class="sub-info"><span id="asisCharCount">0</span> / 2000</span>
-              <span class="dev-field-tag">content</span>
-            </label>
-            <textarea id="asis_content" class="form-textarea" placeholder="문의내용을 입력하세요." maxlength="2000" oninput="document.getElementById('asisCharCount').innerText = this.value.length" required></textarea>
-          </div>
-
-          <!-- 개인정보 수집 및 이용 동의 -->
-          <div style="margin-top: 4px; font-size: 13px; color: var(--text-sub);">
-            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-              <input type="checkbox" id="asis_privacy" required checked>
-              <span>개인정보 수집 및 이용에 동의합니다.</span>
-              <a href="#" onclick="alert('개인정보 수집 항목: 회사명, 이메일, 연락처 등\n수집 목적: 서비스 문의 답변 및 안내'); return false;" style="color: #2563EB; text-decoration: underline; margin-left: 4px;">내용보기</a>
-            </label>
-          </div>
-
-          <!-- reCAPTCHA -->
           <div class="recaptcha-wrapper">
             <div class="recaptcha-box">
               <div class="recaptcha-left" onclick="toggleRecaptcha('asis')">
                 <div class="recaptcha-check" id="recaptchaCheckAsIs"></div>
                 <span class="recaptcha-label">로봇이 아닙니다.</span>
               </div>
-              <div class="recaptcha-right">
-                <svg class="recaptcha-logo" viewBox="0 0 48 48">
-                  <path fill="#4285F4" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.66 0 6.58 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-                  <path fill="#34A853" d="M46.1 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.4c-.53 2.84-2.13 5.25-4.54 6.87l7.35 5.7c4.3-3.96 6.89-9.8 6.89-17.04z"/>
-                  <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.28-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-                  <path fill="#EA4335" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.35-5.7c-2.15 1.45-4.92 2.3-8.54 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.58 42.62 14.66 48 24 48z"/>
-                </svg>
-                <div class="recaptcha-terms">reCAPTCHA<br>약관 · 개인정보</div>
-              </div>
+              <div class="recaptcha-right"><div style="font-size:24px;line-height:1">↻</div><div class="recaptcha-terms">reCAPTCHA<br>약관 · 개인정보</div></div>
             </div>
           </div>
 
-          <button type="submit" class="btn-submit" style="background: #3B82F6;">
-            문의하기 (AS-IS 기존 방식 제출)
-          </button>
+          <button type="submit" class="btn-submit" style="background:#3B82F6;">데모 체험하기</button>
         </div>
       </form>
     </div>
+
 
 
     <!-- ==============================================
@@ -2212,90 +2137,34 @@
 
         <!-- SECTION 1: 기본 정보 (필수) -->
         <div class="section-header">
-          <div class="section-title">
-            기본 정보 
-            <span class="dev-field-tag">SYS_SECTION_1_REQUIRED</span>
-          </div>
+          <div class="section-title">기본 정보 <span class="dev-field-tag">SYS_SECTION_1_REQUIRED</span></div>
           <span class="section-badge required-badge">필수 입력</span>
         </div>
-        
-        <div class="grid-2">
-          <!-- 문의 내용 구분: 기존 문의폼 유지 -->
-          <div class="field-group" style="grid-column: 1 / -1;">
-            <label class="field-label" for="inquiry_category">
-              문의 내용 구분 <span class="required">*</span>
-              <span class="dev-field-tag">inquiry_category: Enum</span>
-            </label>
-            <select id="inquiry_category" name="inquiry_category" class="form-select" required onchange="updateDevInspector()">
-              <option value="기능 문의" selected>기능 문의</option>
-              <option value="요금 및 도입 문의">요금 및 도입 문의</option>
-              <option value="기술 지원">기술 지원</option>
-              <option value="기타 문의">기타 문의</option>
-            </select>
-          </div>
 
-          <!-- 회사명 -->
+        <div class="grid-2">
           <div class="field-group">
-            <label class="field-label" for="company_name">
-              회사명 <span class="required">*</span>
-              <span class="dev-field-tag">company_name: String(100)</span>
-            </label>
+            <label class="field-label" for="company_name">회사명 <span class="required">*</span><span class="dev-field-tag">company_name: String(100)</span></label>
             <input type="text" id="company_name" name="company_name" class="form-input" placeholder="회사 또는 단체명을 입력해주세요" required oninput="updateDevInspector()" value="위시드 테크">
           </div>
-
-          <!-- 예상 사용 인원 -->
           <div class="field-group">
-            <label class="field-label" for="user_count">
-              예상 사용 인원 <span class="required">*</span>
-              <span class="dev-field-tag">user_count: Integer</span>
-            </label>
-            <input type="number" id="user_count" name="user_count" class="form-input" min="1" step="1" inputmode="numeric" placeholder="예상 사용 인원을 숫자로 입력해주세요" required oninput="updateDevInspector()" value="20">
+            <label class="field-label" for="user_count">예상 사용 인원 <span class="required">*</span><span class="dev-field-tag">user_count: Integer</span></label>
+            <input type="number" id="user_count" name="user_count" class="form-input" min="1" step="1" inputmode="numeric" placeholder="예상 사용 인원을 입력해주세요" required oninput="updateDevInspector()" value="20">
           </div>
-
-          <!-- 담당자 이름 -->
           <div class="field-group">
-            <label class="field-label" for="user_name">
-              담당자 이름 <span class="required">*</span>
-              <span class="dev-field-tag">user_name: String(50)</span>
-            </label>
-            <input type="text" id="user_name" name="user_name" class="form-input" placeholder="담당자 이름을 입력해 주세요" required oninput="updateDevInspector()" value="김영업">
+            <label class="field-label" for="contact_name">담당자 이름 <span class="required">*</span><span class="dev-field-tag">contact_name: String(50)</span></label>
+            <input type="text" id="contact_name" name="contact_name" class="form-input" placeholder="담당자 이름을 입력해 주세요" required oninput="updateDevInspector()" value="김위시드">
           </div>
-
-          <!-- 회사 이메일 -->
           <div class="field-group">
-            <label class="field-label" for="email">
-              회사 이메일 <span class="required">*</span>
-              <span class="dev-field-tag">email: String(100) [MATCH_KEY]</span>
-            </label>
-            <input type="email" id="email" name="email" class="form-input" placeholder="이메일을 입력해 주세요 (업무용 권장)" required oninput="updateDevInspector()" value="lead@weseed.io">
+            <label class="field-label" for="email">회사 이메일 <span class="required">*</span><span class="dev-field-tag">email: String(100) [MATCH_KEY]</span></label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="이메일을 입력해 주세요" required oninput="updateDevInspector()" value="sales@weseed.co.kr">
           </div>
-
-          <!-- 휴대전화 -->
           <div class="field-group">
-            <label class="field-label" for="phone">
-              휴대전화 <span class="required">*</span>
-              <span class="dev-field-tag">phone: String(20) [MATCH_KEY]</span>
-            </label>
-            <input type="tel" id="phone" name="phone" class="form-input" placeholder="010-0000-0000" required oninput="updateDevInspector()" value="010-1234-5678">
+            <label class="field-label" for="phone">휴대전화 <span class="required">*</span><span class="dev-field-tag">phone: String(20) [MATCH_KEY]</span></label>
+            <input type="tel" id="phone" name="phone" class="form-input" value="010-5029-1483" readonly aria-readonly="true">
           </div>
-
-          <!-- 직책 -->
           <div class="field-group">
-            <label class="field-label" for="job_title">
-              직책 <span class="required">*</span>
-              <span class="dev-field-tag">job_title: String(50)</span>
-            </label>
+            <label class="field-label" for="job_title">직책 <span class="required">*</span><span class="dev-field-tag">job_title: String(50)</span></label>
             <input type="text" id="job_title" name="job_title" class="form-input" placeholder="담당하고 계시는 직책을 입력해 주세요" required oninput="updateDevInspector()" value="영업 이사">
-          </div>
-
-          <!-- 문의 내용: 기존 문의폼 유지 -->
-          <div class="field-group" style="grid-column: 1 / -1;">
-            <label class="field-label" for="inquiry_content">
-              문의 내용 <span class="required">*</span>
-              <span class="sub-info"><span id="inquiryCharCount">0</span> / 2000</span>
-              <span class="dev-field-tag">inquiry_content: String(2000)</span>
-            </label>
-            <textarea id="inquiry_content" name="inquiry_content" class="form-textarea" maxlength="2000" placeholder="문의내용을 입력하세요." required oninput="document.getElementById('inquiryCharCount').innerText=this.value.length; updateDevInspector();"></textarea>
           </div>
         </div>
 
@@ -2383,15 +2252,6 @@
               <option value="기타">기타</option>
             </select>
           </div>
-        </div>
-
-        <!-- 약관 동의 -->
-        <div class="policy-box">
-          <label class="policy-checkbox">
-            <input type="checkbox" id="privacy_agree" name="privacy_agree" required checked onchange="updateDevInspector()">
-            <span>[필수] 개인정보 수집 및 이용(데모 계정 발급, 이용 안내 및 영업 상담)에 동의합니다.</span>
-            <span class="dev-field-tag">privacy_agree: Boolean</span>
-          </label>
         </div>
 
         <!-- reCAPTCHA -->
@@ -4163,16 +4023,13 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
           <section class="admin-detail-card">
             <div class="admin-section-head"><h3>기본 정보</h3><span style="font-size:10px;color:#7b8798">계정만료일만 수정 가능</span></div>
             <div class="admin-form-grid">
-              <div class="admin-field"><label>문의 내용 구분</label><input id="dt_inquiry_category" readonly></div>
               <div class="admin-field"><label class="required">회사명</label><input id="dt_company_name" readonly></div>
               <div class="admin-field"><label class="required">예상 사용 인원</label><input id="dt_user_count" readonly></div>
-              <div class="admin-field"><label class="required">담당자명</label><input id="dt_contact_name" readonly></div>
+              <div class="admin-field"><label class="required">담당자 이름</label><input id="dt_contact_name" readonly></div>
+              <div class="admin-field"><label class="required">회사 이메일</label><input id="dt_email" readonly></div>
               <div class="admin-field"><label class="required">휴대전화</label><input id="dt_phone" readonly></div>
               <div class="admin-field"><label class="required">직책</label><input id="dt_job_title" readonly></div>
-              <div class="admin-field"><label class="required">회사 이메일</label><input id="dt_email" readonly></div>
-              <div class="admin-field"><label>개인정보 동의</label><input id="dt_privacy" readonly></div>
               <div class="admin-field"><label>계정만료일</label><input id="dt_expiry_date" type="text"></div>
-              <div class="admin-field full"><label>문의 내용</label><textarea id="dt_inquiry_content" readonly></textarea></div>
             </div>
 
             <div class="admin-section-divider"></div>
@@ -4235,7 +4092,7 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
           <div class="admin-field"><label>신청경로</label><select id="comp_extra_source">${sourceMarkup}</select></div>
           <div class="admin-field"><label>관심 있는 기능</label><select id="comp_extra_features" class="admin-multi-select" multiple>${featureMarkup}</select></div>
         </div><div class="admin-help">데모 연동 시 최초 1회 데모의 추가정보를 가져오며, 이후 CS가 회원사 기준으로 수정할 수 있습니다.</div></div>
-        <div class="member-section"><h3>데모정보 ${linkedDemo ? '<span class="badge-status green">연동 완료</span>' : '<span class="badge-status gray">미연동</span>'}</h3>${linkedDemo ? `<div class="company-pay-grid"><div class="admin-field"><label>Demo ID</label><input value="${linkedDemo.demo_id}" readonly onclick="navigateToDemoDetail('${linkedDemo.demo_id}')" style="color:#2563eb;cursor:pointer;font-weight:700"></div><div class="admin-field"><label>데모계정</label><input value="${linkedDemo.demo_account || ''}" readonly></div><div class="admin-field"><label>데모 신청일</label><input value="${linkedDemo.created_at || ''}" readonly></div><div class="admin-field"><label>계정만료일</label><input value="${linkedDemo.expiry_date || ''}" readonly></div><div class="admin-field"><label>회원가입일</label><input value="${linkedDemo.timestamps?.signup_completed_at || ''}" readonly></div><div class="admin-field"><label>결제일</label><input value="${linkedDemo.timestamps?.paid_at || ''}" readonly></div></div>` : '<div style="font-size:11px;color:#718096">연동된 데모체험 정보가 없습니다.</div>'}</div>
+        <div class="member-section"><h3>데모정보 ${linkedDemo ? '<span class="badge-status green">연동 완료</span>' : '<span class="badge-status gray">미연동</span>'}</h3>${linkedDemo ? `<div class="company-pay-grid"><div class="admin-field"><label>Demo ID</label><input value="${linkedDemo.demo_id}" readonly onclick="navigateToDemoDetail('${linkedDemo.demo_id}')" style="color:#2563eb;cursor:pointer;font-weight:700"></div><div class="admin-field"><label>데모계정</label><input value="${linkedDemo.demo_account || ''}" readonly></div><div class="admin-field"><label>데모 신청일</label><input value="${linkedDemo.created_at || ''}" readonly></div></div>` : '<div style="font-size:11px;color:#718096">연동된 데모체험 정보가 없습니다.</div>'}</div>
         </div></section>
       </main></div></div>`;
     }
@@ -4327,9 +4184,6 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
           // Create new record in data store
           const newDemo = {
             demo_id: generatedDemoId,
-            inquiry_category: document.getElementById('inquiry_category')?.value || '기능 문의',
-            inquiry_content: document.getElementById('inquiry_content')?.value || '',
-            privacy_agree: document.getElementById('privacy_agree')?.checked !== false,
             company_name: userSubmittedCompany,
             user_count: Number(document.getElementById('user_count')?.value) || 1,
             contact_name: userSubmittedName,
@@ -4830,16 +4684,13 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       const curDemo = getSelectedDemo();
       if (!curDemo) return;
       const setValue = (id, value) => { const el = document.getElementById(id); if (el) el.value = value ?? ''; };
-      setValue('dt_inquiry_category', curDemo.inquiry_category || '기능 문의');
       setValue('dt_company_name', curDemo.company_name);
       setValue('dt_user_count', curDemo.user_count);
       setValue('dt_contact_name', curDemo.contact_name);
+      setValue('dt_email', curDemo.email);
       setValue('dt_phone', curDemo.phone);
       setValue('dt_job_title', curDemo.job_title);
-      setValue('dt_email', curDemo.email);
-      setValue('dt_privacy', curDemo.privacy_agree === false ? '미동의' : '동의');
       setValue('dt_expiry_date', String(curDemo.expiry_date || '').replaceAll('-','.'));
-      setValue('dt_inquiry_content', curDemo.inquiry_content || curDemo.note || '-');
       setValue('dt_industry', curDemo.industry || '');
       setValue('dt_demo_purpose', normalizePurposeLabel(curDemo.demo_purpose));
       setValue('dt_application_source', curDemo.application_source || '');
@@ -5055,7 +4906,7 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
         showToast('\'로봇이 아닙니다.\' 체크박스를 선택해 주세요.', 'warning');
         return;
       }
-      showToast('📩 AS-IS 기존 방식 문의하기 접수가 완료되었습니다.', 'info');
+      showToast('📩 데모 체험 신청이 완료되었습니다. 입력한 이메일로 계정이 발송됩니다.', 'info');
     }
 
     function toggleDevMode() {
