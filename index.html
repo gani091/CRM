@@ -2035,7 +2035,10 @@
           📊 데모 CRM 체험 & 즉시 연동
         </button>
         <button type="button" class="nav-tab-btn" id="tabSysDemoBtn" onclick="switchView('sysDemo')">
-          🛠 SYSADMIN 전환 검증
+          🛠 SYSADMIN 데모체험관리
+        </button>
+        <button type="button" class="nav-tab-btn" id="tabSysCompanyBtn" onclick="switchView('sysCompany')">
+          🏢 SYSADMIN 회원사관리조회
         </button>
         <button type="button" class="nav-tab-btn" id="tabCompareBtn" onclick="switchView('compare')">
           🔥 P0 개발 논의
@@ -4943,7 +4946,7 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
     function switchView(viewName) {
       appState.activeView = viewName;
       const views = ['viewAsIs', 'viewForm', 'viewDashboard', 'viewCompare', 'viewSysDemo', 'viewSysCompany'];
-      const btns = ['tabAsIsBtn', 'tabFormBtn', 'tabDashBtn', 'tabCompareBtn', 'tabSysDemoBtn'];
+      const btns = ['tabAsIsBtn', 'tabFormBtn', 'tabDashBtn', 'tabCompareBtn', 'tabSysDemoBtn', 'tabSysCompanyBtn'];
       const mainContainer = document.getElementById('mainContainer');
 
       views.forEach(v => {
@@ -4980,8 +4983,9 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
         updateSysDetailView();
       } else if (viewName === 'sysCompany') {
         if (document.getElementById('viewSysCompany')) document.getElementById('viewSysCompany').classList.add('active');
-        if (document.getElementById('tabSysDemoBtn')) document.getElementById('tabSysDemoBtn').classList.add('active');
+        if (document.getElementById('tabSysCompanyBtn')) document.getElementById('tabSysCompanyBtn').classList.add('active');
         if (mainContainer) mainContainer.classList.add('wide');
+        renderSysCompanyShell();
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
