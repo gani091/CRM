@@ -579,6 +579,26 @@
       cursor: pointer;
     }
 
+    /* FINAL P0 MULTI-SELECT */
+    .feature-multiselect { position: relative; width: 100%; }
+    .feature-multiselect summary { list-style:none; height:48px; border:1px solid var(--border-color); border-radius:var(--radius-sm); background:#fff; padding:0 16px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; font-size:15px; color:var(--text-main); box-shadow:var(--shadow-input); }
+    .feature-multiselect summary::-webkit-details-marker { display:none; }
+    .feature-multiselect[open] summary { border-color:var(--border-focus); box-shadow:0 0 0 3px rgba(37,99,235,.12); }
+    .feature-multiselect-menu { position:absolute; z-index:30; left:0; right:0; top:54px; max-height:260px; overflow:auto; padding:8px; background:#fff; border:1px solid #d7dee8; border-radius:8px; box-shadow:0 12px 28px rgba(15,23,42,.14); }
+    .feature-multiselect-menu label { display:flex; align-items:center; gap:9px; min-height:38px; padding:7px 9px; border-radius:6px; cursor:pointer; font-size:14px; }
+    .feature-multiselect-menu label:hover { background:#f8fafc; }
+    .feature-multiselect-menu input { width:17px; height:17px; accent-color:#2563eb; }
+    .feature-multiselect-arrow { color:#64748b; }
+    .field-help { font-size:12px; color:#94a3b8; margin-top:2px; }
+    .admin-section-divider { height:1px; background:#e5e9ef; margin:22px 0; }
+    .admin-section-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px; }
+    .admin-section-head h3 { margin:0; }
+    .admin-editable-note { font-size:10px; color:#2563eb; background:#eff6ff; border:1px solid #bfdbfe; border-radius:12px; padding:3px 8px; font-weight:700; }
+    .admin-multi-select { min-height:96px !important; height:96px !important; padding:6px 8px !important; }
+    .admin-help { margin-top:5px; font-size:10px; color:#8492a6; }
+    .member-section { margin-top:20px; padding-top:18px; border-top:1px solid #e4e8ee; }
+    .member-section h3 { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+
     /* RADIO OPTIONS */
     .radio-stack {
       display: flex;
@@ -2197,6 +2217,20 @@
         </div>
         
         <div class="grid-2">
+          <!-- 문의 내용 구분: 기존 문의폼 유지 -->
+          <div class="field-group" style="grid-column: 1 / -1;">
+            <label class="field-label" for="inquiry_category">
+              문의 내용 구분 <span class="required">*</span>
+              <span class="dev-field-tag">inquiry_category: Enum</span>
+            </label>
+            <select id="inquiry_category" name="inquiry_category" class="form-select" required onchange="updateDevInspector()">
+              <option value="기능 문의" selected>기능 문의</option>
+              <option value="요금 및 도입 문의">요금 및 도입 문의</option>
+              <option value="기술 지원">기술 지원</option>
+              <option value="기타 문의">기타 문의</option>
+            </select>
+          </div>
+
           <!-- 회사명 -->
           <div class="field-group">
             <label class="field-label" for="company_name">
@@ -2250,6 +2284,16 @@
             </label>
             <input type="text" id="job_title" name="job_title" class="form-input" placeholder="담당하고 계시는 직책을 입력해 주세요" required oninput="updateDevInspector()" value="영업 이사">
           </div>
+
+          <!-- 문의 내용: 기존 문의폼 유지 -->
+          <div class="field-group" style="grid-column: 1 / -1;">
+            <label class="field-label" for="inquiry_content">
+              문의 내용 <span class="required">*</span>
+              <span class="sub-info"><span id="inquiryCharCount">0</span> / 2000</span>
+              <span class="dev-field-tag">inquiry_content: String(2000)</span>
+            </label>
+            <textarea id="inquiry_content" name="inquiry_content" class="form-textarea" maxlength="2000" placeholder="문의내용을 입력하세요." required oninput="document.getElementById('inquiryCharCount').innerText=this.value.length; updateDevInspector();"></textarea>
+          </div>
         </div>
 
         <div class="divider"></div>
@@ -2257,10 +2301,10 @@
         <!-- SECTION 2: 전환 분석 데이터 수집 (PRD 요청 항목) -->
         <div class="section-header">
           <div class="section-title">
-            데모체험 분석 데이터 수집
+            추가 정보
             <span class="dev-field-tag">SYS_SECTION_2_ANALYTICS</span>
           </div>
-          <span class="section-badge optional-badge">맞춤 설정 (선택)</span>
+          <span class="section-badge optional-badge">선택 입력</span>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 22px;">
@@ -2282,102 +2326,42 @@
             >
           </div>
 
-          <!-- 2. 데모체험 목적 (단일선택 라디오) -->
+          <!-- 2. 데모체험 목적 (단일 선택 Select Box) -->
           <div class="field-group">
-            <label class="field-label">
+            <label class="field-label" for="demo_purpose">
               데모체험 목적
-              <span class="dev-field-tag">demo_purpose: Enum(5)</span>
+              <span class="dev-field-tag">demo_purpose: Enum</span>
             </label>
-            <p style="font-size: 13px; color: var(--text-sub); margin-bottom: 4px;">
-              위시드 CRM을 체험하는 가장 큰 목적은 무엇인가요?
-            </p>
-            
-            <div class="radio-stack" id="purposeRadioGroup">
-              <label class="radio-card selected" onclick="handlePurposeRadioChange(this)">
-                <input type="radio" name="demo_purpose" value="실제 CRM 도입을 검토하고 있어요" checked onchange="updateDevInspector()">
-                <span class="radio-text">실제 CRM 도입을 검토하고 있어요</span>
-              </label>
-
-              <label class="radio-card" onclick="handlePurposeRadioChange(this)">
-                <input type="radio" name="demo_purpose" value="위시드 CRM의 기능을 확인하고 싶어요" onchange="updateDevInspector()">
-                <span class="radio-text">위시드 CRM의 기능을 확인하고 싶어요</span>
-              </label>
-
-              <label class="radio-card" onclick="handlePurposeRadioChange(this)">
-                <input type="radio" name="demo_purpose" value="사내 업무 적용을 테스트하고 싶어요" onchange="updateDevInspector()">
-                <span class="radio-text">사내 업무 적용을 테스트하고 싶어요</span>
-              </label>
-
-              <label class="radio-card" onclick="handlePurposeRadioChange(this)">
-                <input type="radio" name="demo_purpose" value="다른 CRM과 비교하고 있어요" onchange="updateDevInspector()">
-                <span class="radio-text">다른 CRM과 비교하고 있어요</span>
-              </label>
-
-              <label class="radio-card" onclick="handlePurposeRadioChange(this)">
-                <input type="radio" name="demo_purpose" value="기타" id="purpose_etc_radio" onchange="updateDevInspector()">
-                <span class="radio-text" style="display: flex; align-items: center; gap: 8px;">
-                  기타
-                  <input type="text" id="purpose_etc_text" name="demo_purpose_etc" class="inline-text-input" placeholder="직접 입력해주세요" oninput="updateDevInspector()" onclick="event.stopPropagation()">
-                </span>
-              </label>
-            </div>
+            <select id="demo_purpose" name="demo_purpose" class="form-select" onchange="updateDevInspector()">
+              <option value="">데모체험 목적을 선택해주세요</option>
+              <option value="실제 CRM 도입을 검토하고 있어요" selected>실제 CRM 도입을 검토하고 있어요</option>
+              <option value="위시드 CRM의 기능을 확인하고 싶어요">위시드 CRM의 기능을 확인하고 싶어요</option>
+              <option value="사내 업무 적용을 테스트하고 싶어요">사내 업무 적용을 테스트하고 싶어요</option>
+              <option value="다른 CRM과 비교하고 있어요">다른 CRM과 비교하고 있어요</option>
+              <option value="기타">기타</option>
+            </select>
           </div>
 
-          <!-- 3. 관심 기능 항목 (복수선택, 최대 3개) -->
+          <!-- 3. 관심 있는 기능 (복수 선택 Select Box) -->
           <div class="field-group">
             <label class="field-label">
               관심 있는 기능
-              <span class="sub-info" id="featureCounterText">(선택됨: 3 / 최대 3개)</span>
-              <span class="dev-field-tag">interested_features: Array[Enum] (Max 3)</span>
+              <span class="dev-field-tag">interested_features: Array[Enum]</span>
             </label>
-            <p style="font-size: 13px; color: var(--text-sub); margin-bottom: 4px;">
-              데모에서 확인하고 싶은 기능을 선택해 주세요.
-            </p>
-
-            <div class="checkbox-grid" id="featuresGrid">
-              <label class="checkbox-card selected">
-                <input type="checkbox" name="interested_features" value="고객·고객사 관리" checked onchange="handleFeatureCheckboxChange(this)">
-                <span class="checkbox-label">고객·고객사 관리</span>
-              </label>
-
-              <label class="checkbox-card selected">
-                <input type="checkbox" name="interested_features" value="영업기회 관리" checked onchange="handleFeatureCheckboxChange(this)">
-                <span class="checkbox-label">영업기회 관리</span>
-              </label>
-
-              <label class="checkbox-card">
-                <input type="checkbox" name="interested_features" value="영업활동 관리" onchange="handleFeatureCheckboxChange(this)">
-                <span class="checkbox-label">영업활동 관리</span>
-              </label>
-
-              <label class="checkbox-card">
-                <input type="checkbox" name="interested_features" value="일정 관리" onchange="handleFeatureCheckboxChange(this)">
-                <span class="checkbox-label">일정 관리</span>
-              </label>
-
-              <label class="checkbox-card">
-                <input type="checkbox" name="interested_features" value="견적·계약 관리" onchange="handleFeatureCheckboxChange(this)">
-                <span class="checkbox-label">견적·계약 관리</span>
-              </label>
-
-              <label class="checkbox-card">
-                <input type="checkbox" name="interested_features" value="매출 관리" onchange="handleFeatureCheckboxChange(this)">
-                <span class="checkbox-label">매출 관리</span>
-              </label>
-
-              <label class="checkbox-card selected">
-                <input type="checkbox" name="interested_features" value="통계·분석" checked onchange="handleFeatureCheckboxChange(this)">
-                <span class="checkbox-label">통계·분석</span>
-              </label>
-
-              <label class="checkbox-card etc-card">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <input type="checkbox" name="interested_features" value="기타" id="feature_etc_checkbox" onchange="handleFeatureCheckboxChange(this)">
-                  <span class="checkbox-label">기타</span>
-                </div>
-                <input type="text" id="feature_etc_text" name="interested_features_etc" class="inline-text-input" placeholder="직접 입력해주세요" oninput="updateDevInspector()" onclick="event.stopPropagation()">
-              </label>
-            </div>
+            <details class="feature-multiselect" id="featureMultiSelect">
+              <summary><span id="featureMultiSelectLabel">관심 있는 기능을 선택해주세요</span><span class="feature-multiselect-arrow">⌄</span></summary>
+              <div class="feature-multiselect-menu">
+                <label><input type="checkbox" name="interested_features" value="고객·고객사 관리" checked onchange="updateFeatureMultiSelectLabel();updateDevInspector()"> 고객·고객사 관리</label>
+                <label><input type="checkbox" name="interested_features" value="영업기회 관리" checked onchange="updateFeatureMultiSelectLabel();updateDevInspector()"> 영업기회 관리</label>
+                <label><input type="checkbox" name="interested_features" value="영업활동 관리" onchange="updateFeatureMultiSelectLabel();updateDevInspector()"> 영업활동 관리</label>
+                <label><input type="checkbox" name="interested_features" value="일정 관리" onchange="updateFeatureMultiSelectLabel();updateDevInspector()"> 일정 관리</label>
+                <label><input type="checkbox" name="interested_features" value="견적·계약 관리" onchange="updateFeatureMultiSelectLabel();updateDevInspector()"> 견적·계약 관리</label>
+                <label><input type="checkbox" name="interested_features" value="매출 관리" onchange="updateFeatureMultiSelectLabel();updateDevInspector()"> 매출 관리</label>
+                <label><input type="checkbox" name="interested_features" value="통계·분석" checked onchange="updateFeatureMultiSelectLabel();updateDevInspector()"> 통계·분석</label>
+                <label><input type="checkbox" name="interested_features" value="기타" onchange="updateFeatureMultiSelectLabel();updateDevInspector()"> 기타</label>
+              </div>
+            </details>
+            <p class="field-help">여러 기능을 선택할 수 있습니다.</p>
           </div>
 
           <!-- 4. 신청경로 -->
@@ -3814,6 +3798,8 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       activeView: 'form',
       sysDemoViewMode: 'tobe', // asis, tobe, compare
       selectedDemoId: 'DEMO-2026-8942',
+      selectedCompanyId: 'COMP-2026-RAPHAB',
+      companyExtraInfo: {},
       demoList: [
         {
           demo_id: "DEMO-2026-8942",
@@ -4165,26 +4151,47 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       const mount = document.getElementById('sysDemoMount');
       if (!mount) return;
       if (appState.sysDemoPage === 'detail') {
+        const demo = getSelectedDemo();
         mount.innerHTML = `<div class="admin-detail-screen">
           <div class="admin-detail-toolbar">
-            <div class="admin-detail-title"><span>👥</span><span>WeSeed-데모체험관리 조회</span></div>
+            <div class="admin-detail-title"><span>👥</span><span>WeSeed-데모체험관리 조회</span><span class="link-id">${demo?.demo_id || ''}</span></div>
             <div class="admin-detail-actions"><button class="admin-action-btn light" onclick="showSysDemoList()">목록</button><button class="admin-action-btn trash" title="삭제" onclick="deleteCurrentDemo()">♲</button><button class="admin-action-btn primary" onclick="saveSysDemoDetail()">저장</button></div>
           </div>
           <section class="admin-detail-card">
-            <h3>기본 정보</h3>
+            <div class="admin-section-head"><h3>기본 정보</h3><span style="font-size:10px;color:#7b8798">계정만료일만 수정 가능</span></div>
             <div class="admin-form-grid">
-              <div class="admin-field"><label class="required">회사명</label><input id="dt_company_name"></div>
-              <div class="admin-field"><label class="required">담당자명</label><input id="dt_contact_name"></div>
-              <div class="admin-field"><label>회사이메일</label><input id="dt_email"></div>
-              <div class="admin-field"><label class="required">전화번호</label><input id="dt_phone"></div>
-              <div class="admin-field"><label>직책</label><input id="dt_job_title"></div>
-              <div class="admin-field"><label>서비스구분</label><select id="dt_service_type"><option>CRM</option></select></div>
-              <div class="admin-field"><label>데모ID</label><input id="dt_demo_account" readonly></div>
+              <div class="admin-field"><label>문의 내용 구분</label><input id="dt_inquiry_category" readonly></div>
+              <div class="admin-field"><label class="required">회사명</label><input id="dt_company_name" readonly></div>
+              <div class="admin-field"><label class="required">예상 사용 인원</label><input id="dt_user_count" readonly></div>
+              <div class="admin-field"><label class="required">담당자명</label><input id="dt_contact_name" readonly></div>
+              <div class="admin-field"><label class="required">휴대전화</label><input id="dt_phone" readonly></div>
+              <div class="admin-field"><label class="required">직책</label><input id="dt_job_title" readonly></div>
+              <div class="admin-field"><label class="required">회사 이메일</label><input id="dt_email" readonly></div>
+              <div class="admin-field"><label>개인정보 동의</label><input id="dt_privacy" readonly></div>
               <div class="admin-field"><label>계정만료일</label><input id="dt_expiry_date" type="text"></div>
-              <div class="admin-field full"><label>비고</label><textarea id="dt_note"></textarea></div>
+              <div class="admin-field full"><label>문의 내용</label><textarea id="dt_inquiry_content" readonly></textarea></div>
+            </div>
+
+            <div class="admin-section-divider"></div>
+            <div class="admin-section-head"><h3>추가 정보</h3><span class="admin-editable-note">CS 수정 가능</span></div>
+            <div class="admin-form-grid">
+              <div class="admin-field"><label>업종</label><input id="dt_industry" placeholder="업종 입력"></div>
+              <div class="admin-field"><label>데모체험 목적</label><select id="dt_demo_purpose"><option value="">선택</option><option>실제 CRM 도입을 검토하고 있어요</option><option>위시드 CRM의 기능을 확인하고 싶어요</option><option>사내 업무 적용을 테스트하고 싶어요</option><option>다른 CRM과 비교하고 있어요</option><option>기타</option></select></div>
+              <div class="admin-field"><label>신청경로</label><select id="dt_application_source"><option value="">선택</option><option>구글 광고</option><option>네이버 검색/광고</option><option>위시드 홈페이지</option><option>지인 추천</option><option>영업 담당자 안내</option><option>기타</option></select></div>
+              <div class="admin-field"><label>관심 있는 기능</label><select id="dt_interested_features" class="admin-multi-select" multiple><option>고객·고객사 관리</option><option>영업기회 관리</option><option>영업활동 관리</option><option>일정 관리</option><option>견적·계약 관리</option><option>매출 관리</option><option>통계·분석</option><option>기타</option></select><div class="admin-help">Ctrl/⌘ 없이 항목을 클릭해 여러 개 선택할 수 있는 운영 UI로 구현 권장</div></div>
+            </div>
+
+            <div class="admin-section-divider"></div>
+            <div class="admin-section-head"><h3>회원사 정보</h3><span id="dt_link_badge" class="badge-status gray">미연동</span></div>
+            <div class="admin-form-grid">
+              <div class="admin-field"><label>회원사 ID</label><input id="dt_company_id" readonly placeholder="연동된 회원사 없음"></div>
+              <div class="admin-field"><label>회원가입일</label><input id="dt_signup_at" readonly></div>
+              <div class="admin-field"><label>결제일</label><input id="dt_paid_at" readonly></div>
+              <div class="admin-field"><label>연동 방식</label><input id="dt_linked_by" readonly></div>
+              <div class="admin-field full" id="dt_candidate_action"><button type="button" class="admin-action-btn light" onclick="openCandidateMatchModal()">🔍 회원사 후보 찾기</button><span style="margin-left:10px;color:#718096;font-size:10px">데모 종료 후 별도 가입한 회원사는 후보 검색 후 관리자가 확정합니다.</span></div>
             </div>
           </section>
-          <details class="p0-audit"><summary>🔥 P0 전환·연동 정보 확인</summary><div class="p0-audit-body" id="conversionDetailsContainer"></div></details>
+          <details class="p0-audit"><summary>개발 검증용 전환 상태 · Activation 로그</summary><div class="p0-audit-body" id="conversionDetailsContainer"></div></details>
         </div>`;
         updateSysDetailView();
         return;
@@ -4205,15 +4212,64 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       const companyName = isReferenceCompany ? '(주)라파비' : (linkedDemo?.company_name || '(주)라파비');
       const representative = isReferenceCompany ? '조상수' : (linkedDemo?.contact_name || '조상수');
       const companyIndustry = isReferenceCompany ? '제조' : (linkedDemo?.industry || '-');
+      const extra = ensureCompanyExtraInfo(linkedDemo);
+      const featureOptions = ['고객·고객사 관리','영업기회 관리','영업활동 관리','일정 관리','견적·계약 관리','매출 관리','통계·분석','기타'];
+      const featureMarkup = featureOptions.map(v => `<option ${extra.interested_features.includes(v) ? 'selected' : ''}>${v}</option>`).join('');
+      const purposeOptions = ['', '실제 CRM 도입을 검토하고 있어요','위시드 CRM의 기능을 확인하고 싶어요','사내 업무 적용을 테스트하고 싶어요','다른 CRM과 비교하고 있어요','기타'];
+      const purposeMarkup = purposeOptions.map(v => `<option value="${v}" ${normalizePurposeLabel(extra.demo_purpose) === v ? 'selected' : ''}>${v || '선택'}</option>`).join('');
+      const sourceOptions = ['', '구글 광고','네이버 검색/광고','위시드 홈페이지','지인 추천','영업 담당자 안내','기타'];
+      const sourceMarkup = sourceOptions.map(v => `<option value="${v}" ${extra.application_source === v ? 'selected' : ''}>${v || '선택'}</option>`).join('');
       mount.innerHTML = `<div class="admin-console company-console">${adminTopbarMarkup()}<div class="admin-layout">${adminSidebarMarkup('회원사관리')}<main class="company-workspace">
-        <section class="company-summary"><div class="company-toolbar"><button class="admin-action-btn light" onclick="showToast('회원사 목록으로 이동합니다.','info')">‹&nbsp; 목록</button><div class="company-toolbar-actions"><button class="admin-icon-btn" title="더보기">•••</button><button class="admin-action-btn light">결제하기</button><button class="admin-action-btn primary" onclick="showToast('회원사 정보가 저장되었습니다.','success')">저장</button></div></div><h3 style="font-size:12px;margin:0 0 9px">회원사관리조회</h3><div class="company-basic-title">기본 정보</div>
+        <section class="company-summary"><div class="company-toolbar"><button class="admin-action-btn light" onclick="showToast('회원사 목록으로 이동합니다.','info')">‹&nbsp; 목록</button><div class="company-toolbar-actions"><button class="admin-icon-btn" title="더보기">•••</button><button class="admin-action-btn light">결제하기</button><button class="admin-action-btn primary" onclick="saveSysCompanyDetail()">저장</button></div></div><h3 style="font-size:12px;margin:0 0 9px">회원사관리조회</h3><div class="company-basic-title">기본 정보</div>
           <div class="company-info-row"><label class="required">회원사명</label><strong id="comp_name_val">${companyName}</strong></div><div class="company-info-row"><label class="required">법인명</label><strong>${companyName}</strong></div><div class="company-info-row"><label class="required">대표자</label><strong>${representative}</strong></div><div class="company-info-row"><label class="required">사업자번호</label><strong>878-87-03003</strong></div><div class="company-info-row"><label class="required">업태</label><strong>살균조명</strong></div><div class="company-info-row"><label class="required">업종</label><strong>${companyIndustry}</strong></div><div class="company-info-row"><label class="required">우편번호</label><strong>50834</strong></div><div class="company-info-row"><label class="required">주소</label><strong>경남 김해시 인제로 197</strong></div><div class="company-info-row"><label class="required">상세주소</label><strong>프라임임생명공학관 7층 IJCS-1호</strong></div><div class="company-info-row"><label class="required">담당자</label><strong>${representative}</strong></div><div class="company-info-row"><label>SMS발신번호</label><strong></strong></div>
         </section>
         <section class="company-payment"><div class="company-tabs"><button class="active">결제정보</button><button>부가서비스 정보</button><button>사용자정보</button></div><div class="company-payment-card"><h3>회원사 정보</h3><div class="company-pay-grid">
-          <div class="admin-field"><label class="required">회원사상태</label><select><option>승인</option></select></div><div class="admin-field"><label>서비스만료일</label><input value="2026.08.13"></div><div class="admin-field"><label class="required">결제구분</label><select><option>매월</option></select></div><div class="admin-field"><label class="required">인원(신청/사용)</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:7px"><input value="1"><input value="1" readonly></div></div><div class="admin-field"><label>월결제금액</label><input value="20,000" readonly></div><div class="admin-field"><label>가입비</label><input value="200,000"></div><div class="admin-field"><label>1인당 월 결제금액</label><input value="20,000"></div>
-        </div></div><details class="p0-audit"><summary>🔥 P0 데모체험 연동 정보</summary><div class="p0-audit-body" id="companyP0Details"></div></details></section>
+          <div class="admin-field"><label class="required">회원사상태</label><select><option>승인</option></select></div><div class="admin-field"><label>서비스만료일</label><input value="2027.05.18"></div><div class="admin-field"><label class="required">결제구분</label><select><option>매월</option></select></div><div class="admin-field"><label class="required">인원(신청/사용)</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:7px"><input value="3"><input value="3" readonly></div></div><div class="admin-field"><label>월결제금액</label><input value="60,000" readonly></div><div class="admin-field"><label>가입비</label><input value="200,000"></div><div class="admin-field"><label>1인당 월 결제금액</label><input value="20,000"></div>
+        </div>
+        <div class="member-section"><h3>추가정보 <span class="admin-editable-note">CS 수정 가능</span></h3><div class="company-pay-grid">
+          <div class="admin-field"><label>업종</label><input id="comp_extra_industry" value="${extra.industry || ''}"></div>
+          <div class="admin-field"><label>데모체험 목적</label><select id="comp_extra_purpose">${purposeMarkup}</select></div>
+          <div class="admin-field"><label>신청경로</label><select id="comp_extra_source">${sourceMarkup}</select></div>
+          <div class="admin-field"><label>관심 있는 기능</label><select id="comp_extra_features" class="admin-multi-select" multiple>${featureMarkup}</select></div>
+        </div><div class="admin-help">데모 연동 시 최초 1회 데모의 추가정보를 가져오며, 이후 CS가 회원사 기준으로 수정할 수 있습니다.</div></div>
+        <div class="member-section"><h3>데모정보 ${linkedDemo ? '<span class="badge-status green">연동 완료</span>' : '<span class="badge-status gray">미연동</span>'}</h3>${linkedDemo ? `<div class="company-pay-grid"><div class="admin-field"><label>Demo ID</label><input value="${linkedDemo.demo_id}" readonly onclick="navigateToDemoDetail('${linkedDemo.demo_id}')" style="color:#2563eb;cursor:pointer;font-weight:700"></div><div class="admin-field"><label>데모계정</label><input value="${linkedDemo.demo_account || ''}" readonly></div><div class="admin-field"><label>데모 신청일</label><input value="${linkedDemo.created_at || ''}" readonly></div><div class="admin-field"><label>계정만료일</label><input value="${linkedDemo.expiry_date || ''}" readonly></div><div class="admin-field"><label>회원가입일</label><input value="${linkedDemo.timestamps?.signup_completed_at || ''}" readonly></div><div class="admin-field"><label>결제일</label><input value="${linkedDemo.timestamps?.paid_at || ''}" readonly></div></div>` : '<div style="font-size:11px;color:#718096">연동된 데모체험 정보가 없습니다.</div>'}</div>
+        </div></section>
       </main></div></div>`;
-      renderCompanyP0Details();
+    }
+
+    function ensureCompanyExtraInfo(linkedDemo) {
+      const companyId = appState.selectedCompanyId || linkedDemo?.company_id || 'UNLINKED';
+      if (!appState.companyExtraInfo[companyId]) {
+        appState.companyExtraInfo[companyId] = {
+          industry: linkedDemo?.industry || '',
+          demo_purpose: linkedDemo?.demo_purpose || '',
+          interested_features: [...(linkedDemo?.interested_features || [])],
+          application_source: linkedDemo?.application_source || ''
+        };
+      }
+      return appState.companyExtraInfo[companyId];
+    }
+
+    function syncDemoExtraToCompany(demo) {
+      if (!demo?.company_id) return;
+      if (!appState.companyExtraInfo[demo.company_id]) {
+        appState.companyExtraInfo[demo.company_id] = {
+          industry: demo.industry || '',
+          demo_purpose: demo.demo_purpose || '',
+          interested_features: [...(demo.interested_features || [])],
+          application_source: demo.application_source || ''
+        };
+      }
+    }
+
+    function saveSysCompanyDetail() {
+      const linkedDemo = appState.demoList.find(d => d.company_id === appState.selectedCompanyId);
+      const extra = ensureCompanyExtraInfo(linkedDemo);
+      extra.industry = document.getElementById('comp_extra_industry')?.value || '';
+      extra.demo_purpose = document.getElementById('comp_extra_purpose')?.value || '';
+      extra.application_source = document.getElementById('comp_extra_source')?.value || '';
+      extra.interested_features = Array.from(document.getElementById('comp_extra_features')?.selectedOptions || []).map(option => option.value);
+      showToast('회원사 추가정보가 저장되었습니다.','success');
     }
 
     // DOM CONTENT LOADED INITIALIZATION
@@ -4268,6 +4324,9 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
           // Create new record in data store
           const newDemo = {
             demo_id: generatedDemoId,
+            inquiry_category: document.getElementById('inquiry_category')?.value || '기능 문의',
+            inquiry_content: document.getElementById('inquiry_content')?.value || '',
+            privacy_agree: document.getElementById('privacy_agree')?.checked !== false,
             company_name: userSubmittedCompany,
             user_count: Number(document.getElementById('user_count')?.value) || 1,
             contact_name: userSubmittedName,
@@ -4279,7 +4338,7 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
             expiry_date: "2026-08-27",
             created_at: new Date().toISOString().substring(0, 10),
             industry: userSubmittedIndustry,
-            demo_purpose: document.querySelector('input[name="demo_purpose"]:checked')?.value || "실제 CRM 도입 검토",
+            demo_purpose: document.getElementById('demo_purpose')?.value || "실제 CRM 도입 검토",
             interested_features: Array.from(document.querySelectorAll('input[name="interested_features"]:checked')).map(c => c.value),
             application_source: document.getElementById('application_source')?.value || "구글 광고",
             acquisition_channel: channel,
@@ -4326,6 +4385,7 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       updateSysDetailView();
       updateDevInspector();
       updateFeatureCounter();
+      updateFeatureMultiSelectLabel();
     });
 
     // CRM PROFILE DROPDOWN TOGGLE
@@ -4486,8 +4546,9 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
         curDemo.payment_status = "PENDING";
         curDemo.conversion_status = "PAYMENT_PENDING";
         if (curDemo.timestamps) curDemo.timestamps.signup_completed_at = nowStr;
+        syncDemoExtraToCompany(curDemo);
       }
-      showToast('회원사 정보 입력 완료! 요금 결제 단계로 이동합니다.', 'info');
+      showToast('회원사 정보 입력 완료! 데모 계정과 회원사 ID가 즉시 연동되었습니다.', 'success');
       renderSysDemoList();
       updateSysDetailView();
       updateDevInspector();
@@ -4651,6 +4712,7 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
         }
       }
 
+      syncDemoExtraToCompany(curDemo);
       showToast(`회원사 연결이 완료되었습니다.\n(${curDemo.demo_id} ↔ ${pendingCandidateCompId})`, 'success');
       closeCandidateConfirmModal();
       closeCandidateMatchModal();
@@ -4752,196 +4814,52 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
     function saveSysDemoDetail() {
       const demo = getSelectedDemo();
       if (!demo) return;
-      demo.company_name = document.getElementById('dt_company_name')?.value || demo.company_name;
-      demo.contact_name = document.getElementById('dt_contact_name')?.value || demo.contact_name;
-      demo.email = document.getElementById('dt_email')?.value || demo.email;
-      demo.phone = document.getElementById('dt_phone')?.value || demo.phone;
-      demo.job_title = document.getElementById('dt_job_title')?.value || demo.job_title;
       demo.expiry_date = document.getElementById('dt_expiry_date')?.value || demo.expiry_date;
-      demo.note = document.getElementById('dt_note')?.value || '';
-      showToast('변경사항이 저장되었습니다.','success');
+      demo.industry = document.getElementById('dt_industry')?.value || '';
+      demo.demo_purpose = document.getElementById('dt_demo_purpose')?.value || '';
+      demo.application_source = document.getElementById('dt_application_source')?.value || '';
+      demo.interested_features = Array.from(document.getElementById('dt_interested_features')?.selectedOptions || []).map(option => option.value);
+      showToast('추가 정보와 계정만료일이 저장되었습니다.','success');
+      updateSysDetailView();
     }
 
     function updateSysDetailView() {
       const curDemo = getSelectedDemo();
       if (!curDemo) return;
-
       const setValue = (id, value) => { const el = document.getElementById(id); if (el) el.value = value ?? ''; };
+      setValue('dt_inquiry_category', curDemo.inquiry_category || '기능 문의');
       setValue('dt_company_name', curDemo.company_name);
+      setValue('dt_user_count', curDemo.user_count);
       setValue('dt_contact_name', curDemo.contact_name);
-      setValue('dt_email', curDemo.email);
       setValue('dt_phone', curDemo.phone);
       setValue('dt_job_title', curDemo.job_title);
-      setValue('dt_service_type', curDemo.service_type);
-      setValue('dt_demo_account', curDemo.demo_account);
+      setValue('dt_email', curDemo.email);
+      setValue('dt_privacy', curDemo.privacy_agree === false ? '미동의' : '동의');
       setValue('dt_expiry_date', String(curDemo.expiry_date || '').replaceAll('-','.'));
-      setValue('dt_note', curDemo.note);
+      setValue('dt_inquiry_content', curDemo.inquiry_content || curDemo.note || '-');
+      setValue('dt_industry', curDemo.industry || '');
+      setValue('dt_demo_purpose', normalizePurposeLabel(curDemo.demo_purpose));
+      setValue('dt_application_source', curDemo.application_source || '');
+      const multi = document.getElementById('dt_interested_features');
+      if (multi) Array.from(multi.options).forEach(option => { option.selected = (curDemo.interested_features || []).includes(option.value); });
+      setValue('dt_company_id', curDemo.company_id || '');
+      setValue('dt_signup_at', curDemo.timestamps?.signup_completed_at || '');
+      setValue('dt_paid_at', curDemo.timestamps?.paid_at || '');
+      setValue('dt_linked_by', curDemo.linked_by === 'DIRECT_SIGNUP' ? '데모 내 회원가입 자동연동' : (curDemo.linked_by === 'SYSADMIN_MANUAL' ? '관리자 후보매칭' : ''));
+      const badge = document.getElementById('dt_link_badge');
+      if (badge) { badge.className = `badge-status ${curDemo.company_id ? 'green' : 'gray'}`; badge.textContent = curDemo.company_id ? '연동 완료' : '미연동'; }
+      const candidate = document.getElementById('dt_candidate_action');
+      if (candidate) candidate.style.display = curDemo.company_id ? 'none' : 'block';
       renderDemoP0Details(curDemo);
-      return;
+    }
 
-      const spanId = document.getElementById('detailDemoIdSpan');
-      if (spanId) spanId.innerText = curDemo.demo_id;
-
-      // Section 1
-      const dtId = document.getElementById('dt_demo_id');
-      if (dtId) dtId.innerText = curDemo.demo_id;
-      const dtComp = document.getElementById('dt_company_name');
-      if (dtComp) dtComp.value = curDemo.company_name;
-      const dtContact = document.getElementById('dt_contact_name');
-      if (dtContact) dtContact.value = curDemo.contact_name;
-      const dtEmail = document.getElementById('dt_email');
-      if (dtEmail) dtEmail.value = curDemo.email;
-      const dtPhone = document.getElementById('dt_phone');
-      if (dtPhone) dtPhone.value = curDemo.phone;
-      const dtJob = document.getElementById('dt_job_title');
-      if (dtJob) dtJob.value = curDemo.job_title;
-      const dtService = document.getElementById('dt_service_type');
-      if (dtService) dtService.value = curDemo.service_type;
-      const dtAcc = document.getElementById('dt_demo_account');
-      if (dtAcc) dtAcc.innerText = curDemo.demo_account;
-      const dtExpiry = document.getElementById('dt_expiry_date');
-      if (dtExpiry) dtExpiry.innerText = curDemo.expiry_date;
-      const dtCreated = document.getElementById('dt_created_at');
-      if (dtCreated) dtCreated.innerText = curDemo.created_at;
-      const dtNote = document.getElementById('dt_note');
-      if (dtNote) dtNote.value = curDemo.note;
-
-      // Section 2
-      const dtInd = document.getElementById('dt_industry');
-      if (dtInd) dtInd.innerText = curDemo.industry || '-';
-      const dtPurp = document.getElementById('dt_demo_purpose');
-      if (dtPurp) dtPurp.innerText = curDemo.demo_purpose || '-';
-      const dtSource = document.getElementById('dt_application_source');
-      if (dtSource) dtSource.innerText = curDemo.application_source || '-';
-      const dtChan = document.getElementById('dt_acquisition_channel');
-      if (dtChan) dtChan.innerText = curDemo.acquisition_channel || '-';
-
-      const dtFeat = document.getElementById('dt_interested_features');
-      if (dtFeat) {
-        if (Array.isArray(curDemo.interested_features) && curDemo.interested_features.length > 0) {
-          dtFeat.innerHTML = curDemo.interested_features.map(f => `<span class="badge-status blue">${f}</span>`).join(' ');
-        } else {
-          dtFeat.innerHTML = `<span style="color: #94A3B8;">선택 없음</span>`;
-        }
-      }
-
-      // Section 3: Conversion Info & Relationship Diagram
-      const convContainer = document.getElementById('conversionDetailsContainer');
-      if (!convContainer) return;
-
-      const isConverted = curDemo.conversion_status === 'CONVERTED';
-      const isPending = curDemo.conversion_status === 'PAYMENT_PENDING';
-      const badgeColor = getConversionBadgeClass(curDemo.conversion_status);
-      const statusText = getConversionStatusLabel(curDemo.conversion_status);
-      const linkMethodText = curDemo.linked_by === 'DIRECT_SIGNUP' ? '데모 CRM 직접 회원가입 (DIRECT_SIGNUP)' : (curDemo.linked_by === 'SYSADMIN_MANUAL' ? '관리자 수동 연결 (SYSADMIN_MANUAL)' : '-');
-
-      if (isConverted) {
-        convContainer.innerHTML = `
-          <div class="sys-grid-3">
-            <div>
-              <label class="field-label">전환 상태 <span class="tag-p0">P0</span></label>
-              <div class="field-readonly-box"><span class="badge-status green">전환 완료</span></div>
-            </div>
-            <div>
-              <label class="field-label">연결 회원사 ID <span class="tag-p0">P0</span></label>
-              <div class="field-readonly-box">
-                <a class="link-id" onclick="navigateToCompanyDetail('${curDemo.company_id}')">${curDemo.company_id}</a>
-              </div>
-            </div>
-            <div>
-              <label class="field-label">연결 방식</label>
-              <div class="field-readonly-box">${linkMethodText}</div>
-            </div>
-            <div>
-              <label class="field-label">회원가입 완료일</label>
-              <div class="field-readonly-box">${curDemo.linked_at || '2026.08.13 11:32'}</div>
-            </div>
-            <div>
-              <label class="field-label">결제 상태</label>
-              <div class="field-readonly-box"><span class="badge-status green">결제 완료 (PAID)</span></div>
-            </div>
-            <div>
-              <label class="field-label">전환 완료일</label>
-              <div class="field-readonly-box">${curDemo.converted_at || '2026.08.13 11:35'}</div>
-            </div>
-          </div>
-
-          <!-- VISUAL RELATIONSHIP DIAGRAM -->
-          <div class="relationship-visual-box">
-            <div class="rel-card">
-              <div class="rel-card-title">데모체험 계정 (demo_id)</div>
-              <div class="rel-card-id">${curDemo.demo_id}</div>
-              <div class="rel-card-sub">${curDemo.demo_account}</div>
-            </div>
-
-            <div class="rel-arrow-container">
-              <span class="rel-badge">✓ 연결 완료</span>
-              <span style="color: #94A3B8; font-size: 11px; margin-top: 4px;">${linkMethodText}</span>
-              <span style="font-size: 18px;">➔</span>
-            </div>
-
-            <div class="rel-card" style="border-color: #34D399; background: rgba(16, 185, 129, 0.1);">
-              <div class="rel-card-title">정식 회원사 (company_id)</div>
-              <div class="rel-card-id" style="color: #34D399;">${curDemo.company_id}</div>
-              <div class="rel-card-sub">${curDemo.company_name}</div>
-            </div>
-          </div>
-        `;
-      } else if (isPending) {
-        convContainer.innerHTML = `
-          <div class="sys-grid-3">
-            <div>
-              <label class="field-label">전환 상태 <span class="tag-p0">P0</span></label>
-              <div class="field-readonly-box"><span class="badge-status orange">결제 대기 (PAYMENT_PENDING)</span></div>
-            </div>
-            <div>
-              <label class="field-label">연결 회원사 ID <span class="tag-p0">P0</span></label>
-              <div class="field-readonly-box">
-                <a class="link-id" onclick="navigateToCompanyDetail('${curDemo.company_id}')">${curDemo.company_id}</a>
-              </div>
-            </div>
-            <div>
-              <label class="field-label">연결 방식</label>
-              <div class="field-readonly-box">${linkMethodText}</div>
-            </div>
-            <div>
-              <label class="field-label">결제 상태</label>
-              <div class="field-readonly-box"><span class="badge-status orange">미결제 (PENDING)</span></div>
-            </div>
-          </div>
-          <div style="background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; padding: 12px; border-radius: 8px; font-size: 12px; margin-top: 12px;">
-            ⚠️ 회원가입(회원사 생성)은 완료되었으나 결제가 완료되지 않아 <strong>최종 유료 전환(CONVERTED)</strong>으로 산출되지 않습니다.
-          </div>
-        `;
-      } else {
-        convContainer.innerHTML = `
-          <div class="sys-grid-3">
-            <div>
-              <label class="field-label">전환 상태 <span class="tag-p0">P0</span></label>
-              <div class="field-readonly-box"><span class="badge-status gray">미전환</span></div>
-            </div>
-            <div>
-              <label class="field-label">연결 회원사 ID</label>
-              <div class="field-readonly-box">-</div>
-            </div>
-            <div>
-              <label class="field-label">연결 방식</label>
-              <div class="field-readonly-box">-</div>
-            </div>
-            <div>
-              <label class="field-label">결제 상태</label>
-              <div class="field-readonly-box">-</div>
-            </div>
-          </div>
-
-          <div style="margin-top: 16px; display: flex; align-items: center; justify-content: space-between; background: #F8FAFC; border: 1px solid #E2E8F0; padding: 14px; border-radius: 8px;">
-            <span style="font-size: 13px; color: #475569;">기존 영업 활동을 통해 회원사가 생성된 경우 수동 매칭을 진행할 수 있습니다.</span>
-            <button type="button" class="btn-submit" style="width: auto; height: 38px; margin-top: 0; padding: 0 16px; font-size: 13px; background: #2563EB;" onclick="openCandidateMatchModal()">
-              🔍 회원사 후보 찾기
-            </button>
-          </div>
-        `;
-      }
+    function normalizePurposeLabel(value) {
+      const text = String(value || '');
+      if (text.includes('실제 CRM 도입')) return '실제 CRM 도입을 검토하고 있어요';
+      if (text.includes('기능 확인') || text.includes('기능을 확인')) return '위시드 CRM의 기능을 확인하고 싶어요';
+      if (text.includes('업무 적용')) return '사내 업무 적용을 테스트하고 싶어요';
+      if (text.includes('비교')) return '다른 CRM과 비교하고 있어요';
+      return text;
     }
 
     function renderDemoP0Details(demo = getSelectedDemo()) {
@@ -5067,6 +4985,13 @@ CREATE INDEX idx_demo_phone ON demo_requests (phone);
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateFeatureMultiSelectLabel() {
+      const label = document.getElementById('featureMultiSelectLabel');
+      if (!label) return;
+      const values = Array.from(document.querySelectorAll('input[name="interested_features"]:checked')).map(el => el.value);
+      label.textContent = values.length ? (values.length <= 2 ? values.join(', ') : `${values[0]}, ${values[1]} 외 ${values.length - 2}개`) : '관심 있는 기능을 선택해주세요';
     }
 
     // FORM RADIO AND CHECKBOX HANDLERS
